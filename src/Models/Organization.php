@@ -15,4 +15,26 @@ class Organization extends Model
      * @var array<int, string>
      */
     protected $guarded = [];
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function places()
+    {
+        return $this->hasMany(Place::class);
+    }
+
+    public function categories()
+    {
+        return $this->morphToMany(Category::class, 'categorizable')
+                    ->withTimestamps();
+    }
+
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggable')
+                    ->withTimestamps();
+    }
 }

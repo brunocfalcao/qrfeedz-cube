@@ -15,4 +15,19 @@ class Tag extends Model
      * @var array<int, string>
      */
     protected $guarded = [];
+
+    public function organizations()
+    {
+        return $this->morphedByMany(Organization::class, 'categorizable');
+    }
+
+    public function places()
+    {
+        return $this->morphedByMany(Place::class, 'categorizable');
+    }
+
+    public function questionnaires()
+    {
+        return $this->morphedByMany(Questionnaire::class, 'categorizable');
+    }
 }

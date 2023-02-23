@@ -5,7 +5,7 @@ namespace QRFeedz\Cube\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Country extends Model
+class Widget extends Model
 {
     use HasFactory;
 
@@ -16,17 +16,8 @@ class Country extends Model
      */
     protected $guarded = [];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
-    public function organizations()
+    public function questions()
     {
-        return $this->hasMany(Organization::class);
+        return $this->hasMany(Question::class);
     }
 }

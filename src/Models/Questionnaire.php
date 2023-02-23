@@ -15,4 +15,32 @@ class Questionnaire extends Model
      * @var array<int, string>
      */
     protected $guarded = [];
+
+    public function places()
+    {
+        return $this->belongsToMany(Place::class)
+                    ->withTimestamps();
+    }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
+
+    public function responses()
+    {
+        return $this->hasMany(Response::class);
+    }
+
+    public function categories()
+    {
+        return $this->morphToMany(Category::class, 'categorizable')
+                    ->withTimestamps();
+    }
+
+    public function tags()
+    {
+        return $this->morphToMany(Tag::class, 'taggable')
+                    ->withTimestamps();
+    }
 }
