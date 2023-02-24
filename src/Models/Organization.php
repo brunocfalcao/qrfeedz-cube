@@ -4,6 +4,7 @@ namespace QRFeedz\Cube\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use QRFeedz\Database\Factories\OrganizationFactory;
 
 class Organization extends Model
 {
@@ -36,5 +37,10 @@ class Organization extends Model
     {
         return $this->morphToMany(Tag::class, 'taggable')
                     ->withTimestamps();
+    }
+
+    protected static function newFactory()
+    {
+        return OrganizationFactory::new();
     }
 }
