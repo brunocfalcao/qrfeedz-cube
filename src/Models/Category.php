@@ -4,7 +4,6 @@ namespace QRFeedz\Cube\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use QRFeedz\Cube\Models\Place;
 
 class Category extends Model
 {
