@@ -11,11 +11,11 @@ class QuestionnaireObserver
      */
     public function saving(Questionnaire $questionnaire): void
     {
-        if (!$questionnaire->group_uuid) {
+        if (! $questionnaire->group_uuid) {
             $questionnaire->group_uuid = (string) Str::uuid();
         }
 
-        if (!$questionnaire->version) {
+        if (! $questionnaire->version) {
             $questionnaire->version = 1;
         }
 

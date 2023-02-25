@@ -5,6 +5,7 @@ namespace QRFeedz\Cube\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use QRFeedz\Database\Factories\PlaceFactory;
 
 class Place extends Model
 {
@@ -39,5 +40,10 @@ class Place extends Model
     {
         return $this->morphToMany(Tag::class, 'taggable')
                     ->withTimestamps();
+    }
+
+    protected static function newFactory()
+    {
+        return PlaceFactory::new();
     }
 }

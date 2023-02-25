@@ -12,11 +12,11 @@ class WidgetObserver
      */
     public function saving(Widget $widget): void
     {
-        if (!$widget->group_uuid) {
+        if (! $widget->group_uuid) {
             $widget->group_uuid = (string) Str::uuid();
         }
 
-        if (!$widget->version) {
+        if (! $widget->version) {
             $widget->version = 1;
         }
 

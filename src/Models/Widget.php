@@ -19,7 +19,7 @@ class Widget extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'settings' => 'array'
+        'settings' => 'array',
     ];
 
     public function questions()
