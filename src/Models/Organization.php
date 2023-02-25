@@ -4,11 +4,13 @@ namespace QRFeedz\Cube\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use QRFeedz\Database\Factories\OrganizationFactory;
 
 class Organization extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     /**
      * The attributes that will be guarded.
