@@ -18,6 +18,10 @@ class Question extends Model
      */
     protected $guarded = [];
 
+    protected $casts = [
+        'is_required' => 'boolean'
+    ];
+
     /**
      * Indeed a question could have belonged to several questionnaires so we
      * could optimize a question with a questionnaire. Still, for the sake
