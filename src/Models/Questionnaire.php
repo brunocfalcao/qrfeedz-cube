@@ -21,6 +21,7 @@ class Questionnaire extends Model
     public function places()
     {
         return $this->belongsToMany(Place::class)
+                    ->withPivot('is_active', 'starts_at', 'ends_at')
                     ->withTimestamps();
     }
 

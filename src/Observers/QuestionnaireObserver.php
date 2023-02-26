@@ -2,6 +2,7 @@
 
 namespace QRFeedz\Cube\Observers;
 
+use Illuminate\Support\Str;
 use QRFeedz\Cube\Models\Questionnaire;
 
 class QuestionnaireObserver
