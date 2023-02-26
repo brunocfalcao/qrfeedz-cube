@@ -29,11 +29,6 @@ class Questionnaire extends Model
         return $this->hasMany(Question::class);
     }
 
-    public function responses()
-    {
-        return $this->hasMany(Response::class);
-    }
-
     public function categories()
     {
         return $this->morphToMany(Category::class, 'categorizable')
