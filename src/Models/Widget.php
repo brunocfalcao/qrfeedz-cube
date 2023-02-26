@@ -2,10 +2,10 @@
 
 namespace QRFeedz\Cube\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use QRFeedz\Cube\Models\Response;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Widget extends Model
 {
@@ -31,5 +31,12 @@ class Widget extends Model
     public function responses()
     {
         return $this->hasMany(Response::class);
+    }
+
+    public function scopeNewestByCanonical(Builder $query, string $canonical)
+    {
+        return $this->where('canonical', $canonical)
+                    ->orderBy('version', 'desc')
+                    ->first();
     }
 }
