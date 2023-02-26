@@ -18,10 +18,9 @@ class Response extends Model
      */
     protected $guarded = [];
 
-    public function questionnaire()
-    {
-        return $this->belongsTo(Questionnaire::class);
-    }
+    protected $casts = [
+        'data' => 'array'
+    ];
 
     public function question()
     {
