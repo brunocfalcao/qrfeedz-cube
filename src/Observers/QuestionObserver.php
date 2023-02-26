@@ -3,19 +3,24 @@
 namespace QRFeedz\Cube\Observers;
 
 use Illuminate\Support\Str;
+use QRFeedz\Cube\Concerns\ConcernsAutoIncrements;
 use QRFeedz\Cube\Concerns\ConcernsGroupUuids;
 use QRFeedz\Cube\Models\Question;
 
 class QuestionObserver
 {
     use ConcernsGroupUuids;
+    use ConcernsAutoIncrements;
 
     /**
      * Handle the Question "saving" event.
      */
     public function saving(Question $question): void
     {
-        $this->resolveGroupedUuid();
+        $this->resolveGroupedUuid($question);
+
+        $this->resolveIncrement($question, 'questionnaire_id');
+
         /*
         if (! $question->group_uuid) {
             $question->group_uuid = (string) Str::uuid();
