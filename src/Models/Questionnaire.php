@@ -18,10 +18,9 @@ class Questionnaire extends Model
      */
     protected $guarded = [];
 
-    public function places()
+    public function place()
     {
-        return $this->belongsToMany(Place::class)
-                    ->withPivot('is_active', 'starts_at', 'ends_at')
+        return $this->belongsTo(Place::class)
                     ->withTimestamps();
     }
 

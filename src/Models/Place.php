@@ -19,6 +19,11 @@ class Place extends Model
      */
     protected $guarded = [];
 
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
     public function organization()
     {
         return $this->belongsTo(Organization::class);
@@ -26,8 +31,7 @@ class Place extends Model
 
     public function questionnaires()
     {
-        return $this->belongsToMany(Questionnaire::class)
-                    ->withPivot('is_active', 'starts_at', 'ends_at')
+        return $this->hasMany(Questionnaire::class)
                     ->withTimestamps();
     }
 

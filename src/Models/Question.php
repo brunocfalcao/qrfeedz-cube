@@ -19,7 +19,7 @@ class Question extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'is_required' => 'boolean'
+        'is_required' => 'boolean',
     ];
 
     /**

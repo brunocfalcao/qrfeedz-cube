@@ -12,33 +12,7 @@ class QuestionnaireObserver
      */
     public function saving(Questionnaire $questionnaire): void
     {
-        if (! $questionnaire->group_uuid) {
-            $questionnaire->group_uuid = (string) Str::uuid();
-        }
-
-        if (! $questionnaire->version) {
-            $questionnaire->version = 1;
-        }
-
-        /**
-         * If the id is already filled in, then we are updating the record.
-         * So, we need to check if there are already other instances with
-         * the same group_uuid, grab the last one, and increment the
-         * version for this one.
-         *
-         * SQL Query: select * from widgets where group_uuid = xxx
-         *                                  and id <> $this->id
-         *                                  order by version desc.
-         */
-        $lastVersion = Questionnaire::withTrashed()
-                              ->where('group_uuid', $questionnaire->group_uuid)
-                              ->where('id', '<>', $questionnaire->id)
-                              ->orderBy('version', 'desc')
-                              ->first();
-
-        if ($lastVersion) {
-            $questionnaire->version = $lastVersion->version + 1;
-        }
+        //
     }
 
     /**
