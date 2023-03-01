@@ -13,7 +13,7 @@ use Illuminate\Support\Str;
  */
 trait ConcernsGroupUuids
 {
-    function resolveGroupedUuid(Model $model, string $groupUuid = 'group_uuid', string $version = 'version')
+    public function resolveGroupedUuid(Model $model, string $groupUuid = 'group_uuid', string $version = 'version')
     {
         if (! $model->$groupUuid) {
             $model->$groupUuid = (string) Str::uuid();

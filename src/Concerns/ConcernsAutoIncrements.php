@@ -10,13 +10,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 trait ConcernsAutoIncrements
 {
-    function resolveIncrement(
+    public function resolveIncrement(
         Model $model,
         string $groupColumn,
         string $incrementColumn = 'index',
         int $defaultValue = 1
     ) {
-        if (!$model->$incrementColumn) {
+        if (! $model->$incrementColumn) {
             $model->$incrementColumn = (new $model())::withTrashed()
                                             ->where($groupColumn, $model->$groupColumn)
                                             ->max($incrementColumn) + 1;

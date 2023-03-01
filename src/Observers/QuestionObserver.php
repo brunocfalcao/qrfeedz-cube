@@ -9,8 +9,8 @@ use QRFeedz\Cube\Models\Question;
 
 class QuestionObserver
 {
-    use ConcernsGroupUuids;
     use ConcernsAutoIncrements;
+    use ConcernsGroupUuids;
 
     /**
      * Handle the Question "saving" event.

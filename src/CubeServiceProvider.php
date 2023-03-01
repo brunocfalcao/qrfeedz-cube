@@ -3,8 +3,10 @@
 namespace QRFeedz\Cube;
 
 use Illuminate\Support\ServiceProvider;
+use QRFeedz\Cube\Models\Authorization;
 use QRFeedz\Cube\Models\Category;
 use QRFeedz\Cube\Models\Country;
+use QRFeedz\Cube\Models\Locale;
 use QRFeedz\Cube\Models\Organization;
 use QRFeedz\Cube\Models\Place;
 use QRFeedz\Cube\Models\Question;
@@ -13,8 +15,10 @@ use QRFeedz\Cube\Models\Response;
 use QRFeedz\Cube\Models\Tag;
 use QRFeedz\Cube\Models\User;
 use QRFeedz\Cube\Models\Widget;
+use QRFeedz\Cube\Observers\AuthorizationObserver;
 use QRFeedz\Cube\Observers\CategoryObserver;
 use QRFeedz\Cube\Observers\CountryObserver;
+use QRFeedz\Cube\Observers\LocaleObserver;
 use QRFeedz\Cube\Observers\OrganizationObserver;
 use QRFeedz\Cube\Observers\PlaceObserver;
 use QRFeedz\Cube\Observers\QuestionnaireObserver;
@@ -41,12 +45,14 @@ class CubeServiceProvider extends ServiceProvider
         Tag::observe(TagObserver::class);
         User::observe(UserObserver::class);
         Place::observe(PlaceObserver::class);
+        Locale::observe(LocaleObserver::class);
         Widget::observe(WidgetObserver::class);
         Country::observe(CountryObserver::class);
         Question::observe(QuestionObserver::class);
         Response::observe(ResponseObserver::class);
         Category::observe(CategoryObserver::class);
         Organization::observe(OrganizationObserver::class);
+        Authorization::observe(AuthorizationObserver::class);
         Questionnaire::observe(QuestionnaireObserver::class);
     }
 }

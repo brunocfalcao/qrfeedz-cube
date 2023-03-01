@@ -5,6 +5,7 @@ namespace QRFeedz\Cube\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use QRFeedz\Cube\Models\Locale;
 
 class Question extends Model
 {
@@ -44,5 +45,20 @@ class Question extends Model
     public function widget()
     {
         return $this->belongsTo(Widget::class);
+    }
+
+    public function locales()
+    {
+        return $this->hasMany(Locale::class);
+    }
+
+    public function childQuestions()
+    {
+        return $this->belongsToMany(Question::class, 'question_flows', 'question_id_parent', 'question_id_child');
+    }
+
+    public function parentQuestions()
+    {
+        return $this->belongsToMany(Question::class, 'question_flows', 'question_id_child', 'question_id_parent');
     }
 }
