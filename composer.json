@@ -18,6 +18,7 @@
     "require": {
         "php": "^8.1",
         "brunocfalcao/qrfeedz-migrations": "dev-master",
+        "brunocfalcao/laravel-defaultables": "dev-master",
         "illuminate/contracts": "^10.0"
     },
     "autoload": {

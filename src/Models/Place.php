@@ -5,6 +5,7 @@ namespace QRFeedz\Cube\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use QRFeedz\Cube\Models\Organization;
 use QRFeedz\Database\Factories\PlaceFactory;
 
 class Place extends Model
@@ -12,11 +13,6 @@ class Place extends Model
     use HasFactory;
     use SoftDeletes;
 
-    /**
-     * The attributes that will be guarded.
-     *
-     * @var array<int, string>
-     */
     protected $guarded = [];
 
     public function country()
@@ -50,5 +46,55 @@ class Place extends Model
     protected static function newFactory()
     {
         return PlaceFactory::new();
+    }
+
+    public function defaultLocality()
+    {
+        if (!blank($this->organization_id)) {
+            return Organization::firstWhere(
+                'id',
+                $this->organization_id
+            )->locality;
+        }
+    }
+
+    public function defaultPostalCode()
+    {
+        if (!blank($this->organization_id)) {
+            return Organization::firstWhere(
+                'id',
+                $this->organization_id
+            )->postal_code;
+        }
+    }
+
+    public function defaultName()
+    {
+        if (!blank($this->organization_id)) {
+            return Organization::firstWhere(
+                'id',
+                $this->organization_id
+            )->address;
+        }
+    }
+
+    public function defaultAddress()
+    {
+        if (!blank($this->organization_id)) {
+            return Organization::firstWhere(
+                'id',
+                $this->organization_id
+            )->address;
+        }
+    }
+
+    public function defaultCountryId()
+    {
+        if (!blank($this->organization_id)) {
+            return Organization::firstWhere(
+                'id',
+                $this->organization_id
+            )->id;
+        }
     }
 }

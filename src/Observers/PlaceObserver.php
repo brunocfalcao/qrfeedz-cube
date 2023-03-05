@@ -2,6 +2,7 @@
 
 namespace QRFeedz\Cube\Observers;
 
+use QRFeedz\Cube\Models\Organization;
 use QRFeedz\Cube\Models\Place;
 
 class PlaceObserver

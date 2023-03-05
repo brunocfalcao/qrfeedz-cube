@@ -5,7 +5,6 @@ namespace QRFeedz\Cube\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use QRFeedz\Cube\Models\Locale;
 
 class Question extends Model
 {
