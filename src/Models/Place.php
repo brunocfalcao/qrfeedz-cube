@@ -5,7 +5,6 @@ namespace QRFeedz\Cube\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use QRFeedz\Cube\Models\Organization;
 use QRFeedz\Database\Factories\PlaceFactory;
 
 class Place extends Model
@@ -43,14 +42,9 @@ class Place extends Model
                     ->withTimestamps();
     }
 
-    protected static function newFactory()
-    {
-        return PlaceFactory::new();
-    }
-
     public function defaultLocality()
     {
-        if (!blank($this->organization_id)) {
+        if (! blank($this->organization_id)) {
             return Organization::firstWhere(
                 'id',
                 $this->organization_id
@@ -60,7 +54,7 @@ class Place extends Model
 
     public function defaultPostalCode()
     {
-        if (!blank($this->organization_id)) {
+        if (! blank($this->organization_id)) {
             return Organization::firstWhere(
                 'id',
                 $this->organization_id
@@ -70,7 +64,7 @@ class Place extends Model
 
     public function defaultName()
     {
-        if (!blank($this->organization_id)) {
+        if (! blank($this->organization_id)) {
             return Organization::firstWhere(
                 'id',
                 $this->organization_id
@@ -80,7 +74,7 @@ class Place extends Model
 
     public function defaultAddress()
     {
-        if (!blank($this->organization_id)) {
+        if (! blank($this->organization_id)) {
             return Organization::firstWhere(
                 'id',
                 $this->organization_id
@@ -90,11 +84,16 @@ class Place extends Model
 
     public function defaultCountryId()
     {
-        if (!blank($this->organization_id)) {
+        if (! blank($this->organization_id)) {
             return Organization::firstWhere(
                 'id',
                 $this->organization_id
             )->id;
         }
+    }
+
+    protected static function newFactory()
+    {
+        return PlaceFactory::new();
     }
 }
