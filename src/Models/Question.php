@@ -20,6 +20,8 @@ class Question extends Model
 
     protected $casts = [
         'is_required' => 'boolean',
+        'settings_override' => 'array',
+        'caption_locales' => 'array'
     ];
 
     /**

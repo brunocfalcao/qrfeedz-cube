@@ -42,7 +42,7 @@ class Place extends Model
                     ->withTimestamps();
     }
 
-    public function defaultLocality()
+    public function defaultLocalityAttribute()
     {
         if (! blank($this->organization_id)) {
             return Organization::firstWhere(
@@ -52,7 +52,7 @@ class Place extends Model
         }
     }
 
-    public function defaultPostalCode()
+    public function defaultPostalCodeAttribute()
     {
         if (! blank($this->organization_id)) {
             return Organization::firstWhere(
@@ -62,7 +62,7 @@ class Place extends Model
         }
     }
 
-    public function defaultName()
+    public function defaultNameAttribute()
     {
         if (! blank($this->organization_id)) {
             return Organization::firstWhere(
@@ -72,7 +72,7 @@ class Place extends Model
         }
     }
 
-    public function defaultAddress()
+    public function defaultAddressAttribute()
     {
         if (! blank($this->organization_id)) {
             return Organization::firstWhere(
@@ -82,13 +82,13 @@ class Place extends Model
         }
     }
 
-    public function defaultCountryId()
+    public function defaultCountryIdAttribute()
     {
         if (! blank($this->organization_id)) {
             return Organization::firstWhere(
                 'id',
                 $this->organization_id
-            )->id;
+            )->country->id;
         }
     }
 

@@ -21,6 +21,7 @@ class Widget extends Model
 
     protected $casts = [
         'settings' => 'array',
+        'is_reportable' => 'boolean'
     ];
 
     public function questions()
