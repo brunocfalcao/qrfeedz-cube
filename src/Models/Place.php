@@ -19,9 +19,9 @@ class Place extends Model
         return $this->belongsTo(Country::class);
     }
 
-    public function organization()
+    public function client()
     {
-        return $this->belongsTo(Organization::class);
+        return $this->belongsTo(Client::class);
     }
 
     public function questionnaires()
@@ -44,50 +44,50 @@ class Place extends Model
 
     public function defaultLocalityAttribute()
     {
-        if (! blank($this->organization_id)) {
-            return Organization::firstWhere(
+        if (! blank($this->client_id)) {
+            return Client::firstWhere(
                 'id',
-                $this->organization_id
+                $this->client_id
             )->locality;
         }
     }
 
     public function defaultPostalCodeAttribute()
     {
-        if (! blank($this->organization_id)) {
-            return Organization::firstWhere(
+        if (! blank($this->client_id)) {
+            return Client::firstWhere(
                 'id',
-                $this->organization_id
+                $this->client_id
             )->postal_code;
         }
     }
 
     public function defaultNameAttribute()
     {
-        if (! blank($this->organization_id)) {
-            return Organization::firstWhere(
+        if (! blank($this->client_id)) {
+            return Client::firstWhere(
                 'id',
-                $this->organization_id
+                $this->client_id
             )->address;
         }
     }
 
     public function defaultAddressAttribute()
     {
-        if (! blank($this->organization_id)) {
-            return Organization::firstWhere(
+        if (! blank($this->client_id)) {
+            return Client::firstWhere(
                 'id',
-                $this->organization_id
+                $this->client_id
             )->address;
         }
     }
 
     public function defaultCountryIdAttribute()
     {
-        if (! blank($this->organization_id)) {
-            return Organization::firstWhere(
+        if (! blank($this->client_id)) {
+            return Client::firstWhere(
                 'id',
-                $this->organization_id
+                $this->client_id
             )->country->id;
         }
     }

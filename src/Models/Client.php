@@ -5,9 +5,10 @@ namespace QRFeedz\Cube\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use QRFeedz\Database\Factories\OrganizationFactory;
+use QRFeedz\Cube\Models\Questionnaire;
+use QRFeedz\Database\Factories\ClientFactory;
 
-class Organization extends Model
+class Client extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -24,9 +25,9 @@ class Organization extends Model
         return $this->belongsTo(Country::class);
     }
 
-    public function places()
+    public function questionnaires()
     {
-        return $this->hasMany(Place::class);
+        return $this->hasMany(Questionnaire::class);
     }
 
     public function categories()
@@ -43,6 +44,6 @@ class Organization extends Model
 
     protected static function newFactory()
     {
-        return OrganizationFactory::new();
+        return ClientFactory::new();
     }
 }

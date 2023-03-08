@@ -21,17 +21,18 @@ class Question extends Model
     protected $casts = [
         'is_required' => 'boolean',
         'settings_override' => 'array',
-        'caption_locales' => 'array'
+        'caption_locales' => 'array',
+        'is_caption_visible' => 'boolean'
     ];
 
     /**
      * Indeed a question could have belonged to several questionnaires so we
      * could optimize a question with a questionnaire. Still, for the sake
-     * of data organization and simplicity to understand, I prefer to have
+     * of data structure simplicity, I prefer to have
      * a 1-N relationship with a questionnaire and not a N-N.
      * In practise, it means that the same question will be repeated if we
      * create a new questionnaire to be used on different places but under
-     * the same organization.
+     * the same client.
      */
     public function questionnaires()
     {

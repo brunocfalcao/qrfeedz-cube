@@ -18,9 +18,9 @@ class Tag extends Model
      */
     protected $guarded = [];
 
-    public function organizations()
+    public function clients()
     {
-        return $this->morphedByMany(Organization::class, 'categorizable');
+        return $this->morphedByMany(Client::class, 'categorizable');
     }
 
     public function places()
