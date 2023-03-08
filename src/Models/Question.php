@@ -22,7 +22,7 @@ class Question extends Model
         'is_required' => 'boolean',
         'settings_override' => 'array',
         'caption_locales' => 'array',
-        'is_caption_visible' => 'boolean'
+        'is_caption_visible' => 'boolean',
     ];
 
     /**
