@@ -11,7 +11,9 @@ class ClientObserver
      */
     public function saving(Client $client): void
     {
-        //
+        /**
+         * - The "default_locale" can only be one of the locales columns.
+         */
     }
 
     /**

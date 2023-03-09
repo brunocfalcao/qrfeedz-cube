@@ -30,8 +30,8 @@ class Question extends Model
      * could optimize a question with a questionnaire. Still, for the sake
      * of data structure simplicity, I prefer to have
      * a 1-N relationship with a questionnaire and not a N-N.
-     * In practise, it means that the same question will be repeated if we
-     * create a new questionnaire to be used on different places but under
+     * In practice, it means that the same question will be repeated if we
+     * create a new questionnaire to be used on different groups but under
      * the same client.
      */
     public function questionnaires()

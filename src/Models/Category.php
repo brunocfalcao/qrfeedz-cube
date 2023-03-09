@@ -23,9 +23,9 @@ class Category extends Model
         return $this->morphedByMany(Client::class, 'categorizable');
     }
 
-    public function places()
+    public function groups()
     {
-        return $this->morphedByMany(Place::class, 'categorizable');
+        return $this->morphedByMany(Group::class, 'categorizable');
     }
 
     public function questionnaires()

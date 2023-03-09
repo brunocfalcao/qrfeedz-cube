@@ -5,33 +5,33 @@ namespace QRFeedz\Cube\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use QRFeedz\Database\Factories\GroupFactory;
 
-class Questionnaire extends Model
+class Group extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
-    /**
-     * The attributes that will be guarded.
-     *
-     * @var array<int, string>
-     */
     protected $guarded = [];
+
+    protected $casts = [
+        'data' => 'array',
+    ];
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
 
     public function client()
     {
         return $this->belongsTo(Client::class);
     }
 
-    public function group()
+    public function questionnaires()
     {
-        return $this->belongsToMany(Group::class)
+        return $this->belongsToMany(Questionnaire::class)
                     ->withTimestamps();
-    }
-
-    public function questions()
-    {
-        return $this->hasMany(Question::class);
     }
 
     public function categories()
@@ -46,8 +46,8 @@ class Questionnaire extends Model
                     ->withTimestamps();
     }
 
-    public function defaultDefaultLocaleAttribute()
+    protected static function newFactory()
     {
-        return $this->client->default_locale;
+        return GroupFactory::new();
     }
 }
