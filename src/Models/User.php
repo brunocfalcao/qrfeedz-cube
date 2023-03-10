@@ -41,4 +41,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Relationship validated.
+    protected function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
 }

@@ -34,16 +34,9 @@ class Widget extends Model
         return $this->belongsToMany(Question::class);
     }
 
-    // Relationship valiated.
+    // Relationship validated.
     public function responses()
     {
         return $this->hasMany(Response::class);
-    }
-
-    public function scopeNewestByCanonical(Builder $query, string $canonical)
-    {
-        return $this->where('canonical', $canonical)
-                    ->orderBy('version', 'desc')
-                    ->first();
     }
 }

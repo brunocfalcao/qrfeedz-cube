@@ -57,6 +57,12 @@ class Client extends Model
                     ->withTimestamps();
     }
 
+    // Relationship validated.
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
     protected static function newFactory()
     {
         return ClientFactory::new();

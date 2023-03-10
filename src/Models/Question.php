@@ -38,7 +38,6 @@ class Question extends Model
         return $this->hasMany(Response::class);
     }
 
-
     /**
      * This relation is used when we are designing a questionnaire and we need
      * to access the widgets list.

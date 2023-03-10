@@ -50,8 +50,12 @@ class Questionnaire extends Model
                     ->withTimestamps();
     }
 
+    /**
+     * In case there is no default locale specified, we pick the one
+     * from the client, or fallback to en.
+     */
     public function defaultDefaultLocaleAttribute()
     {
-        return $this->client->default_locale;
+        return $this->client->default_locale ?? 'en';
     }
 }
