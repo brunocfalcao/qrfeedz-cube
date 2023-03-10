@@ -18,28 +18,32 @@ class Questionnaire extends Model
      */
     protected $guarded = [];
 
+    // Relationship validated.
     public function client()
     {
         return $this->belongsTo(Client::class);
     }
 
+    // Relationship validated.
     public function group()
     {
-        return $this->belongsToMany(Group::class)
-                    ->withTimestamps();
+        return $this->belongsTo(Group::class);
     }
 
+    // Relationship validated.
     public function questions()
     {
         return $this->hasMany(Question::class);
     }
 
+    // Relationship validated.
     public function categories()
     {
         return $this->morphToMany(Category::class, 'categorizable')
                     ->withTimestamps();
     }
 
+    // Relationship validated.
     public function tags()
     {
         return $this->morphToMany(Tag::class, 'taggable')

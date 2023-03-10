@@ -15,9 +15,4 @@ class Authorization extends Model
      * @var array<int, string>
      */
     protected $guarded = [];
-
-    public function users()
-    {
-        return $this->morphedByMany(User::class, 'authorizable');
-    }
 }

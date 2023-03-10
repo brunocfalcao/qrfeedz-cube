@@ -18,28 +18,26 @@ class Group extends Model
         'data' => 'array',
     ];
 
-    public function country()
-    {
-        return $this->belongsTo(Country::class);
-    }
-
+    // Relationship validated.
     public function client()
     {
         return $this->belongsTo(Client::class);
     }
 
+    // Relationship validated.
     public function questionnaires()
     {
-        return $this->belongsToMany(Questionnaire::class)
-                    ->withTimestamps();
+        return $this->hasMany(Questionnaire::class);
     }
 
+    // Relationship validated.
     public function categories()
     {
         return $this->morphToMany(Category::class, 'categorizable')
                     ->withTimestamps();
     }
 
+    // Relationship validated.
     public function tags()
     {
         return $this->morphToMany(Tag::class, 'taggable')

@@ -19,22 +19,38 @@ class Client extends Model
      */
     protected $guarded = [];
 
+    // Relationship validated.
+    public function locales()
+    {
+        return $this->hasMany(Locale::class);
+    }
+
+    // Relationship validated.
     public function country()
     {
         return $this->belongsTo(Country::class);
     }
 
+    // Relationship validated.
+    public function groups()
+    {
+        return $this->hasMany(Group::class);
+    }
+
+    // Relationship validated.
     public function questionnaires()
     {
         return $this->hasMany(Questionnaire::class);
     }
 
+    // Relationship validated.
     public function categories()
     {
         return $this->morphToMany(Category::class, 'categorizable')
                     ->withTimestamps();
     }
 
+    // Relationship validated.
     public function tags()
     {
         return $this->morphToMany(Tag::class, 'taggable')

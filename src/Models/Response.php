@@ -22,11 +22,13 @@ class Response extends Model
         'data' => 'array',
     ];
 
+    // Relationship validated.
     public function question()
     {
         return $this->belongsTo(Question::class);
     }
 
+    // Relationship validated.
     public function widget()
     {
         return $this->belongsTo(Widget::class);

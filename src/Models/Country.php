@@ -27,6 +27,7 @@ class Country extends Model
         'email_verified_at' => 'datetime',
     ];
 
+    // Relationship validated.
     public function clients()
     {
         return $this->hasMany(Client::class);

@@ -5,6 +5,7 @@ namespace QRFeedz\Cube\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use QRFeedz\Cube\Relations\LastVersionWidgets;
 
 class Question extends Model
 {
@@ -25,42 +26,45 @@ class Question extends Model
         'is_caption_visible' => 'boolean',
     ];
 
-    /**
-     * Indeed a question could have belonged to several questionnaires so we
-     * could optimize a question with a questionnaire. Still, for the sake
-     * of data structure simplicity, I prefer to have
-     * a 1-N relationship with a questionnaire and not a N-N.
-     * In practice, it means that the same question will be repeated if we
-     * create a new questionnaire to be used on different groups but under
-     * the same client.
-     */
-    public function questionnaires()
+    // Relationship validated.
+    public function questionnaire()
     {
         return $this->belongsTo(Questionnaire::class);
     }
 
+    // Relationship validated.
     public function responses()
     {
         return $this->hasMany(Response::class);
     }
 
-    public function widget()
+
+    /**
+     * This relation is used when we are designing a questionnaire and we need
+     * to access the widgets list.
+     *
+     * Relationship validated.
+     */
+    public function widgetsForDesign()
     {
-        return $this->belongsTo(Widget::class);
+        return $this->hasOne(Widget::class, 'widget_group_uuid', 'group_uuid')
+                    ->ofMany('version', 'max');
     }
 
-    public function locales()
+    /**
+     * This relation is used to know what widgets belong to a already
+     * existing questionnaire instance.
+     *
+     * Relationship validated.
+     */
+    public function widgets()
     {
-        return $this->hasMany(Locale::class);
+        return $this->belongsToMany(Widget::class);
     }
 
-    public function childQuestions()
+    // Relationship validated.
+    public function locale()
     {
-        return $this->belongsToMany(Question::class, 'question_flows', 'question_id_parent', 'question_id_child');
-    }
-
-    public function parentQuestions()
-    {
-        return $this->belongsToMany(Question::class, 'question_flows', 'question_id_child', 'question_id_parent');
+        return $this->belongsTo(Locale::class);
     }
 }
