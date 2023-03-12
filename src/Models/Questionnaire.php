@@ -28,9 +28,7 @@ class Questionnaire extends Model
     // Relationship validated.
     public function authorizations()
     {
-        return $this->morphToMany(Authorization::class, 'authorizable')
-                    ->with('user_id')
-                    ->withTimestamps();
+        return $this->hasMany(Authorization::class);
     }
 
     // Relationship validated.

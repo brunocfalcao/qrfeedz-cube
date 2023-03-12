@@ -17,4 +17,18 @@ class Authorization extends Model
                     ->withPivot('user_id')
                     ->withTimestamps();
     }
+
+    public function questionnaires()
+    {
+        return $this->morphedByMany(Questionnaire::class, 'authorizable')
+                    ->withPivot('user_id')
+                    ->withTimestamps();
+    }
+
+    public function groups()
+    {
+        return $this->morphedByMany(Group::class, 'authorizable')
+                    ->withPivot('user_id')
+                    ->withTimestamps();
+    }
 }

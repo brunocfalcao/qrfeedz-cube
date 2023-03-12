@@ -30,4 +30,13 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Client::class);
     }
+
+    // Relationship validated.
+    public function authorizations()
+    {
+        return $this->morphToMany(Authorization::class, 'authorizable')
+                    ->where('user_id', $this->id)
+                    ->with('user_id')
+                    ->withTimestamps();
+    }
 }

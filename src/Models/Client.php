@@ -42,7 +42,6 @@ class Client extends Model
     public function authorizations()
     {
         return $this->morphToMany(Authorization::class, 'authorizable')
-                    ->with('user_id')
                     ->withTimestamps();
     }
 
