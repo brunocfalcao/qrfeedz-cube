@@ -3,6 +3,7 @@
 namespace QRFeedz\Cube;
 
 use Illuminate\Support\ServiceProvider;
+use QRFeedz\Cube\Commands\Test;
 use QRFeedz\Cube\Models\Authorization;
 use QRFeedz\Cube\Models\Category;
 use QRFeedz\Cube\Models\Client;
@@ -21,8 +22,8 @@ use QRFeedz\Cube\Observers\ClientObserver;
 use QRFeedz\Cube\Observers\CountryObserver;
 use QRFeedz\Cube\Observers\GroupObserver;
 use QRFeedz\Cube\Observers\LocaleObserver;
-use QRFeedz\Cube\Observers\QuestionnaireObserver;
 use QRFeedz\Cube\Observers\QuestionObserver;
+use QRFeedz\Cube\Observers\QuestionnaireObserver;
 use QRFeedz\Cube\Observers\ResponseObserver;
 use QRFeedz\Cube\Observers\TagObserver;
 use QRFeedz\Cube\Observers\UserObserver;
@@ -33,6 +34,10 @@ class CubeServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerObservers();
+
+        $this->commands([
+            Test::class,
+        ]);
     }
 
     public function register()

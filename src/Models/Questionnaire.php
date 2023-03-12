@@ -28,7 +28,22 @@ class Questionnaire extends Model
     // Relationship validated.
     public function authorizations()
     {
-        return $this->hasMany(Authorization::class);
+        return $this->morphToMany(Authorization::class, 'authorizable')
+                    ->withPivot('user_id')
+                    ->withTimestamps();
+    }
+
+    /**
+     * Special relationship that will return the authorizations for a logged
+     * user. Used to simplify the query of getting what authorizations does
+     * the logged user has respective to questionnaire authorizations.
+     */
+    public function loggedUserAuthorizations()
+    {
+        return $this->morphToMany(Authorization::class, 'authorizable')
+                    ->withPivot('user_id')
+                    ->wherePivot('user_id', Auth::id)
+                    ->withTimestamps();
     }
 
     // Relationship validated.

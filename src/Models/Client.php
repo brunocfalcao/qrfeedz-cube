@@ -5,6 +5,7 @@ namespace QRFeedz\Cube\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 use QRFeedz\Database\Factories\ClientFactory;
 
 class Client extends Model
@@ -42,6 +43,28 @@ class Client extends Model
     public function authorizations()
     {
         return $this->morphToMany(Authorization::class, 'authorizable')
+                    ->withPivot('user_id')
+                    ->withTimestamps();
+    }
+
+    // Relationship validated.
+    public function authorizationsForUser(User $user)
+    {
+        return $this->morphToMany(Authorization::class, 'authorizable')
+                    ->withPivot('user_id')
+                    ->wherePivot('user_id', $user->id)
+                    ->withTimestamps();
+    }
+    /**
+     * Special relationship that will return the authorizations for a logged
+     * user. Used to simplify the query of getting what authorizations does
+     * the logged user has respective to client authorizations.
+     */
+    public function loggedUserAuthorizations()
+    {
+        return $this->morphToMany(Authorization::class, 'authorizable')
+                    ->withPivot('user_id')
+                    ->wherePivot('user_id', Auth::id)
                     ->withTimestamps();
     }
 
