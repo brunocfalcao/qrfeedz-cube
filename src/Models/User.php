@@ -11,7 +11,7 @@ use QRFeedz\Cube\Concerns\ConcernsAuthorizations;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, SoftDeletes, ConcernsAuthorizations;
+    use ConcernsAuthorizations, HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

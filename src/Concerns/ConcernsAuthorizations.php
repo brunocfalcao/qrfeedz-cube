@@ -10,6 +10,11 @@ use QRFeedz\Cube\Models\Authorization;
  */
 trait ConcernsAuthorizations
 {
+    /**
+     * Assigns an authorization to an entity (client, questionnaire, etc).
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
     public function assignAuthorization(Authorization $authorization, Model $entity)
     {
         $entity->authorizations()->attach(
