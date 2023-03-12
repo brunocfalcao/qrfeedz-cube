@@ -12,11 +12,6 @@ class Client extends Model
     use HasFactory;
     use SoftDeletes;
 
-    /**
-     * The attributes that will be guarded.
-     *
-     * @var array<int, string>
-     */
     protected $guarded = [];
 
     // Relationship validated.
@@ -43,6 +38,7 @@ class Client extends Model
         return $this->hasMany(Questionnaire::class);
     }
 
+    // Relationship validated.
     public function authorizations()
     {
         return $this->morphToMany(Authorization::class, 'authorizable')

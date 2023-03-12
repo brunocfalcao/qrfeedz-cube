@@ -44,6 +44,14 @@ class Group extends Model
                     ->withTimestamps();
     }
 
+    // Relationship validated.
+    public function authorizations()
+    {
+        return $this->morphToMany(Authorization::class, 'authorizable')
+                    ->with('user_id')
+                    ->withTimestamps();
+    }
+
     protected static function newFactory()
     {
         return GroupFactory::new();

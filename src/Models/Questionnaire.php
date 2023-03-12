@@ -11,11 +11,6 @@ class Questionnaire extends Model
     use HasFactory;
     use SoftDeletes;
 
-    /**
-     * The attributes that will be guarded.
-     *
-     * @var array<int, string>
-     */
     protected $guarded = [];
 
     // Relationship validated.
@@ -28,6 +23,14 @@ class Questionnaire extends Model
     public function group()
     {
         return $this->belongsTo(Group::class);
+    }
+
+    // Relationship validated.
+    public function authorizations()
+    {
+        return $this->morphToMany(Authorization::class, 'authorizable')
+                    ->with('user_id')
+                    ->withTimestamps();
     }
 
     // Relationship validated.

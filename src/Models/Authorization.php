@@ -9,11 +9,6 @@ class Authorization extends Model
 {
     use SoftDeletes;
 
-    /**
-     * The attributes that will be guarded.
-     *
-     * @var array<int, string>
-     */
     protected $guarded = [];
 
     public function clients()

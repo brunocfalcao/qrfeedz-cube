@@ -11,11 +11,6 @@ class Tag extends Model
     use HasFactory;
     use SoftDeletes;
 
-    /**
-     * The attributes that will be guarded.
-     *
-     * @var array<int, string>
-     */
     protected $guarded = [];
 
     // Relationship validated.
