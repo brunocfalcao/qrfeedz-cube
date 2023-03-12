@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use QRFeedz\Cube\Concerns\ConcernsAuthorizations;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, SoftDeletes;
+    use HasFactory, Notifiable, SoftDeletes, ConcernsAuthorizations;
 
     /**
      * The attributes that are mass assignable.
@@ -43,8 +44,15 @@ class User extends Authenticatable
     ];
 
     // Relationship validated.
-    protected function client()
+    public function client()
     {
         return $this->belongsTo(Client::class);
+    }
+
+    public function authorizations()
+    {
+        return $this->morphToMany(Authorization::class, 'authorizable')
+                    ->wherePivot('user_id', $this->id)
+                    ->withTimestamps();
     }
 }

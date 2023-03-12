@@ -43,6 +43,13 @@ class Client extends Model
         return $this->hasMany(Questionnaire::class);
     }
 
+    public function authorizations()
+    {
+        return $this->morphToMany(Authorization::class, 'authorizable')
+                    ->with('user_id')
+                    ->withTimestamps();
+    }
+
     // Relationship validated.
     public function categories()
     {

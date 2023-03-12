@@ -15,4 +15,11 @@ class Authorization extends Model
      * @var array<int, string>
      */
     protected $guarded = [];
+
+    public function clients()
+    {
+        return $this->morphedByMany(Client::class, 'authorizable')
+                    ->withPivot('user_id')
+                    ->withTimestamps();
+    }
 }
