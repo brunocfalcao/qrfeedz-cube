@@ -11,8 +11,6 @@ class Locale extends Model
 
     protected $guarded = [];
 
-    // Relationship validated.
-
     /**
      * Although we have a relation with the questions (where we could iterate
      * the respective clients), it's better to have a direct relation with

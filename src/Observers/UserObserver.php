@@ -2,6 +2,7 @@
 
 namespace QRFeedz\Cube\Observers;
 
+use Illuminate\Support\Facades\Auth;
 use QRFeedz\Cube\Models\User;
 
 class UserObserver
@@ -11,7 +12,15 @@ class UserObserver
      */
     public function saving(User $user): void
     {
-        //
+        /**
+         * The attribute "is_admin" can only be changed by users that are
+         * super admins (in case there is a logged session).
+         */
+        if (Auth::user()) {
+            if ($user->isDirty('is_admin') && !Auth::user()->is_admin) {
+                throw \Exception('The attribute is_admin can only be changed by super admins');
+            }
+        };
     }
 
     /**

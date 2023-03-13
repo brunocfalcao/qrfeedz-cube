@@ -3,7 +3,6 @@
 namespace QRFeedz\Cube\Commands;
 
 use Illuminate\Console\Command;
-use QRFeedz\Cube\Models\User;
 
 class Test extends Command
 {
@@ -38,17 +37,6 @@ class Test extends Command
      */
     public function handle()
     {
-        $user = User::find(3);
-
-        foreach ($user->client->authorizationsForUser($user)->get() as $item) {
-            $this->info($item->name);
-        }
-
-        /**
-         * User has a client authorization as admin.
-         * User has a <model> authorization
-         */
-
         return 0;
     }
 }

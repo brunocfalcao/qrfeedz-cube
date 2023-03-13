@@ -55,6 +55,7 @@ class Client extends Model
                     ->wherePivot('user_id', $user->id)
                     ->withTimestamps();
     }
+
     /**
      * Special relationship that will return the authorizations for a logged
      * user. Used to simplify the query of getting what authorizations does

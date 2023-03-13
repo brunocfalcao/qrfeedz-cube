@@ -4,14 +4,14 @@ namespace QRFeedz\Cube\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use QRFeedz\Authorization\Concerns\ConcernsAuthorizations;
 
 class User extends Authenticatable
 {
-    use ConcernsAuthorizations, HasFactory, Notifiable, SoftDeletes;
+    use HasFactory, Notifiable, SoftDeletes;
 
     protected $guarded = [];
 
@@ -22,7 +22,7 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'is_admin' => 'boolean'
+        'is_admin' => 'boolean',
     ];
 
     // Relationship validated.
@@ -31,12 +31,22 @@ class User extends Authenticatable
         return $this->belongsTo(Client::class);
     }
 
-    // Relationship validated.
-    public function authorizations()
+    /**
+     * Used to check if a given model instance is authorized in another model
+     * in a specific authorization type.
+     * Normally used on policies, e.g.:
+     * Check if the user has "admin" permissions in a client X.
+     *
+     * @param  Model  $model  [description]
+     * @param  string  $type  [description]
+     * @return bool           [description]
+     */
+    public function isAuthorizedAs(Model $model, string $type)
     {
-        return $this->morphToMany(Authorization::class, 'authorizable')
-                    ->where('user_id', $this->id)
-                    ->with('user_id')
-                    ->withTimestamps();
+        return $model
+                ->authorizationsForUser($this)
+                ->get()
+                ->pluck('name')
+                ->contains($type);
     }
 }
