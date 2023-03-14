@@ -9,7 +9,7 @@ class AuthorizationObserver
     /**
      * Handle the Authorization "saving" event.
      */
-    public function saving(Authorization $authorization): void
+    public function saving(Authorization $model): void
     {
         //
     }
@@ -17,7 +17,7 @@ class AuthorizationObserver
     /**
      * Handle the Authorization "created" event.
      */
-    public function created(Authorization $authorization): void
+    public function created(Authorization $model): void
     {
         //
     }
@@ -25,7 +25,7 @@ class AuthorizationObserver
     /**
      * Handle the Authorization "updated" event.
      */
-    public function updated(Authorization $authorization): void
+    public function updated(Authorization $model): void
     {
         //
     }
@@ -33,7 +33,7 @@ class AuthorizationObserver
     /**
      * Handle the Authorization "deleted" event.
      */
-    public function deleted(Authorization $authorization): void
+    public function deleted(Authorization $model): void
     {
         //
     }
@@ -41,7 +41,7 @@ class AuthorizationObserver
     /**
      * Handle the Authorization "restored" event.
      */
-    public function restored(Authorization $authorization): void
+    public function restored(Authorization $model): void
     {
         //
     }
@@ -49,7 +49,7 @@ class AuthorizationObserver
     /**
      * Handle the Authorization "force deleted" event.
      */
-    public function forceDeleted(Authorization $authorization): void
+    public function forceDeleted(Authorization $model): void
     {
         //
     }

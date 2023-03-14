@@ -9,7 +9,7 @@ class CountryObserver
     /**
      * Handle the Country "saving" event.
      */
-    public function saving(Country $country): void
+    public function saving(Country $model): void
     {
         //
     }
@@ -17,7 +17,7 @@ class CountryObserver
     /**
      * Handle the Country "created" event.
      */
-    public function created(Country $country): void
+    public function created(Country $model): void
     {
         //
     }
@@ -25,7 +25,7 @@ class CountryObserver
     /**
      * Handle the Country "updated" event.
      */
-    public function updated(Country $country): void
+    public function updated(Country $model): void
     {
         //
     }
@@ -33,7 +33,7 @@ class CountryObserver
     /**
      * Handle the Country "deleted" event.
      */
-    public function deleted(Country $country): void
+    public function deleted(Country $model): void
     {
         //
     }
@@ -41,7 +41,7 @@ class CountryObserver
     /**
      * Handle the Country "restored" event.
      */
-    public function restored(Country $country): void
+    public function restored(Country $model): void
     {
         //
     }
@@ -49,7 +49,7 @@ class CountryObserver
     /**
      * Handle the Country "force deleted" event.
      */
-    public function forceDeleted(Country $country): void
+    public function forceDeleted(Country $model): void
     {
         //
     }

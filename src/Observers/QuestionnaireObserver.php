@@ -9,7 +9,7 @@ class QuestionnaireObserver
     /**
      * Handle the Questionnaire "saving" event.
      */
-    public function saving(Questionnaire $questionnaire): void
+    public function saving(Questionnaire $model): void
     {
         //
     }
@@ -17,7 +17,7 @@ class QuestionnaireObserver
     /**
      * Handle the Questionnaire "created" event.
      */
-    public function created(Questionnaire $questionnaire): void
+    public function created(Questionnaire $model): void
     {
         //
     }
@@ -25,7 +25,7 @@ class QuestionnaireObserver
     /**
      * Handle the Questionnaire "updated" event.
      */
-    public function updated(Questionnaire $questionnaire): void
+    public function updated(Questionnaire $model): void
     {
         //
     }
@@ -33,7 +33,7 @@ class QuestionnaireObserver
     /**
      * Handle the Questionnaire "deleted" event.
      */
-    public function deleted(Questionnaire $questionnaire): void
+    public function deleted(Questionnaire $model): void
     {
         //
     }
@@ -41,7 +41,7 @@ class QuestionnaireObserver
     /**
      * Handle the Questionnaire "restored" event.
      */
-    public function restored(Questionnaire $questionnaire): void
+    public function restored(Questionnaire $model): void
     {
         //
     }
@@ -49,7 +49,7 @@ class QuestionnaireObserver
     /**
      * Handle the Questionnaire "force deleted" event.
      */
-    public function forceDeleted(Questionnaire $questionnaire): void
+    public function forceDeleted(Questionnaire $model): void
     {
         //
     }

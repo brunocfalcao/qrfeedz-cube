@@ -9,7 +9,7 @@ class ClientObserver
     /**
      * Handle the Client "saving" event.
      */
-    public function saving(Client $client): void
+    public function saving(Client $model): void
     {
         /**
          * - The "default_locale" can only be one of the locales columns.
@@ -19,7 +19,7 @@ class ClientObserver
     /**
      * Handle the Client "created" event.
      */
-    public function created(Client $client): void
+    public function created(Client $model): void
     {
         //
     }
@@ -27,7 +27,7 @@ class ClientObserver
     /**
      * Handle the Client "updated" event.
      */
-    public function updated(Client $client): void
+    public function updated(Client $model): void
     {
         //
     }
@@ -35,7 +35,7 @@ class ClientObserver
     /**
      * Handle the Client "deleted" event.
      */
-    public function deleted(Client $client): void
+    public function deleted(Client $model): void
     {
         //
     }
@@ -43,7 +43,7 @@ class ClientObserver
     /**
      * Handle the Client "restored" event.
      */
-    public function restored(Client $client): void
+    public function restored(Client $model): void
     {
         //
     }
@@ -51,7 +51,7 @@ class ClientObserver
     /**
      * Handle the Client "force deleted" event.
      */
-    public function forceDeleted(Client $client): void
+    public function forceDeleted(Client $model): void
     {
         //
     }

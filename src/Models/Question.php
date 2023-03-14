@@ -38,9 +38,14 @@ class Question extends Model
         return $this->belongsToMany(Widget::class);
     }
 
-    // Relationship validated.
-    public function locale()
+    /**
+     * For better understanding, the relationship is called "captions" and
+     * not "locales".
+     */
+    public function captions()
     {
-        return $this->belongsTo(Locale::class);
+        return $this->morphToMany(Locale::class, 'localable')
+                    ->with(['caption', 'variable'])
+                    ->withTimestamps();
     }
 }

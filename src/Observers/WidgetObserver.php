@@ -9,7 +9,7 @@ class WidgetObserver
     /**
      * Handle the Widget "saving" event.
      */
-    public function saving(Widget $widget): void
+    public function saving(Widget $model): void
     {
         //
     }
@@ -17,7 +17,7 @@ class WidgetObserver
     /**
      * Handle the Widget "created" event.
      */
-    public function created(Widget $widget): void
+    public function created(Widget $model): void
     {
         //
     }
@@ -25,7 +25,7 @@ class WidgetObserver
     /**
      * Handle the Widget "updated" event.
      */
-    public function updated(Widget $widget): void
+    public function updated(Widget $model): void
     {
         //
     }
@@ -33,7 +33,7 @@ class WidgetObserver
     /**
      * Handle the Widget "deleted" event.
      */
-    public function deleted(Widget $widget): void
+    public function deleted(Widget $model): void
     {
         //
     }
@@ -41,7 +41,7 @@ class WidgetObserver
     /**
      * Handle the Widget "restored" event.
      */
-    public function restored(Widget $widget): void
+    public function restored(Widget $model): void
     {
         //
     }
@@ -49,7 +49,7 @@ class WidgetObserver
     /**
      * Handle the Widget "force deleted" event.
      */
-    public function forceDeleted(Widget $widget): void
+    public function forceDeleted(Widget $model): void
     {
         //
     }

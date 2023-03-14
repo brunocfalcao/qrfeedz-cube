@@ -12,15 +12,15 @@ class QuestionObserver
     /**
      * Handle the Question "saving" event.
      */
-    public function saving(Question $question): void
+    public function saving(Question $model): void
     {
-        $this->resolveIncrement($question, 'questionnaire_id');
+        $this->resolveIncrement($model, 'questionnaire_id');
     }
 
     /**
      * Handle the Question "created" event.
      */
-    public function created(Question $question): void
+    public function created(Question $model): void
     {
         //
     }
@@ -28,7 +28,7 @@ class QuestionObserver
     /**
      * Handle the Question "updated" event.
      */
-    public function updated(Question $question): void
+    public function updated(Question $model): void
     {
         //
     }
@@ -36,7 +36,7 @@ class QuestionObserver
     /**
      * Handle the Question "deleted" event.
      */
-    public function deleted(Question $question): void
+    public function deleted(Question $model): void
     {
         //
     }
@@ -44,7 +44,7 @@ class QuestionObserver
     /**
      * Handle the Question "restored" event.
      */
-    public function restored(Question $question): void
+    public function restored(Question $model): void
     {
         //
     }
@@ -52,7 +52,7 @@ class QuestionObserver
     /**
      * Handle the Question "force deleted" event.
      */
-    public function forceDeleted(Question $question): void
+    public function forceDeleted(Question $model): void
     {
         //
     }

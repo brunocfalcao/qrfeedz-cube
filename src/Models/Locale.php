@@ -4,6 +4,7 @@ namespace QRFeedz\Cube\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use QRFeedz\Cube\Models\QuestionWidget;
 
 class Locale extends Model
 {
@@ -19,5 +20,15 @@ class Locale extends Model
     public function questionnaires()
     {
         return $this->hasMany(Questionnaire::class);
+    }
+
+    public function questions()
+    {
+        return $this->morphedByMany(Question::class, 'localable');
+    }
+
+    public function questionWidgets()
+    {
+        return $this->morphedByMany(QuestionWidget::class, 'localable');
     }
 }

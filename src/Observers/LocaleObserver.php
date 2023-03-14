@@ -9,7 +9,7 @@ class LocaleObserver
     /**
      * Handle the Locale "saving" event.
      */
-    public function saving(Locale $locale): void
+    public function saving(Locale $model): void
     {
         //
     }
@@ -17,7 +17,7 @@ class LocaleObserver
     /**
      * Handle the Locale "created" event.
      */
-    public function created(Locale $locale): void
+    public function created(Locale $model): void
     {
         //
     }
@@ -25,7 +25,7 @@ class LocaleObserver
     /**
      * Handle the Locale "updated" event.
      */
-    public function updated(Locale $locale): void
+    public function updated(Locale $model): void
     {
         //
     }
@@ -33,7 +33,7 @@ class LocaleObserver
     /**
      * Handle the Locale "deleted" event.
      */
-    public function deleted(Locale $locale): void
+    public function deleted(Locale $model): void
     {
         //
     }
@@ -41,7 +41,7 @@ class LocaleObserver
     /**
      * Handle the Locale "restored" event.
      */
-    public function restored(Locale $locale): void
+    public function restored(Locale $model): void
     {
         //
     }
@@ -49,7 +49,7 @@ class LocaleObserver
     /**
      * Handle the Locale "force deleted" event.
      */
-    public function forceDeleted(Locale $locale): void
+    public function forceDeleted(Locale $model): void
     {
         //
     }

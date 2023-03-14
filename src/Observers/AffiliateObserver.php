@@ -9,7 +9,7 @@ class AffiliateObserver
     /**
      * Handle the Affiliate "saving" event.
      */
-    public function saving(Affiliate $affiliate): void
+    public function saving(Affiliate $model): void
     {
         //
     }
@@ -17,7 +17,7 @@ class AffiliateObserver
     /**
      * Handle the Affiliate "created" event.
      */
-    public function created(Affiliate $affiliate): void
+    public function created(Affiliate $model): void
     {
         //
     }
@@ -25,7 +25,7 @@ class AffiliateObserver
     /**
      * Handle the Affiliate "updated" event.
      */
-    public function updated(Affiliate $affiliate): void
+    public function updated(Affiliate $model): void
     {
         //
     }
@@ -33,7 +33,7 @@ class AffiliateObserver
     /**
      * Handle the Affiliate "deleted" event.
      */
-    public function deleted(Affiliate $affiliate): void
+    public function deleted(Affiliate $model): void
     {
         //
     }
@@ -41,7 +41,7 @@ class AffiliateObserver
     /**
      * Handle the Affiliate "restored" event.
      */
-    public function restored(Affiliate $affiliate): void
+    public function restored(Affiliate $model): void
     {
         //
     }
@@ -49,7 +49,7 @@ class AffiliateObserver
     /**
      * Handle the Affiliate "force deleted" event.
      */
-    public function forceDeleted(Affiliate $affiliate): void
+    public function forceDeleted(Affiliate $model): void
     {
         //
     }

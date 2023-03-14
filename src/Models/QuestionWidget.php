@@ -34,4 +34,15 @@ class QuestionWidget extends Model
     {
         return $this->belongsTo(Questionnaire::class);
     }
+
+    /**
+     * For better understanding, the relationship is called "captions" and
+     * not "locales".
+     */
+    public function captions()
+    {
+        return $this->morphToMany(Locale::class, 'localable')
+                    ->with(['caption', 'variable'])
+                    ->withTimestamps();
+    }
 }
