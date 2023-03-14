@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
+use QRFeedz\Cube\Models\Authorization;
 
 class User extends Authenticatable
 {
@@ -21,8 +23,8 @@ class User extends Authenticatable
     ];
 
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'is_admin' => 'boolean',
+        'is_affiliate' => 'boolean'
     ];
 
     // Relationship validated.
@@ -48,5 +50,22 @@ class User extends Authenticatable
                 ->get()
                 ->pluck('name')
                 ->contains($type);
+    }
+
+    /**
+     * This special query will return if an user has at least a single
+     * entry in the authorizables table with a specific authorization
+     * type.
+     *
+     * @return boolean
+     */
+    public function isAtLeastAuthorizedAs(string $type)
+    {
+        // Needs to be obtained via a direct query.
+        return DB::table('authorizables')
+                 ->where('user_id', $this->id)
+                 ->where('authorization_id', Authorization::firstWhere('name', $type)->id)
+                 ->whereNull('deleted_at')
+                 ->count() > 0;
     }
 }

@@ -22,6 +22,12 @@ class Client extends Model
     }
 
     // Relationship validated.
+    public function affiliate()
+    {
+        return $this->belongsTo(Affiliate::class);
+    }
+
+    // Relationship validated.
     public function country()
     {
         return $this->belongsTo(Country::class);
