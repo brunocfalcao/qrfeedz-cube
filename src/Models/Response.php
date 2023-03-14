@@ -22,10 +22,4 @@ class Response extends Model
     {
         return $this->belongsTo(Question::class);
     }
-
-    // Relationship validated.
-    public function widget()
-    {
-        return $this->belongsTo(Widget::class);
-    }
 }

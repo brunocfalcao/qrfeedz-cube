@@ -55,6 +55,11 @@ class Questionnaire extends Model
                     ->withTimestamps();
     }
 
+    public function questionWidget()
+    {
+        return $this->hasMany(QuestionWidget::class);
+    }
+
     // Relationship validated.
     public function questions()
     {
@@ -75,12 +80,17 @@ class Questionnaire extends Model
                     ->withTimestamps();
     }
 
+    public function locale()
+    {
+        return $this->belongsTo(Locale::class);
+    }
+
     /**
      * In case there is no default locale specified, we pick the one
      * from the client, or fallback to en.
      */
     public function defaultDefaultLocaleAttribute()
     {
-        return $this->client->default_locale ?? 'en';
+        return Locale::firstWhere('code', 'en')->id;
     }
 }

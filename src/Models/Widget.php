@@ -18,19 +18,14 @@ class Widget extends Model
         'is_reportable' => 'boolean',
     ];
 
-    /**
-     * This relation is used only to know what question ids where answered
-     * specifically by this widget id. It doesn't take in account any
-     * versioning for the group_uuids.
-     */
+    // Relationship validated.
     public function questions()
     {
         return $this->belongsToMany(Question::class);
     }
 
-    // Relationship validated.
-    public function responses()
+    public function questionWidget()
     {
-        return $this->hasMany(Response::class);
+        return $this->hasMany(QuestionWidget::class);
     }
 }

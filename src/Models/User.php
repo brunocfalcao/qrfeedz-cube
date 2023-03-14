@@ -26,7 +26,8 @@ class User extends Authenticatable
         'is_affiliate' => 'boolean',
     ];
 
-    // Relationship validated.
+    // Eloquent Relationship validated.
+    // Resource relationship validated.
     public function client()
     {
         return $this->belongsTo(Client::class);

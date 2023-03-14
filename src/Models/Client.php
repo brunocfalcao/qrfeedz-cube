@@ -16,9 +16,9 @@ class Client extends Model
     protected $guarded = [];
 
     // Relationship validated.
-    public function locales()
+    public function locale()
     {
-        return $this->hasMany(Locale::class);
+        return $this->belongsTo(Locale::class);
     }
 
     // Relationship validated.
@@ -27,7 +27,8 @@ class Client extends Model
         return $this->belongsTo(Affiliate::class);
     }
 
-    // Relationship validated.
+    // Eloquent relationship validated.
+    // Resource relationship validated.
     public function country()
     {
         return $this->belongsTo(Country::class);

@@ -15,9 +15,9 @@ class Question extends Model
 
     protected $casts = [
         'is_required' => 'boolean',
-        'settings_override' => 'array',
-        'caption_locales' => 'array',
-        'is_caption_visible' => 'boolean',
+        'is_analytical' => 'boolean',
+        'is_single_value' => 'boolean',
+        'is_used_for_personal_data' => 'boolean',
     ];
 
     // Relationship validated.
@@ -32,24 +32,7 @@ class Question extends Model
         return $this->hasMany(Response::class);
     }
 
-    /**
-     * This relation is used when we are designing a questionnaire and we need
-     * to access the widgets list.
-     *
-     * Relationship validated.
-     */
-    public function widgetsForDesign()
-    {
-        return $this->hasOne(Widget::class, 'widget_group_uuid', 'group_uuid')
-                    ->ofMany('version', 'max');
-    }
-
-    /**
-     * This relation is used to know what widgets belong to a already
-     * existing questionnaire instance.
-     *
-     * Relationship validated.
-     */
+    // Relationship validated.
     public function widgets()
     {
         return $this->belongsToMany(Widget::class);

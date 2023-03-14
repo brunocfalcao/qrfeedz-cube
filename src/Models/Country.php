@@ -13,10 +13,6 @@ class Country extends Model
 
     protected $guarded = [];
 
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
-
     // Relationship validated.
     public function clients()
     {

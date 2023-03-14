@@ -2,19 +2,16 @@
 
 namespace QRFeedz\Cube\Observers;
 
-use QRFeedz\Cube\Concerns\ConcernsGroupUuids;
 use QRFeedz\Cube\Models\Widget;
 
 class WidgetObserver
 {
-    use ConcernsGroupUuids;
-
     /**
      * Handle the Widget "saving" event.
      */
     public function saving(Widget $widget): void
     {
-        $this->resolveGroupedUuid($widget);
+        //
     }
 
     /**
