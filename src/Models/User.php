@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
-use QRFeedz\Cube\Models\Authorization;
 
 class User extends Authenticatable
 {
@@ -24,7 +23,7 @@ class User extends Authenticatable
 
     protected $casts = [
         'is_admin' => 'boolean',
-        'is_affiliate' => 'boolean'
+        'is_affiliate' => 'boolean',
     ];
 
     // Relationship validated.
@@ -57,7 +56,7 @@ class User extends Authenticatable
      * entry in the authorizables table with a specific authorization
      * type.
      *
-     * @return boolean
+     * @return bool
      */
     public function isAtLeastAuthorizedAs(string $type)
     {

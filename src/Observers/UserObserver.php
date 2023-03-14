@@ -17,10 +17,10 @@ class UserObserver
          * super admins (in case there is a logged session).
          */
         if (Auth::user()) {
-            if ($user->isDirty('is_admin') && !Auth::user()->is_admin) {
+            if ($user->isDirty('is_admin') && ! Auth::user()->is_admin) {
                 throw \Exception('The attribute is_admin can only be changed by super admins');
             }
-        };
+        }
     }
 
     /**
