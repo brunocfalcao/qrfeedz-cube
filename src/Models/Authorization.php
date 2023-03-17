@@ -11,6 +11,14 @@ class Authorization extends Model
 
     protected $guarded = [];
 
+    // Relationship validated.
+    public function affiliates()
+    {
+        return $this->morphedByMany(Affiliate::class, 'authorizable')
+                    ->withPivot('user_id')
+                    ->withTimestamps();
+    }
+
     public function clients()
     {
         return $this->morphedByMany(Client::class, 'authorizable')

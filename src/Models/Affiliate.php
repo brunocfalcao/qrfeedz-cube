@@ -15,4 +15,12 @@ class Affiliate extends Model
     {
         return $this->hasMany(Client::class);
     }
+
+    // Relationship validated.
+    public function authorizations()
+    {
+        return $this->morphToMany(Authorization::class, 'authorizable')
+                    ->withPivot('user_id')
+                    ->withTimestamps();
+    }
 }

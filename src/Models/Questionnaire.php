@@ -14,6 +14,12 @@ class Questionnaire extends Model
     protected $guarded = [];
 
     // Relationship validated.
+    public function OpenAIPromptConfigurations()
+    {
+        return $this->hasOne(OpenAIPromptConfiguration::class);
+    }
+
+    // Relationship validated.
     public function client()
     {
         return $this->belongsTo(Client::class);
