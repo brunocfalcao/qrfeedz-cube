@@ -14,7 +14,9 @@ class QuestionObserver
      */
     public function saving(Question $model): void
     {
-        //
+        if (blank($model->index)) {
+            $this->resolveIncrement($model, 'questionnaire_id');
+        }
     }
 
     /**

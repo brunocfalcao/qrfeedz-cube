@@ -13,6 +13,10 @@ class OpenAIPrompt extends Model
 
     protected $table = 'openai_prompts';
 
+    protected $casts = [
+        'should_be_email_aware' => 'boolean',
+    ];
+
     // Relationship validated.
     public function questionnaire()
     {

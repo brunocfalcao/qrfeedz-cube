@@ -24,7 +24,9 @@ class Locale extends Model
 
     public function questions()
     {
-        return $this->morphedByMany(Question::class, 'localable');
+        return $this->morphedByMany(Question::class, 'localable')
+                    ->with(['caption', 'variable'])
+                    ->withTimestamps();
     }
 
     public function questionWidgets()
