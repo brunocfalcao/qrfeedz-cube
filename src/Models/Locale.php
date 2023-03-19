@@ -16,6 +16,7 @@ class Locale extends Model
         return $this->hasMany(Client::class);
     }
 
+    // Relationship validated.
     public function questionnaires()
     {
         return $this->hasMany(Questionnaire::class);

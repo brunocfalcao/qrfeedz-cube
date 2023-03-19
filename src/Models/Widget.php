@@ -16,6 +16,8 @@ class Widget extends Model
     protected $casts = [
         'settings' => 'array',
         'is_reportable' => 'boolean',
+        'is_countable' => 'boolean',
+        'is_full_page' => 'boolean',
     ];
 
     // Relationship validated.

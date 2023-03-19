@@ -11,6 +11,7 @@ use QRFeedz\Cube\Models\Client;
 use QRFeedz\Cube\Models\Country;
 use QRFeedz\Cube\Models\Group;
 use QRFeedz\Cube\Models\Locale;
+use QRFeedz\Cube\Models\OpenAIPrompt;
 use QRFeedz\Cube\Models\Question;
 use QRFeedz\Cube\Models\Questionnaire;
 use QRFeedz\Cube\Models\Response;
@@ -24,8 +25,9 @@ use QRFeedz\Cube\Observers\ClientObserver;
 use QRFeedz\Cube\Observers\CountryObserver;
 use QRFeedz\Cube\Observers\GroupObserver;
 use QRFeedz\Cube\Observers\LocaleObserver;
-use QRFeedz\Cube\Observers\QuestionnaireObserver;
+use QRFeedz\Cube\Observers\OpenAIPromptObserver;
 use QRFeedz\Cube\Observers\QuestionObserver;
+use QRFeedz\Cube\Observers\QuestionnaireObserver;
 use QRFeedz\Cube\Observers\ResponseObserver;
 use QRFeedz\Cube\Observers\TagObserver;
 use QRFeedz\Cube\Observers\UserObserver;
@@ -60,6 +62,7 @@ class CubeServiceProvider extends ServiceProvider
         Response::observe(ResponseObserver::class);
         Category::observe(CategoryObserver::class);
         Affiliate::observe(AffiliateObserver::class);
+        OpenAIPrompt::observe(OpenAIPromptObserver::class);
         Authorization::observe(AuthorizationObserver::class);
         Questionnaire::observe(QuestionnaireObserver::class);
     }

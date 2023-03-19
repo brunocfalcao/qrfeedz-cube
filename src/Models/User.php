@@ -26,6 +26,12 @@ class User extends Authenticatable
         'is_affiliate' => 'boolean',
     ];
 
+    // Relationship validated.
+    public function affiliate()
+    {
+        return $this->hasOne(Affiliate::class);
+    }
+
     // Eloquent Relationship validated.
     // Resource relationship validated.
     public function client()

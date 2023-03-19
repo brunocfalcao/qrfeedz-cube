@@ -5,6 +5,8 @@ namespace QRFeedz\Cube\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class Questionnaire extends Model
 {
@@ -12,6 +14,12 @@ class Questionnaire extends Model
     use SoftDeletes;
 
     protected $guarded = [];
+
+    protected $casts = [
+        'is_active' => 'boolean',
+        'starts_at' => 'datetime',
+        'ends_at' => 'datetime',
+    ];
 
     // Relationship validated.
     public function OpenAIPromptConfigurations()
@@ -57,7 +65,7 @@ class Questionnaire extends Model
     {
         return $this->morphToMany(Authorization::class, 'authorizable')
                     ->withPivot('user_id')
-                    ->wherePivot('user_id', Auth::id)
+                    ->wherePivot('user_id', Auth::id())
                     ->withTimestamps();
     }
 
@@ -80,23 +88,37 @@ class Questionnaire extends Model
     }
 
     // Relationship validated.
+    public function openAIPrompt()
+    {
+        return $this->hasOne(OpenAIPrompt::class);
+    }
+
+    // Relationship validated.
     public function tags()
     {
         return $this->morphToMany(Tag::class, 'taggable')
                     ->withTimestamps();
     }
 
+    // Relationship validated.
     public function locale()
     {
         return $this->belongsTo(Locale::class);
     }
 
-    /**
-     * In case there is no default locale specified, we pick the one
-     * from the client, or fallback to en.
-     */
-    public function defaultDefaultLocaleAttribute()
+    // Fallback to client locale, or to english.
+    public function defaultLocaleIdAttribute()
     {
-        return Locale::firstWhere('code', 'en')->id;
+        if ($this->client) {
+            return $this->client->locale_id;
+        } else {
+            return Locale::firstWhere('code', 'en')->id;
+        }
+    }
+
+    // Returns a default uuid(), in case no uuid is present.
+    public function defaultUuidAttribute()
+    {
+        return (string) Str::uuid();
     }
 }
