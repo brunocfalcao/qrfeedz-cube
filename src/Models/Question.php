@@ -49,7 +49,7 @@ class Question extends Model
     public function captions()
     {
         return $this->morphToMany(Locale::class, 'model', 'localables')
-                    ->with(['caption', 'variable_type', 'variable_uuid'])
+                    ->with(['caption', 'variable_uuid'])
                     ->withTimestamps();
     }
 }

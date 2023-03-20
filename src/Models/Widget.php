@@ -14,7 +14,6 @@ class Widget extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'settings' => 'array',
         'is_reportable' => 'boolean',
         'is_countable' => 'boolean',
         'is_full_page' => 'boolean',
@@ -40,7 +39,7 @@ class Widget extends Model
     public function captions()
     {
         return $this->morphToMany(Locale::class, 'model', 'localables')
-                    ->with(['caption', 'variable_type', 'variable_uuid'])
+                    ->with(['caption', 'variable_uuid'])
                     ->withTimestamps();
     }
 }

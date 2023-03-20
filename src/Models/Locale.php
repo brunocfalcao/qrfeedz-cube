@@ -27,7 +27,7 @@ class Locale extends Model
     public function questions()
     {
         return $this->morphedByMany(Question::class, 'localable')
-                    ->with(['caption', 'variable_type', 'variable_uuid'])
+                    ->with(['caption', 'variable_uuid'])
                     ->withTimestamps();
     }
 
@@ -35,5 +35,10 @@ class Locale extends Model
     public function questionWidgets()
     {
         return $this->morphedByMany(QuestionWidget::class, 'localable');
+    }
+
+    public function questionWidgetConditionals()
+    {
+        return $this->morphedByMany(QuestionWidgetConditional::class, 'localable');
     }
 }
