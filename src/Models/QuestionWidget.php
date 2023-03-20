@@ -2,7 +2,7 @@
 
 namespace QRFeedz\Cube\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -12,15 +12,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * locales where we will then configure what caption locales will
  * be used on each widget id used in the questionnaire.
  */
-class QuestionWidget extends Model
+class QuestionWidget extends Pivot
 {
     use SoftDeletes;
+
+    public $table = 'question_widget';
+
+    public $incrementing = true;
 
     protected $guarded = [];
 
     protected $casts = [
-        'settings_data' => 'array',
-        'settings_conditionals' => 'array',
+        'widget_data' => 'array',
     ];
 
     // Relationship validated.
@@ -38,11 +41,19 @@ class QuestionWidget extends Model
     /**
      * For better understanding, the relationship is called "captions" and
      * not "locales".
+     *
+     * Relationship validated.
      */
     public function captions()
     {
-        return $this->morphToMany(Locale::class, 'localable')
-                    ->with(['caption', 'variable'])
+        return $this->morphToMany(Locale::class, 'model', 'localables')
+                    ->with(['caption', 'variable_type', 'variable_uuid'])
                     ->withTimestamps();
+    }
+
+    // Relationship verified.
+    public function conditionals()
+    {
+        return $this->hasMany(QuestionWidgetConditional::class);
     }
 }

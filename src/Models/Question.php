@@ -35,17 +35,21 @@ class Question extends Model
     // Relationship validated.
     public function widgets()
     {
-        return $this->belongsToMany(Widget::class);
+        return $this->belongsToMany(Widget::class)
+                    ->using(QuestionWidget::class)
+                    ->withTimestamps();
     }
 
     /**
      * For better understanding, the relationship is called "captions" and
      * not "locales".
+     *
+     * Relationship verified.
      */
     public function captions()
     {
-        return $this->morphToMany(Locale::class, 'localable')
-                    ->with(['caption', 'variable'])
+        return $this->morphToMany(Locale::class, 'model', 'localables')
+                    ->with(['caption', 'variable_type', 'variable_uuid'])
                     ->withTimestamps();
     }
 }

@@ -11,6 +11,7 @@ class Locale extends Model
 
     protected $guarded = [];
 
+    // Relationship verified.
     public function clients()
     {
         return $this->hasMany(Client::class);
@@ -22,13 +23,15 @@ class Locale extends Model
         return $this->hasMany(Questionnaire::class);
     }
 
+    // Relationship verified.
     public function questions()
     {
         return $this->morphedByMany(Question::class, 'localable')
-                    ->with(['caption', 'variable'])
+                    ->with(['caption', 'variable_type', 'variable_uuid'])
                     ->withTimestamps();
     }
 
+    // Relationship validated.
     public function questionWidgets()
     {
         return $this->morphedByMany(QuestionWidget::class, 'localable');

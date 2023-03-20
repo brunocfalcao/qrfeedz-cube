@@ -22,7 +22,7 @@ class Affiliate extends Model
     // Relationship validated.
     public function authorizations()
     {
-        return $this->morphToMany(Authorization::class, 'authorizable')
+        return $this->morphToMany(Authorization::class, 'model', 'authorizables')
                     ->withPivot('user_id')
                     ->withTimestamps();
     }

@@ -49,7 +49,7 @@ class Client extends Model
     // Relationship validated.
     public function authorizations()
     {
-        return $this->morphToMany(Authorization::class, 'authorizable')
+        return $this->morphToMany(Authorization::class, 'model', 'authorizables')
                     ->withPivot('user_id')
                     ->withTimestamps();
     }
@@ -57,7 +57,7 @@ class Client extends Model
     // Relationship validated.
     public function authorizationsForUser(User $user)
     {
-        return $this->morphToMany(Authorization::class, 'authorizable')
+        return $this->morphToMany(Authorization::class, 'model', 'authorizables')
                     ->withPivot('user_id')
                     ->wherePivot('user_id', $user->id)
                     ->withTimestamps();
@@ -70,7 +70,7 @@ class Client extends Model
      */
     public function loggedUserAuthorizations()
     {
-        return $this->morphToMany(Authorization::class, 'authorizable')
+        return $this->morphToMany(Authorization::class, 'model', 'authorizables')
                     ->withPivot('user_id')
                     ->wherePivot('user_id', Auth::id)
                     ->withTimestamps();
@@ -79,14 +79,14 @@ class Client extends Model
     // Relationship validated.
     public function categories()
     {
-        return $this->morphToMany(Category::class, 'categorizable')
+        return $this->morphToMany(Category::class, 'model', 'categorizables')
                     ->withTimestamps();
     }
 
     // Relationship validated.
     public function tags()
     {
-        return $this->morphToMany(Tag::class, 'taggable')
+        return $this->morphToMany(Tag::class, 'model', 'taggables')
                     ->withTimestamps();
     }
 
