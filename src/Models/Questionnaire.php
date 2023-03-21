@@ -121,4 +121,14 @@ class Questionnaire extends Model
     {
         return (string) Str::uuid();
     }
+
+    /**
+     * Business method that verifies if a questionnaire can be used or not.
+     */
+    public function isValid()
+    {
+        return
+            now()->between($this->starts_at, $this->ends_at) &&
+            $this->is_active;
+    }
 }
