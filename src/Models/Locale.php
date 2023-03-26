@@ -27,18 +27,22 @@ class Locale extends Model
     public function questions()
     {
         return $this->morphedByMany(Question::class, 'localable')
-                    ->with(['caption', 'variable_uuid'])
+                    ->with(['caption', 'placeholder'])
                     ->withTimestamps();
     }
 
     // Relationship validated.
     public function questionWidgets()
     {
-        return $this->morphedByMany(QuestionWidget::class, 'localable');
+        return $this->morphedByMany(QuestionWidget::class, 'localable')
+                    ->with(['caption', 'placeholder'])
+                    ->withTimestamps();
     }
 
     public function questionWidgetConditionals()
     {
-        return $this->morphedByMany(QuestionWidgetConditional::class, 'localable');
+        return $this->morphedByMany(QuestionWidget::class, 'localable')
+                    ->with(['caption', 'placeholder'])
+                    ->withTimestamps();
     }
 }
