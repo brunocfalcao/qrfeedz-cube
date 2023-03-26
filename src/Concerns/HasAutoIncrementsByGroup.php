@@ -8,17 +8,16 @@ use Illuminate\Database\Eloquent\Model;
  * This is a generic trait that checks a column value, and adds the maximum
  * group value given a group column value.
  */
-trait ConcernsAutoIncrements
+trait HasAutoIncrementsByGroup
 {
-    public function resolveIncrement(
-        Model $model,
+    public function incrementByGroup(
         string $groupColumn,
         string $incrementColumn = 'index',
         int $defaultValue = 1
     ) {
-        if (! $model->$incrementColumn) {
-            $model->$incrementColumn = (new $model())::withTrashed()
-                                            ->where($groupColumn, $model->$groupColumn)
+        if (! $this->$incrementColumn) {
+            $this->$incrementColumn = (new self())::withTrashed()
+                                            ->where($groupColumn, $this->$groupColumn)
                                             ->max($incrementColumn) + 1;
         }
     }

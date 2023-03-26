@@ -112,7 +112,7 @@ class Questionnaire extends Model
         if ($this->client) {
             return $this->client->locale_id;
         } else {
-            return Locale::firstWhere('code', 'en')->id;
+            return Locale::firstWhere('canonical', 'en')->id;
         }
     }
 

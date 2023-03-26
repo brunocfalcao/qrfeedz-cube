@@ -8,6 +8,8 @@ class PageObserver
 {
     public function saving(Page $model): void
     {
-        //
+        if (blank($model->index)) {
+            $model->incrementByGroup('questionnaire_id');
+        }
     }
 }

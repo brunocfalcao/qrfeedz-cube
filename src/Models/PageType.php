@@ -12,4 +12,9 @@ class PageType extends Model
     use SoftDeletes;
 
     protected $guarded = [];
+
+    public function pages()
+    {
+        return $this->hasMany(Page::class);
+    }
 }
