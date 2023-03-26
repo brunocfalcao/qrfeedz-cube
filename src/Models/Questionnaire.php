@@ -75,9 +75,9 @@ class Questionnaire extends Model
     }
 
     // Relationship validated.
-    public function questions()
+    public function pages()
     {
-        return $this->hasMany(Question::class);
+        return $this->hasMany(Page::class);
     }
 
     // Relationship validated.

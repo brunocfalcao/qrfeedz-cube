@@ -21,9 +21,9 @@ class Question extends Model
     ];
 
     // Relationship validated.
-    public function questionnaire()
+    public function page()
     {
-        return $this->belongsTo(Questionnaire::class);
+        return $this->belongsTo(Page::class);
     }
 
     // Relationship validated.

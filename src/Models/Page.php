@@ -12,4 +12,16 @@ class Page extends Model
     use SoftDeletes;
 
     protected $guarded = [];
+
+    // Relationship validated.
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
+
+    // Relationship validated.
+    public function questionnaire()
+    {
+        return $this->belongsTo(Questionnaire::class);
+    }
 }

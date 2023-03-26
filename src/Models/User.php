@@ -70,7 +70,7 @@ class User extends Authenticatable
         // Needs to be obtained via a direct query.
         return DB::table('authorizables')
                  ->where('user_id', $this->id)
-                 ->where('authorization_id', Authorization::firstWhere('name', $type)->id)
+                 ->where('authorization_id', Authorization::firstWhere('canonical', $type)->id)
                  ->whereNull('deleted_at')
                  ->count() > 0;
     }
