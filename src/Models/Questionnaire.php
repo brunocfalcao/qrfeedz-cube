@@ -121,10 +121,9 @@ class Questionnaire extends Model
     {
         return (string) Str::uuid();
     }
+    /** ---------------------- BUSINESS METHODS ----------------------------- */
 
-    /**
-     * Business method that verifies if a questionnaire can be used or not.
-     */
+    // Verified if the questionnaire is valid. Mostly used in middlewares.
     public function isValid()
     {
         return
