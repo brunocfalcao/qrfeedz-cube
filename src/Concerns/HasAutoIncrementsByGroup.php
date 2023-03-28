@@ -2,8 +2,6 @@
 
 namespace QRFeedz\Cube\Concerns;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * This is a generic trait that checks a column value, and adds the maximum
  * group value given a group column value.

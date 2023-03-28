@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use QRFeedz\Services\ThemeColor;
 
 class Questionnaire extends Model
 {
@@ -77,7 +78,8 @@ class Questionnaire extends Model
     // Relationship validated.
     public function pages()
     {
-        return $this->hasMany(Page::class);
+        return $this->hasMany(Page::class)
+                    ->orderBy('index');
     }
 
     // Relationship validated.
@@ -106,6 +108,8 @@ class Questionnaire extends Model
         return $this->belongsTo(Locale::class);
     }
 
+    /** ---------------------- DEFAULT VALUES ------------------------------- */
+
     // Fallback to client locale, or to english.
     public function defaultLocaleIdAttribute()
     {
@@ -121,6 +125,22 @@ class Questionnaire extends Model
     {
         return (string) Str::uuid();
     }
+
+    // Color defaults.
+    public function defaultColorPrimaryAttribute()
+    {
+        $colors = ThemeColor::make()->compute();
+
+        return $colors['primary'];
+    }
+
+    public function defaultColorSecondaryAttribute()
+    {
+        $colors = ThemeColor::make($this->color_primary)->compute();
+
+        return $colors['complementary'];
+    }
+
     /** ---------------------- BUSINESS METHODS ----------------------------- */
 
     // Verified if the questionnaire is valid. Mostly used in middlewares.

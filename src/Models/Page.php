@@ -9,9 +9,9 @@ use QRFeedz\Cube\Concerns\HasAutoIncrementsByGroup;
 
 class Page extends Model
 {
+    use HasAutoIncrementsByGroup;
     use HasFactory;
     use SoftDeletes;
-    use HasAutoIncrementsByGroup;
 
     protected $guarded = [];
 
@@ -30,5 +30,11 @@ class Page extends Model
     public function questionnaire()
     {
         return $this->belongsTo(Questionnaire::class);
+    }
+
+    public function targetViewComponent()
+    {
+        return $this->view_component_override ??
+        $this->pageType->view_component;
     }
 }

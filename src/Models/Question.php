@@ -9,9 +9,9 @@ use QRFeedz\Cube\Concerns\HasAutoIncrementsByGroup;
 
 class Question extends Model
 {
+    use HasAutoIncrementsByGroup;
     use HasFactory;
     use SoftDeletes;
-    use HasAutoIncrementsByGroup;
 
     protected $guarded = [];
 
