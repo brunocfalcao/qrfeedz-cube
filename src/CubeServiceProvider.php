@@ -15,12 +15,12 @@ use QRFeedz\Cube\Models\OpenAIPrompt;
 use QRFeedz\Cube\Models\Page;
 use QRFeedz\Cube\Models\PageType;
 use QRFeedz\Cube\Models\Question;
-use QRFeedz\Cube\Models\Questionnaire;
 use QRFeedz\Cube\Models\QuestionWidgetConditional;
+use QRFeedz\Cube\Models\Questionnaire;
 use QRFeedz\Cube\Models\Response;
 use QRFeedz\Cube\Models\Tag;
 use QRFeedz\Cube\Models\User;
-use QRFeedz\Cube\Models\Widget;
+use QRFeedz\Cube\Models\WidgetType;
 use QRFeedz\Cube\Observers\AffiliateObserver;
 use QRFeedz\Cube\Observers\AuthorizationObserver;
 use QRFeedz\Cube\Observers\CategoryObserver;
@@ -31,13 +31,13 @@ use QRFeedz\Cube\Observers\LocaleObserver;
 use QRFeedz\Cube\Observers\OpenAIPromptObserver;
 use QRFeedz\Cube\Observers\PageObserver;
 use QRFeedz\Cube\Observers\PageTypeObserver;
-use QRFeedz\Cube\Observers\QuestionnaireObserver;
 use QRFeedz\Cube\Observers\QuestionObserver;
 use QRFeedz\Cube\Observers\QuestionWidgetConditionalObserver;
+use QRFeedz\Cube\Observers\QuestionnaireObserver;
 use QRFeedz\Cube\Observers\ResponseObserver;
 use QRFeedz\Cube\Observers\TagObserver;
 use QRFeedz\Cube\Observers\UserObserver;
-use QRFeedz\Cube\Observers\WidgetObserver;
+use QRFeedz\Cube\Observers\WidgetTypeObserver;
 
 class CubeServiceProvider extends ServiceProvider
 {
@@ -62,7 +62,7 @@ class CubeServiceProvider extends ServiceProvider
         User::observe(UserObserver::class);
         Group::observe(GroupObserver::class);
         Client::observe(ClientObserver::class);
-        Widget::observe(WidgetObserver::class);
+        WidgetType::observe(WidgetTypeObserver::class);
         Locale::observe(LocaleObserver::class);
         Country::observe(CountryObserver::class);
         PageType::observe(PageTypeObserver::class);

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * This is related to the table "question_widget". Although this is a
- * N-N table (between questions and widgets), we need to have it as
+ * N-N table (between questions and widget types), we need to have it as
  * model because the id is then used as a polymorphic N-N with the
  * locales where we will then configure what caption locales will
  * be used on each widget id used in the questionnaire.
@@ -27,9 +27,9 @@ class QuestionWidget extends Pivot
     ];
 
     // Relationship validated.
-    public function widget()
+    public function widgetType()
     {
-        return $this->belongsTo(Widget::class);
+        return $this->belongsTo(WidgetType::class);
     }
 
     // Relationship validated.

@@ -7,9 +7,6 @@ use QRFeedz\Cube\Models\User;
 
 class UserObserver
 {
-    /**
-     * Handle the User "saving" event.
-     */
     public function saving(User $user): void
     {
         /**

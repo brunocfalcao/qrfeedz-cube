@@ -35,9 +35,9 @@ class Question extends Model
     }
 
     // Relationship validated.
-    public function widgets()
+    public function widgetTypes()
     {
-        return $this->belongsToMany(Widget::class)
+        return $this->belongsToMany(WidgetType::class)
                     ->using(QuestionWidget::class)
                     ->withTimestamps();
     }
