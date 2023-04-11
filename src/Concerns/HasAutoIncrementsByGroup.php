@@ -9,14 +9,20 @@ namespace QRFeedz\Cube\Concerns;
 trait HasAutoIncrementsByGroup
 {
     public function incrementByGroup(
-        string $groupColumn,
+        string|array $groupColumn,
         string $incrementColumn = 'index',
         int $defaultValue = 1
     ) {
         if (! $this->$incrementColumn) {
-            $this->$incrementColumn = (new self())::withTrashed()
-                                            ->where($groupColumn, $this->$groupColumn)
-                                            ->max($incrementColumn) + 1;
+            $query = (new self())::withTrashed();
+
+            $groupColumn = is_string($groupColumn) ? [$groupColumn] : $groupColumn;
+
+            $query = Collection::make($groupColumn)->reduce(function ($query, $column) {
+                return $query->where($column, $this->$column);
+            }, $query);
+
+            $this->$incrementColumn = $query->max($incrementColumn) + 1;
         }
     }
 }

@@ -12,11 +12,11 @@ use QRFeedz\Cube\Models\Country;
 use QRFeedz\Cube\Models\Group;
 use QRFeedz\Cube\Models\Locale;
 use QRFeedz\Cube\Models\OpenAIPrompt;
-use QRFeedz\Cube\Models\Page;
 use QRFeedz\Cube\Models\PageType;
+use QRFeedz\Cube\Models\PageTypeQuestionnaire;
 use QRFeedz\Cube\Models\Question;
-use QRFeedz\Cube\Models\QuestionWidgetConditional;
 use QRFeedz\Cube\Models\Questionnaire;
+use QRFeedz\Cube\Models\QuestionWidgetConditional;
 use QRFeedz\Cube\Models\Response;
 use QRFeedz\Cube\Models\Tag;
 use QRFeedz\Cube\Models\User;
@@ -29,11 +29,11 @@ use QRFeedz\Cube\Observers\CountryObserver;
 use QRFeedz\Cube\Observers\GroupObserver;
 use QRFeedz\Cube\Observers\LocaleObserver;
 use QRFeedz\Cube\Observers\OpenAIPromptObserver;
-use QRFeedz\Cube\Observers\PageObserver;
 use QRFeedz\Cube\Observers\PageTypeObserver;
+use QRFeedz\Cube\Observers\PageTypeQuestionnaireObserver;
+use QRFeedz\Cube\Observers\QuestionnaireObserver;
 use QRFeedz\Cube\Observers\QuestionObserver;
 use QRFeedz\Cube\Observers\QuestionWidgetConditionalObserver;
-use QRFeedz\Cube\Observers\QuestionnaireObserver;
 use QRFeedz\Cube\Observers\ResponseObserver;
 use QRFeedz\Cube\Observers\TagObserver;
 use QRFeedz\Cube\Observers\UserObserver;
@@ -58,7 +58,7 @@ class CubeServiceProvider extends ServiceProvider
     protected function registerObservers(): void
     {
         Tag::observe(TagObserver::class);
-        Page::observe(PageObserver::class);
+        PageTypeQuestionnaire::observe(PageTypeQuestionnaireObserver::class);
         User::observe(UserObserver::class);
         Group::observe(GroupObserver::class);
         Client::observe(ClientObserver::class);

@@ -17,9 +17,12 @@ class Questionnaire extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'is_active' => 'boolean',
         'starts_at' => 'datetime',
         'ends_at' => 'datetime',
+
+        'is_active' => 'boolean',
+        'has_splash_screenscreen' => 'boolean',
+        'has_select_language_screen' => 'boolean',
     ];
 
     // Relationship validated.
@@ -70,16 +73,22 @@ class Questionnaire extends Model
                     ->withTimestamps();
     }
 
-    public function questionWidget()
+    /**
+     * The different question-widget instances that will be part of this
+     * questionnaire. They are unique for this questionnaire and cannot
+     * be replicated to other questionnaires from the same client.
+     *
+     * Relationship validated.
+     */
+    public function questionWidgets()
     {
         return $this->hasMany(QuestionWidget::class);
     }
 
     // Relationship validated.
-    public function pages()
+    public function pageTypes(string $group)
     {
-        return $this->hasMany(Page::class)
-                    ->orderBy('index');
+        return $this->belongsToMany(PageType::class);
     }
 
     // Relationship validated.

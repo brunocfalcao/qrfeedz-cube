@@ -13,8 +13,8 @@ class PageType extends Model
 
     protected $guarded = [];
 
-    public function pages()
+    public function questionnaires()
     {
-        return $this->hasMany(Page::class);
+        return $this->belongsToMany(Questionnaire::class);
     }
 }

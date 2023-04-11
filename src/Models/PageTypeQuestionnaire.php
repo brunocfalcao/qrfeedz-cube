@@ -2,16 +2,18 @@
 
 namespace QRFeedz\Cube\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use QRFeedz\Cube\Concerns\HasAutoIncrementsByGroup;
 
-class Page extends Model
+class PageTypeQuestionnaire extends Pivot
 {
     use HasAutoIncrementsByGroup;
-    use HasFactory;
     use SoftDeletes;
+
+    public $table = 'page_type_questionnaire';
+
+    public $incrementing = true;
 
     protected $guarded = [];
 
