@@ -88,7 +88,9 @@ class Questionnaire extends Model
     // Relationship validated.
     public function pageTypes(string $group)
     {
-        return $this->belongsToMany(PageType::class);
+        return $this->belongsToMany(PageType::class)
+                    ->withPivot(['index', 'group', 'view_component_override'])
+                    ->withTimestamps();
     }
 
     // Relationship validated.
