@@ -33,7 +33,6 @@ class User extends Authenticatable
     }
 
     // Eloquent Relationship validated.
-    // Resource relationship validated.
     public function client()
     {
         return $this->belongsTo(Client::class);

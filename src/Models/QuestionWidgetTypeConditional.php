@@ -5,7 +5,7 @@ namespace QRFeedz\Cube\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class QuestionWidgetConditional extends Model
+class QuestionWidgetTypeConditional extends Model
 {
     use SoftDeletes;
 

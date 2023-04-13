@@ -21,14 +21,7 @@ class Client extends Model
         return $this->belongsTo(Locale::class);
     }
 
-    // Relationship validated.
-    public function affiliate()
-    {
-        return $this->belongsTo(Affiliate::class);
-    }
-
     // Eloquent relationship validated.
-    // Resource relationship validated.
     public function country()
     {
         return $this->belongsTo(Country::class);
@@ -49,7 +42,7 @@ class Client extends Model
     // Relationship validated.
     public function authorizations()
     {
-        return $this->morphToMany(Authorization::class, 'model', 'authorizables')
+        return $this->morphToMany(Authorization::class, 'authorizables')
                     ->withPivot('user_id')
                     ->withTimestamps();
     }
@@ -57,7 +50,7 @@ class Client extends Model
     // Relationship validated.
     public function authorizationsForUser(User $user)
     {
-        return $this->morphToMany(Authorization::class, 'model', 'authorizables')
+        return $this->morphToMany(Authorization::class, 'authorizables')
                     ->withPivot('user_id')
                     ->wherePivot('user_id', $user->id)
                     ->withTimestamps();
@@ -70,7 +63,7 @@ class Client extends Model
      */
     public function loggedUserAuthorizations()
     {
-        return $this->morphToMany(Authorization::class, 'model', 'authorizables')
+        return $this->morphToMany(Authorization::class, 'authorizables')
                     ->withPivot('user_id')
                     ->wherePivot('user_id', Auth::id)
                     ->withTimestamps();

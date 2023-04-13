@@ -47,7 +47,7 @@ class Group extends Model
     // Relationship validated.
     public function authorizations()
     {
-        return $this->morphToMany(Authorization::class, 'model', 'authorizables')
+        return $this->morphToMany(Authorization::class, 'authorizables')
                     ->withPivot('user_id')
                     ->withTimestamps();
     }
@@ -55,7 +55,7 @@ class Group extends Model
     // Relationship validated.
     public function authorizationsForUser(User $user)
     {
-        return $this->morphToMany(Authorization::class, 'model', 'authorizables')
+        return $this->morphToMany(Authorization::class, 'authorizables')
                     ->withPivot('user_id')
                     ->wherePivot('user_id', $user->id)
                     ->withTimestamps();
@@ -68,7 +68,7 @@ class Group extends Model
      */
     public function loggedUserAuthorizations()
     {
-        return $this->morphToMany(Authorization::class, 'model', 'authorizables')
+        return $this->morphToMany(Authorization::class, 'authorizables')
                     ->withPivot('user_id')
                     ->wherePivot('user_id', Auth::id)
                     ->withTimestamps();
