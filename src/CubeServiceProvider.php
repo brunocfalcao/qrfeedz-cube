@@ -16,7 +16,7 @@ use QRFeedz\Cube\Models\PageType;
 use QRFeedz\Cube\Models\PageTypeQuestionnaire;
 use QRFeedz\Cube\Models\Question;
 use QRFeedz\Cube\Models\Questionnaire;
-use QRFeedz\Cube\Models\QuestionWidgetConditional;
+use QRFeedz\Cube\Models\QuestionWidgetTypeConditional;
 use QRFeedz\Cube\Models\Response;
 use QRFeedz\Cube\Models\Tag;
 use QRFeedz\Cube\Models\User;
@@ -33,7 +33,7 @@ use QRFeedz\Cube\Observers\PageTypeObserver;
 use QRFeedz\Cube\Observers\PageTypeQuestionnaireObserver;
 use QRFeedz\Cube\Observers\QuestionnaireObserver;
 use QRFeedz\Cube\Observers\QuestionObserver;
-use QRFeedz\Cube\Observers\QuestionWidgetConditionalObserver;
+use QRFeedz\Cube\Observers\QuestionWidgetTypeConditionalObserver;
 use QRFeedz\Cube\Observers\ResponseObserver;
 use QRFeedz\Cube\Observers\TagObserver;
 use QRFeedz\Cube\Observers\UserObserver;
@@ -73,6 +73,6 @@ class CubeServiceProvider extends ServiceProvider
         OpenAIPrompt::observe(OpenAIPromptObserver::class);
         Authorization::observe(AuthorizationObserver::class);
         Questionnaire::observe(QuestionnaireObserver::class);
-        QuestionWidgetConditional::observe(QuestionWidgetConditionalObserver::class);
+        QuestionWidgetTypeConditional::observe(QuestionWidgetTypeConditionalObserver::class);
     }
 }

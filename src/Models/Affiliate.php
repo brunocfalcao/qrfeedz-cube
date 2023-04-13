@@ -12,16 +12,13 @@ class Affiliate extends Model
     protected $guarded = [];
 
     // Relationship validated.
-    public function authorizations()
-    {
-        return $this->morphToMany(Authorization::class, 'model', 'authorizable')
-                    ->withPivot('user_id')
-                    ->withTimestamps();
-    }
-
-    // Relationship validated.
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
     }
 }

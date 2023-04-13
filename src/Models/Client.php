@@ -16,6 +16,12 @@ class Client extends Model
     protected $guarded = [];
 
     // Relationship validated.
+    public function affiliate()
+    {
+        return $this->hasOne(Affiliate::class);
+    }
+
+    // Relationship validated.
     public function locale()
     {
         return $this->belongsTo(Locale::class);

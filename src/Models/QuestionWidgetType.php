@@ -54,6 +54,6 @@ class QuestionWidgetType extends Pivot
     // Relationship verified.
     public function conditionals()
     {
-        return $this->hasMany(QuestionWidgetConditional::class);
+        return $this->hasMany(QuestionWidgetTypeConditional::class);
     }
 }

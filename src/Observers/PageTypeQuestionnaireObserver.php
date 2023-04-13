@@ -8,9 +8,8 @@ class PageTypeQuestionnaireObserver
 {
     public function saving(PageTypeQuestionnaire $model): void
     {
-        dd('on observer');
-
         if (blank($model->index)) {
+            dd($model);
             $model->incrementByGroup(['questionnaire_id', 'group']);
         }
     }
