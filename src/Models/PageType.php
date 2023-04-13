@@ -16,6 +16,7 @@ class PageType extends Model
     public function questionnaires()
     {
         return $this->belongsToMany(Questionnaire::class)
+                    ->using(PageTypeQuestionnaire::class)
                     ->withPivot(['index', 'group', 'view_component_override'])
                     ->withTimestamps();
     }

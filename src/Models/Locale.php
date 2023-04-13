@@ -32,16 +32,9 @@ class Locale extends Model
     }
 
     // Relationship validated.
-    public function questionWidgets()
+    public function questionWidgetTypes()
     {
-        return $this->morphedByMany(QuestionWidget::class, 'localable')
-                    ->with(['caption', 'placeholder'])
-                    ->withTimestamps();
-    }
-
-    public function questionWidgetConditionals()
-    {
-        return $this->morphedByMany(QuestionWidget::class, 'localable')
+        return $this->morphedByMany(QuestionWidgetType::class, 'localable')
                     ->with(['caption', 'placeholder'])
                     ->withTimestamps();
     }

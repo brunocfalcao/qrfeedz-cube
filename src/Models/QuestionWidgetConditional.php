@@ -17,9 +17,9 @@ class QuestionWidgetConditional extends Model
     ];
 
     // Relationship validated.
-    public function questionWidget()
+    public function questionWidgetType()
     {
-        return $this->belongsTo(QuestionWidget::class);
+        return $this->belongsTo(QuestionWidgetType::class);
     }
 
     // Relationship verified.

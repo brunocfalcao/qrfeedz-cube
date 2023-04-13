@@ -80,15 +80,16 @@ class Questionnaire extends Model
      *
      * Relationship validated.
      */
-    public function questionWidgets()
+    public function questionWidgetTypes()
     {
-        return $this->hasMany(QuestionWidget::class);
+        return $this->hasMany(QuestionWidgetType::class);
     }
 
     // Relationship validated.
-    public function pageTypes(string $group)
+    public function pageTypes()
     {
         return $this->belongsToMany(PageType::class)
+                    ->using(PageTypeQuestionnaire::class)
                     ->withPivot(['index', 'group', 'view_component_override'])
                     ->withTimestamps();
     }

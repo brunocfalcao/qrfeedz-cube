@@ -12,11 +12,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * locales where we will then configure what caption locales will
  * be used on each widget id used in the questionnaire.
  */
-class QuestionWidget extends Pivot
+class QuestionWidgetType extends Pivot
 {
     use SoftDeletes;
 
-    public $table = 'question_widget';
+    public $table = 'question_widget_type';
 
     public $incrementing = true;
 

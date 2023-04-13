@@ -38,7 +38,8 @@ class Question extends Model
     public function widgetTypes()
     {
         return $this->belongsToMany(WidgetType::class)
-                    ->using(QuestionWidget::class)
+                    ->using(QuestionWidgetType::class)
+                    ->with(['widget_index', 'widget_data'])
                     ->withTimestamps();
     }
 

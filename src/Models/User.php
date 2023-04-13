@@ -39,15 +39,13 @@ class User extends Authenticatable
         return $this->belongsTo(Client::class);
     }
 
+    /** ---------------------- BUSINESS METHODS ----------------------------- */
+
     /**
      * Used to check if a given model instance is authorized in another model
      * in a specific authorization type.
      * Normally used on policies, e.g.:
      * Check if the user has "admin" permissions in a client X.
-     *
-     * @param  Model  $model  [description]
-     * @param  string  $type  [description]
-     * @return bool           [description]
      */
     public function isAuthorizedAs(Model $model, string $type)
     {
@@ -61,9 +59,7 @@ class User extends Authenticatable
     /**
      * This special query will return if an user has at least a single
      * entry in the authorizables table with a specific authorization
-     * type.
-     *
-     * @return bool
+     * type. Useful to discover if, e.g. an user is an "affiliate" somewhere.
      */
     public function isAtLeastAuthorizedAs(string $type)
     {
