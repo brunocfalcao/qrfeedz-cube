@@ -42,7 +42,9 @@ class User extends Authenticatable
                     ->withTimestamps();
     }
 
-    /** ---------------------- BUSINESS METHODS ----------------------------- */
+    /**
+     * ---------------------- BUSINESS METHODS -----------------------------
+     */
 
     /**
      * Used to check if a given model instance is authorized in another model

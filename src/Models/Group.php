@@ -76,7 +76,9 @@ class Group extends Model
                     ->withTimestamps();
     }
 
-    /** ---------------------- BUSINESS METHODS ----------------------------- */
+    /**
+     * ---------------------- BUSINESS METHODS -----------------------------
+     */
     public function authorizationsForUser(User $user)
     {
         return $this->morphToMany(Authorization::class, 'authorizables')

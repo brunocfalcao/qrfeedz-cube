@@ -34,7 +34,9 @@ class PageTypeQuestionnaire extends Pivot
         return $this->belongsTo(Questionnaire::class);
     }
 
-    /** ---------------------- BUSINESS METHODS ----------------------------- */
+    /**
+     * ---------------------- BUSINESS METHODS -----------------------------
+     */
 
     /**
      * Returns the respective target view component. If it's overriden then

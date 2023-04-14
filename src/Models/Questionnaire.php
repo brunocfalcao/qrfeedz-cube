@@ -153,7 +153,9 @@ class Questionnaire extends Model
         return $colors['complementary'];
     }
 
-    /** ---------------------- BUSINESS METHODS ----------------------------- */
+    /**
+     * ---------------------- BUSINESS METHODS -----------------------------
+     */
 
     // Verified if the questionnaire is valid. Mostly used in middlewares.
     public function isValid()
