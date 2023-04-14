@@ -11,7 +11,6 @@ class Affiliate extends Model
 
     protected $guarded = [];
 
-    // Relationship validated.
     public function user()
     {
         return $this->belongsTo(User::class);

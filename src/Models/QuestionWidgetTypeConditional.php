@@ -25,7 +25,7 @@ class QuestionWidgetTypeConditional extends Model
     // Relationship verified.
     public function captions()
     {
-        return $this->morphToMany(Locale::class, 'model', 'localables')
+        return $this->morphToMany(Locale::class, 'localables')
                     ->with(['caption', 'placeholder'])
                     ->withTimestamps();
     }

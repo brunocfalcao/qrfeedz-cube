@@ -26,16 +26,20 @@ class User extends Authenticatable
         'is_affiliate' => 'boolean',
     ];
 
-    // Relationship validated.
     public function affiliate()
     {
         return $this->hasOne(Affiliate::class);
     }
 
-    // Eloquent Relationship validated.
     public function client()
     {
         return $this->belongsTo(Client::class);
+    }
+
+    public function authorizations()
+    {
+        return $this->hasMany(UserAuthorization::class)
+                    ->withTimestamps();
     }
 
     /** ---------------------- BUSINESS METHODS ----------------------------- */

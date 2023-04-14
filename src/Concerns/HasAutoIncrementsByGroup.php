@@ -2,6 +2,8 @@
 
 namespace QRFeedz\Cube\Concerns;
 
+use Illuminate\Support\Collection;
+
 /**
  * This is a generic trait that checks a column value, and adds the maximum
  * group value given a group column value.

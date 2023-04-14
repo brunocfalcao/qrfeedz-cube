@@ -13,9 +13,13 @@ class Country extends Model
 
     protected $guarded = [];
 
-    // Relationship validated.
     public function clients()
     {
         return $this->hasMany(Client::class);
+    }
+
+    public function affiliates()
+    {
+        return $this->hasMany(Affiliate::class);
     }
 }

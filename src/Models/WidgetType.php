@@ -32,15 +32,4 @@ class WidgetType extends Model
     {
         return $this->hasMany(QuestionWidget::class);
     }
-
-    /**
-     * For better understanding, the relationship is called "captions" and
-     * not "locales".
-     */
-    public function captions()
-    {
-        return $this->morphToMany(Locale::class, 'model', 'localables')
-                    ->with(['caption', 'placeholder'])
-                    ->withTimestamps();
-    }
 }

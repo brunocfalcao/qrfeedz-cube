@@ -11,19 +11,16 @@ class Category extends Model
 
     protected $guarded = [];
 
-    // Relationship validated.
     public function clients()
     {
         return $this->morphedByMany(Client::class, 'categorizable');
     }
 
-    // Relationship validated.
     public function groups()
     {
         return $this->morphedByMany(Group::class, 'categorizable');
     }
 
-    // Relationship validated.
     public function questionnaires()
     {
         return $this->morphedByMany(Questionnaire::class, 'categorizable');

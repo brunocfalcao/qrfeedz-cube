@@ -15,37 +15,31 @@ class Client extends Model
 
     protected $guarded = [];
 
-    // Relationship validated.
     public function affiliate()
     {
         return $this->hasOne(Affiliate::class);
     }
 
-    // Relationship validated.
     public function locale()
     {
         return $this->belongsTo(Locale::class);
     }
 
-    // Eloquent relationship validated.
     public function country()
     {
         return $this->belongsTo(Country::class);
     }
 
-    // Relationship validated.
     public function groups()
     {
         return $this->hasMany(Group::class);
     }
 
-    // Relationship validated.
     public function questionnaires()
     {
         return $this->hasMany(Questionnaire::class);
     }
 
-    // Relationship validated.
     public function authorizations()
     {
         return $this->morphToMany(Authorization::class, 'authorizables')
@@ -53,7 +47,6 @@ class Client extends Model
                     ->withTimestamps();
     }
 
-    // Relationship validated.
     public function authorizationsForUser(User $user)
     {
         return $this->morphToMany(Authorization::class, 'authorizables')
