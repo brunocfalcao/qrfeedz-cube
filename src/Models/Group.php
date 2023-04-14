@@ -76,13 +76,7 @@ class Group extends Model
                     ->withTimestamps();
     }
 
-    protected static function newFactory()
-    {
-        return GroupFactory::new();
-    }
-
     /** ---------------------- BUSINESS METHODS ----------------------------- */
-
     public function authorizationsForUser(User $user)
     {
         return $this->morphToMany(Authorization::class, 'authorizables')
@@ -102,5 +96,10 @@ class Group extends Model
                     ->withPivot('user_id')
                     ->wherePivot('user_id', Auth::id)
                     ->withTimestamps();
+    }
+
+    protected static function newFactory()
+    {
+        return GroupFactory::new();
     }
 }
