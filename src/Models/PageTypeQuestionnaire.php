@@ -11,8 +11,6 @@ class PageTypeQuestionnaire extends Pivot
     use HasAutoIncrementsByGroup;
     use SoftDeletes;
 
-    public $table = 'page_type_questionnaire';
-
     public $incrementing = true;
 
     protected $guarded = [];

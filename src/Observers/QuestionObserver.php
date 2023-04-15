@@ -9,7 +9,7 @@ class QuestionObserver
     public function saving(Question $model): void
     {
         if (blank($model->index)) {
-            $model->incrementByGroup('page_type_id');
+            $model->incrementByGroup('page_type_questionnaire_id');
         }
     }
 }
