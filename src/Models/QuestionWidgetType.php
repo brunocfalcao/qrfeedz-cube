@@ -3,7 +3,6 @@
 namespace QRFeedz\Cube\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * This is related to the table "question_widget". Although this is a
@@ -14,8 +13,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class QuestionWidgetType extends Pivot
 {
-    use SoftDeletes;
-
     public $table = 'question_widget_type';
 
     public $incrementing = true;

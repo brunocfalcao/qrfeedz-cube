@@ -24,7 +24,7 @@ class WidgetType extends Model
     {
         return $this->belongsToMany(Question::class)
                     ->using(QuestionWidgetType::class)
-                    ->with(['widget_index', 'widget_data'])
+                    ->with(['id', 'widget_index', 'widget_data'])
                     ->withTimestamps();
     }
 

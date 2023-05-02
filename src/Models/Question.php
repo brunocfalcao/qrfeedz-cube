@@ -39,7 +39,7 @@ class Question extends Model
     {
         return $this->belongsToMany(WidgetType::class)
                     ->using(QuestionWidgetType::class)
-                    ->with(['widget_index', 'widget_data'])
+                    ->with(['id', 'widget_index', 'widget_data'])
                     ->withTimestamps();
     }
 

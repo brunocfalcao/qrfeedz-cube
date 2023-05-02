@@ -17,7 +17,7 @@ class PageType extends Model
     {
         return $this->belongsToMany(Questionnaire::class)
                     ->using(PageTypeQuestionnaire::class)
-                    ->withPivot(['index', 'group', 'view_component_override'])
+                    ->withPivot(['id', 'index', 'group', 'view_component_override'])
                     ->withTimestamps();
     }
 }

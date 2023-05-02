@@ -16,15 +16,19 @@ trait HasAutoIncrementsByGroup
         int $defaultValue = 1
     ) {
         if (! $this->$incrementColumn) {
-            $query = (new self())::withTrashed();
+            try {
+                $model = (new self())::withTrashed();
+            } catch (\Exception $e) {
+                $model = (new self());
+            }
 
             $groupColumn = is_string($groupColumn) ? [$groupColumn] : $groupColumn;
 
-            $query = Collection::make($groupColumn)->reduce(function ($query, $column) {
-                return $query->where($column, $this->$column);
-            }, $query);
+            $model = Collection::make($groupColumn)->reduce(function ($model, $column) {
+                return $model->where($column, $this->$column);
+            }, $model);
 
-            $this->$incrementColumn = $query->max($incrementColumn) + 1;
+            $this->$incrementColumn = $model->max($incrementColumn) + 1;
         }
     }
 }

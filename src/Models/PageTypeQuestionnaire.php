@@ -3,13 +3,11 @@
 namespace QRFeedz\Cube\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use QRFeedz\Cube\Concerns\HasAutoIncrementsByGroup;
 
 class PageTypeQuestionnaire extends Pivot
 {
     use HasAutoIncrementsByGroup;
-    use SoftDeletes;
 
     public $incrementing = true;
 
