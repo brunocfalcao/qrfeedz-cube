@@ -24,10 +24,10 @@ trait ConcernsGroupUuids
         }
 
         $lastVersion = (new $model())::withTrashed()
-                              ->where($groupUuid, $model->$groupUuid)
-                              ->where('id', '<>', $model->id)
-                              ->orderBy($version, 'desc')
-                              ->first();
+            ->where($groupUuid, $model->$groupUuid)
+            ->where('id', '<>', $model->id)
+            ->orderBy($version, 'desc')
+            ->first();
 
         if ($lastVersion) {
             $model->$version = $lastVersion->$version + 1;

@@ -39,7 +39,7 @@ class User extends Authenticatable
     public function authorizations()
     {
         return $this->hasMany(UserAuthorization::class)
-                    ->withTimestamps();
+            ->withTimestamps();
     }
 
     /**
@@ -55,10 +55,10 @@ class User extends Authenticatable
     public function isAuthorizedAs(Model $model, string $type)
     {
         return $model
-                ->authorizationsForUser($this)
-                ->get()
-                ->pluck('name')
-                ->contains($type);
+            ->authorizationsForUser($this)
+            ->get()
+            ->pluck('name')
+            ->contains($type);
     }
 
     /**
@@ -70,9 +70,9 @@ class User extends Authenticatable
     {
         // Needs to be obtained via a direct query.
         return DB::table('authorizables')
-                 ->where('user_id', $this->id)
-                 ->where('authorization_id', Authorization::firstWhere('canonical', $type)->id)
-                 ->whereNull('deleted_at')
-                 ->count() > 0;
+            ->where('user_id', $this->id)
+            ->where('authorization_id', Authorization::firstWhere('canonical', $type)->id)
+            ->whereNull('deleted_at')
+            ->count() > 0;
     }
 }

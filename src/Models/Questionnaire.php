@@ -47,17 +47,17 @@ class Questionnaire extends Model
     public function authorizations()
     {
         return $this->morphToMany(Authorization::class, 'authorizables')
-                    ->withPivot('user_id')
-                    ->withTimestamps();
+            ->withPivot('user_id')
+            ->withTimestamps();
     }
 
     // Relationship validated.
     public function authorizationsForUser(User $user)
     {
         return $this->morphToMany(Authorization::class, 'authorizables')
-                    ->withPivot('user_id')
-                    ->wherePivot('user_id', $user->id)
-                    ->withTimestamps();
+            ->withPivot('user_id')
+            ->wherePivot('user_id', $user->id)
+            ->withTimestamps();
     }
 
     /**
@@ -68,9 +68,9 @@ class Questionnaire extends Model
     public function loggedUserAuthorizations()
     {
         return $this->morphToMany(Authorization::class, 'authorizables')
-                    ->withPivot('user_id')
-                    ->wherePivot('user_id', Auth::id())
-                    ->withTimestamps();
+            ->withPivot('user_id')
+            ->wherePivot('user_id', Auth::id())
+            ->withTimestamps();
     }
 
     /**
@@ -89,16 +89,16 @@ class Questionnaire extends Model
     public function pageTypes()
     {
         return $this->belongsToMany(PageType::class)
-                    ->using(PageTypeQuestionnaire::class)
-                    ->withPivot(['id', 'index', 'group', 'view_component_override'])
-                    ->withTimestamps();
+            ->using(PageTypeQuestionnaire::class)
+            ->withPivot(['id', 'index', 'group', 'view_component_override'])
+            ->withTimestamps();
     }
 
     // Relationship validated.
     public function categories()
     {
         return $this->morphToMany(Category::class, 'model', 'categorizables')
-                    ->withTimestamps();
+            ->withTimestamps();
     }
 
     // Relationship validated.
@@ -111,7 +111,7 @@ class Questionnaire extends Model
     public function tags()
     {
         return $this->morphToMany(Tag::class, 'model', 'taggables')
-                    ->withTimestamps();
+            ->withTimestamps();
     }
 
     // Relationship validated.
@@ -157,11 +157,16 @@ class Questionnaire extends Model
      * ---------------------- BUSINESS METHODS -----------------------------
      */
 
-    // Verified if the questionnaire is valid. Mostly used in middlewares.
+    /**
+     * A questionnaire is valid if:
+     * - is_active is true and
+     * - now() is after starts_at and (if exists) now() is before ends_at.
+     */
     public function isValid()
     {
         return
-            now()->between($this->starts_at, $this->ends_at) &&
-            $this->is_active;
+            $this->is_active &&
+            $this->ends_at ? now()->between($this->starts_at, $this->ends_at) :
+                             now() >= $this->starts_at;
     }
 }

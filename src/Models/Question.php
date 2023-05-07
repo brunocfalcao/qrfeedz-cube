@@ -38,9 +38,9 @@ class Question extends Model
     public function widgetTypes()
     {
         return $this->belongsToMany(WidgetType::class)
-                    ->using(QuestionWidgetType::class)
-                    ->with(['id', 'widget_index', 'widget_data'])
-                    ->withTimestamps();
+            ->using(QuestionWidgetType::class)
+            ->with(['id', 'widget_index', 'widget_data'])
+            ->withTimestamps();
     }
 
     /**
@@ -52,7 +52,7 @@ class Question extends Model
     public function captions()
     {
         return $this->morphToMany(Locale::class, 'localables')
-                    ->with(['caption', 'placeholder'])
-                    ->withTimestamps();
+            ->with(['caption', 'placeholder'])
+            ->withTimestamps();
     }
 }

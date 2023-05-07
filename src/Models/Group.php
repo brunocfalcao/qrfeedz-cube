@@ -49,7 +49,7 @@ class Group extends Model
     public function categories()
     {
         return $this->morphToMany(Category::class, 'model', 'categorizables')
-                    ->withTimestamps();
+            ->withTimestamps();
     }
 
     /**
@@ -60,7 +60,7 @@ class Group extends Model
     public function tags()
     {
         return $this->morphToMany(Tag::class, 'model', 'taggables')
-                    ->withTimestamps();
+            ->withTimestamps();
     }
 
     /**
@@ -72,8 +72,8 @@ class Group extends Model
     public function authorizations()
     {
         return $this->morphToMany(Authorization::class, 'authorizables')
-                    ->withPivot('user_id')
-                    ->withTimestamps();
+            ->withPivot('user_id')
+            ->withTimestamps();
     }
 
     /**
@@ -82,9 +82,9 @@ class Group extends Model
     public function authorizationsForUser(User $user)
     {
         return $this->morphToMany(Authorization::class, 'authorizables')
-                    ->withPivot('user_id')
-                    ->wherePivot('user_id', $user->id)
-                    ->withTimestamps();
+            ->withPivot('user_id')
+            ->wherePivot('user_id', $user->id)
+            ->withTimestamps();
     }
 
     /**
@@ -95,9 +95,9 @@ class Group extends Model
     public function loggedUserAuthorizations()
     {
         return $this->morphToMany(Authorization::class, 'authorizables')
-                    ->withPivot('user_id')
-                    ->wherePivot('user_id', Auth::id)
-                    ->withTimestamps();
+            ->withPivot('user_id')
+            ->wherePivot('user_id', Auth::id)
+            ->withTimestamps();
     }
 
     protected static function newFactory()

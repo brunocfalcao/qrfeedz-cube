@@ -26,7 +26,7 @@ class QuestionWidgetTypeConditional extends Model
     public function captions()
     {
         return $this->morphToMany(Locale::class, 'localables')
-                    ->with(['caption', 'placeholder'])
-                    ->withTimestamps();
+            ->with(['caption', 'placeholder'])
+            ->withTimestamps();
     }
 }

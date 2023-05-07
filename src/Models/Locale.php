@@ -27,15 +27,15 @@ class Locale extends Model
     public function questions()
     {
         return $this->morphedByMany(Question::class, 'localable')
-                    ->with(['caption', 'placeholder'])
-                    ->withTimestamps();
+            ->with(['caption', 'placeholder'])
+            ->withTimestamps();
     }
 
     // Relationship validated.
     public function questionWidgetTypes()
     {
         return $this->morphedByMany(QuestionWidgetType::class, 'localable')
-                    ->with(['caption', 'placeholder'])
-                    ->withTimestamps();
+            ->with(['caption', 'placeholder'])
+            ->withTimestamps();
     }
 }
