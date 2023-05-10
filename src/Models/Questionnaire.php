@@ -91,6 +91,7 @@ class Questionnaire extends Model
         return $this->belongsToMany(PageType::class)
             ->using(PageTypeQuestionnaire::class)
             ->withPivot(['id', 'index', 'group', 'view_component_override'])
+            ->orderBy('index')
             ->withTimestamps();
     }
 
