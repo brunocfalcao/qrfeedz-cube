@@ -41,6 +41,6 @@ class PageTypeQuestionnaire extends Pivot
     public function targetViewComponent()
     {
         return $this->view_component_override ??
-               $this->pageType->view_component;
+               $this->pageType->view_component_namespace;
     }
 }
