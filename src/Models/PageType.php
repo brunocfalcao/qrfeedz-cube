@@ -11,10 +11,6 @@ class PageType extends Model
 
     protected $guarded = [];
 
-    protected $casts = [
-        'is_full_screen' => 'boolean'
-    ];
-
     public function questionnaires()
     {
         return $this->belongsToMany(Questionnaire::class)
