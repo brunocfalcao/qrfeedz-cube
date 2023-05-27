@@ -9,7 +9,7 @@ class OpenAIPromptObserver
     /**
      * Handle the OpenAIPrompt "saving" event.
      */
-    public function saving(OpenAIPrompt $model): void
+    public function saving(OpenAIPrompt $model)
     {
         //
     }
@@ -17,7 +17,7 @@ class OpenAIPromptObserver
     /**
      * Handle the OpenAIPrompt "created" event.
      */
-    public function created(OpenAIPrompt $model): void
+    public function created(OpenAIPrompt $model)
     {
         //
     }
@@ -25,7 +25,7 @@ class OpenAIPromptObserver
     /**
      * Handle the OpenAIPrompt "updated" event.
      */
-    public function updated(OpenAIPrompt $model): void
+    public function updated(OpenAIPrompt $model)
     {
         //
     }
@@ -33,7 +33,7 @@ class OpenAIPromptObserver
     /**
      * Handle the OpenAIPrompt "deleted" event.
      */
-    public function deleted(OpenAIPrompt $model): void
+    public function deleted(OpenAIPrompt $model)
     {
         //
     }
@@ -41,7 +41,7 @@ class OpenAIPromptObserver
     /**
      * Handle the OpenAIPrompt "restored" event.
      */
-    public function restored(OpenAIPrompt $model): void
+    public function restored(OpenAIPrompt $model)
     {
         //
     }
@@ -49,7 +49,7 @@ class OpenAIPromptObserver
     /**
      * Handle the OpenAIPrompt "force deleted" event.
      */
-    public function forceDeleted(OpenAIPrompt $model): void
+    public function forceDeleted(OpenAIPrompt $model)
     {
         //
     }

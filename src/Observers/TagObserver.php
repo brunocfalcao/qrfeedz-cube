@@ -9,7 +9,7 @@ class TagObserver
     /**
      * Handle the Tag "saving" event.
      */
-    public function saving(Tag $model): void
+    public function saving(Tag $model)
     {
         //
     }
@@ -17,7 +17,7 @@ class TagObserver
     /**
      * Handle the Tag "created" event.
      */
-    public function created(Tag $model): void
+    public function created(Tag $model)
     {
         //
     }
@@ -25,7 +25,7 @@ class TagObserver
     /**
      * Handle the Tag "updated" event.
      */
-    public function updated(Tag $model): void
+    public function updated(Tag $model)
     {
         //
     }
@@ -33,7 +33,7 @@ class TagObserver
     /**
      * Handle the Tag "deleted" event.
      */
-    public function deleted(Tag $model): void
+    public function deleted(Tag $model)
     {
         //
     }
@@ -41,7 +41,7 @@ class TagObserver
     /**
      * Handle the Tag "restored" event.
      */
-    public function restored(Tag $model): void
+    public function restored(Tag $model)
     {
         //
     }
@@ -49,7 +49,7 @@ class TagObserver
     /**
      * Handle the Tag "force deleted" event.
      */
-    public function forceDeleted(Tag $model): void
+    public function forceDeleted(Tag $model)
     {
         //
     }

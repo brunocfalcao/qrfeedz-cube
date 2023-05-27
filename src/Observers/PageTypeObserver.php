@@ -6,7 +6,7 @@ use QRFeedz\Cube\Models\PageType;
 
 class PageTypeObserver
 {
-    public function saving(PageType $model): void
+    public function saving(PageType $model)
     {
         //
     }

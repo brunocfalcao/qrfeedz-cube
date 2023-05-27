@@ -6,7 +6,7 @@ use QRFeedz\Cube\Models\Authorization;
 
 class AuthorizationObserver
 {
-    public function saving(Authorization $model): void
+    public function saving(Authorization $model)
     {
         //
     }

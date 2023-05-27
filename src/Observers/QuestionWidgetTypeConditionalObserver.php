@@ -2,14 +2,14 @@
 
 namespace QRFeedz\Cube\Observers;
 
-use QRFeedz\Cube\Models\QuestionWidgetTypeConditional;
+use QRFeedz\Cube\Models\Pivots\QuestionWidgetTypeConditional;
 
 class QuestionWidgetTypeConditionalObserver
 {
     /**
      * Handle the QuestionWidgetTypeConditional "saving" event.
      */
-    public function saving(QuestionWidgetTypeConditional $model): void
+    public function saving(QuestionWidgetTypeConditional $model)
     {
         //
     }
@@ -17,7 +17,7 @@ class QuestionWidgetTypeConditionalObserver
     /**
      * Handle the QuestionWidgetTypeConditional "created" event.
      */
-    public function created(QuestionWidgetTypeConditional $model): void
+    public function created(QuestionWidgetTypeConditional $model)
     {
         //
     }
@@ -25,7 +25,7 @@ class QuestionWidgetTypeConditionalObserver
     /**
      * Handle the QuestionWidgetTypeConditional "updated" event.
      */
-    public function updated(QuestionWidgetTypeConditional $model): void
+    public function updated(QuestionWidgetTypeConditional $model)
     {
         //
     }
@@ -33,7 +33,7 @@ class QuestionWidgetTypeConditionalObserver
     /**
      * Handle the QuestionWidgetTypeConditional "deleted" event.
      */
-    public function deleted(QuestionWidgetTypeConditional $model): void
+    public function deleted(QuestionWidgetTypeConditional $model)
     {
         //
     }
@@ -41,7 +41,7 @@ class QuestionWidgetTypeConditionalObserver
     /**
      * Handle the QuestionWidgetTypeConditional "restored" event.
      */
-    public function restored(QuestionWidgetTypeConditional $model): void
+    public function restored(QuestionWidgetTypeConditional $model)
     {
         //
     }
@@ -49,7 +49,7 @@ class QuestionWidgetTypeConditionalObserver
     /**
      * Handle the QuestionWidgetTypeConditional "force deleted" event.
      */
-    public function forceDeleted(QuestionWidgetTypeConditional $model): void
+    public function forceDeleted(QuestionWidgetTypeConditional $model)
     {
         //
     }

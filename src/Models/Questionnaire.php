@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use QRFeedz\Cube\Models\Pivots\PageTypeQuestionnaire;
+use QRFeedz\Cube\Models\Pivots\QuestionWidgetType;
 use QRFeedz\Services\ThemeColor;
 
 class Questionnaire extends Model

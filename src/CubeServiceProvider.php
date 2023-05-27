@@ -13,10 +13,10 @@ use QRFeedz\Cube\Models\Group;
 use QRFeedz\Cube\Models\Locale;
 use QRFeedz\Cube\Models\OpenAIPrompt;
 use QRFeedz\Cube\Models\PageType;
-use QRFeedz\Cube\Models\PageTypeQuestionnaire;
+use QRFeedz\Cube\Models\Pivots\PageTypeQuestionnaire;
 use QRFeedz\Cube\Models\Question;
 use QRFeedz\Cube\Models\Questionnaire;
-use QRFeedz\Cube\Models\QuestionWidgetTypeConditional;
+use QRFeedz\Cube\Models\Pivots\QuestionWidgetTypeConditional;
 use QRFeedz\Cube\Models\Response;
 use QRFeedz\Cube\Models\Tag;
 use QRFeedz\Cube\Models\User;
@@ -55,7 +55,7 @@ class CubeServiceProvider extends ServiceProvider
         //
     }
 
-    protected function registerObservers(): void
+    protected function registerObservers()
     {
         Tag::observe(TagObserver::class);
         PageTypeQuestionnaire::observe(PageTypeQuestionnaireObserver::class);

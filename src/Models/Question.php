@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use QRFeedz\Cube\Concerns\HasAutoIncrementsByGroup;
+use QRFeedz\Cube\Models\Pivots\PageTypeQuestionnaire;
+use QRFeedz\Cube\Models\Pivots\QuestionWidgetType;
 
 class Question extends Model
 {

@@ -9,7 +9,7 @@ class QuestionWidgetObserver
     /**
      * Handle the QuestionWidget "saving" event.
      */
-    public function saving(QuestionWidget $model): void
+    public function saving(QuestionWidget $model)
     {
         //
     }
@@ -17,7 +17,7 @@ class QuestionWidgetObserver
     /**
      * Handle the QuestionWidget "created" event.
      */
-    public function created(QuestionWidget $model): void
+    public function created(QuestionWidget $model)
     {
         //
     }
@@ -25,7 +25,7 @@ class QuestionWidgetObserver
     /**
      * Handle the QuestionWidget "updated" event.
      */
-    public function updated(QuestionWidget $model): void
+    public function updated(QuestionWidget $model)
     {
         //
     }
@@ -33,7 +33,7 @@ class QuestionWidgetObserver
     /**
      * Handle the QuestionWidget "deleted" event.
      */
-    public function deleted(QuestionWidget $model): void
+    public function deleted(QuestionWidget $model)
     {
         //
     }
@@ -41,7 +41,7 @@ class QuestionWidgetObserver
     /**
      * Handle the QuestionWidget "restored" event.
      */
-    public function restored(QuestionWidget $model): void
+    public function restored(QuestionWidget $model)
     {
         //
     }
@@ -49,7 +49,7 @@ class QuestionWidgetObserver
     /**
      * Handle the QuestionWidget "force deleted" event.
      */
-    public function forceDeleted(QuestionWidget $model): void
+    public function forceDeleted(QuestionWidget $model)
     {
         //
     }

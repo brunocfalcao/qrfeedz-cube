@@ -9,7 +9,7 @@ class GroupObserver
     /**
      * Handle the Group "saving" event.
      */
-    public function saving(Group $model): void
+    public function saving(Group $model)
     {
         //
     }
@@ -17,7 +17,7 @@ class GroupObserver
     /**
      * Handle the Group "created" event.
      */
-    public function created(Group $model): void
+    public function created(Group $model)
     {
         //
     }
@@ -25,7 +25,7 @@ class GroupObserver
     /**
      * Handle the Group "updated" event.
      */
-    public function updated(Group $model): void
+    public function updated(Group $model)
     {
         //
     }
@@ -33,7 +33,7 @@ class GroupObserver
     /**
      * Handle the Group "deleted" event.
      */
-    public function deleted(Group $model): void
+    public function deleted(Group $model)
     {
         //
     }
@@ -41,7 +41,7 @@ class GroupObserver
     /**
      * Handle the Group "restored" event.
      */
-    public function restored(Group $model): void
+    public function restored(Group $model)
     {
         //
     }
@@ -49,7 +49,7 @@ class GroupObserver
     /**
      * Handle the Group "force deleted" event.
      */
-    public function forceDeleted(Group $model): void
+    public function forceDeleted(Group $model)
     {
         //
     }

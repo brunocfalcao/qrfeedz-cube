@@ -1,6 +1,6 @@
 <?php
 
-namespace QRFeedz\Cube\Models;
+namespace QRFeedz\Cube\Models\Pivots;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 

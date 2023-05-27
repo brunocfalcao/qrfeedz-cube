@@ -6,7 +6,7 @@ use QRFeedz\Cube\Models\Affiliate;
 
 class AffiliateObserver
 {
-    public function saving(Affiliate $model): void
+    public function saving(Affiliate $model)
     {
         //
     }

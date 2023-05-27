@@ -9,7 +9,7 @@ class ResponseObserver
     /**
      * Handle the Response "saving" event.
      */
-    public function saving(Response $model): void
+    public function saving(Response $model)
     {
         //
     }
@@ -17,7 +17,7 @@ class ResponseObserver
     /**
      * Handle the Response "created" event.
      */
-    public function created(Response $model): void
+    public function created(Response $model)
     {
         //
     }
@@ -25,7 +25,7 @@ class ResponseObserver
     /**
      * Handle the Response "updated" event.
      */
-    public function updated(Response $model): void
+    public function updated(Response $model)
     {
         //
     }
@@ -33,7 +33,7 @@ class ResponseObserver
     /**
      * Handle the Response "deleted" event.
      */
-    public function deleted(Response $model): void
+    public function deleted(Response $model)
     {
         //
     }
@@ -41,7 +41,7 @@ class ResponseObserver
     /**
      * Handle the Response "restored" event.
      */
-    public function restored(Response $model): void
+    public function restored(Response $model)
     {
         //
     }
@@ -49,7 +49,7 @@ class ResponseObserver
     /**
      * Handle the Response "force deleted" event.
      */
-    public function forceDeleted(Response $model): void
+    public function forceDeleted(Response $model)
     {
         //
     }

@@ -6,7 +6,7 @@ use QRFeedz\Cube\Models\Question;
 
 class QuestionObserver
 {
-    public function saving(Question $model): void
+    public function saving(Question $model)
     {
         if (blank($model->index)) {
             $model->incrementByGroup('page_type_questionnaire_id');

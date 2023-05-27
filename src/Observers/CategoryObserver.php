@@ -9,7 +9,7 @@ class CategoryObserver
     /**
      * Handle the Category "saving" event.
      */
-    public function saving(Category $model): void
+    public function saving(Category $model)
     {
         //
     }
@@ -17,7 +17,7 @@ class CategoryObserver
     /**
      * Handle the Category "created" event.
      */
-    public function created(Category $model): void
+    public function created(Category $model)
     {
         //
     }
@@ -25,7 +25,7 @@ class CategoryObserver
     /**
      * Handle the Category "updated" event.
      */
-    public function updated(Category $model): void
+    public function updated(Category $model)
     {
         //
     }
@@ -33,7 +33,7 @@ class CategoryObserver
     /**
      * Handle the Category "deleted" event.
      */
-    public function deleted(Category $model): void
+    public function deleted(Category $model)
     {
         //
     }
@@ -41,7 +41,7 @@ class CategoryObserver
     /**
      * Handle the Category "restored" event.
      */
-    public function restored(Category $model): void
+    public function restored(Category $model)
     {
         //
     }
@@ -49,7 +49,7 @@ class CategoryObserver
     /**
      * Handle the Category "force deleted" event.
      */
-    public function forceDeleted(Category $model): void
+    public function forceDeleted(Category $model)
     {
         //
     }
