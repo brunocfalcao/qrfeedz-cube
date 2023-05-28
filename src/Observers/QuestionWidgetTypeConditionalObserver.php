@@ -2,7 +2,7 @@
 
 namespace QRFeedz\Cube\Observers;
 
-use QRFeedz\Cube\Models\Pivots\QuestionWidgetTypeConditional;
+use QRFeedz\Cube\Models\QuestionWidgetTypeConditional;
 
 class QuestionWidgetTypeConditionalObserver
 {

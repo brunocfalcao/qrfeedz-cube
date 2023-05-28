@@ -16,7 +16,7 @@ use QRFeedz\Cube\Models\PageType;
 use QRFeedz\Cube\Models\Pivots\PageTypeQuestionnaire;
 use QRFeedz\Cube\Models\Question;
 use QRFeedz\Cube\Models\Questionnaire;
-use QRFeedz\Cube\Models\Pivots\QuestionWidgetTypeConditional;
+use QRFeedz\Cube\Models\QuestionWidgetTypeConditional;
 use QRFeedz\Cube\Models\Response;
 use QRFeedz\Cube\Models\Tag;
 use QRFeedz\Cube\Models\User;
