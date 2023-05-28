@@ -82,10 +82,12 @@ class Questionnaire extends Model
      *
      * Relationship validated.
      */
+    /*
     public function questionWidgetTypes()
     {
         return $this->hasMany(QuestionWidgetType::class);
     }
+    */
 
     // Relationship validated.
     public function pageTypes()

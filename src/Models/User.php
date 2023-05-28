@@ -36,11 +36,13 @@ class User extends Authenticatable
         return $this->belongsTo(Client::class);
     }
 
+    /*
     public function authorizations()
     {
         return $this->hasMany(UserAuthorization::class)
             ->withTimestamps();
     }
+    */
 
     /**
      * ---------------------- BUSINESS METHODS -----------------------------

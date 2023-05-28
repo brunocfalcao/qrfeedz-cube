@@ -25,10 +25,12 @@ class Question extends Model
     ];
 
     // Relationship validated.
+    /*
     public function pageTypeQuestionnaire()
     {
         return $this->belongsTo(PageTypeQuestionnaire::class);
     }
+    */
 
     // Relationship validated.
     public function responses()

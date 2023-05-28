@@ -33,10 +33,12 @@ class Locale extends Model
     }
 
     // Relationship validated.
+    /*
     public function questionWidgetTypes()
     {
         return $this->morphedByMany(QuestionWidgetType::class, 'localable')
             ->with(['caption', 'placeholder'])
             ->withTimestamps();
     }
+    */
 }

@@ -18,10 +18,12 @@ class QuestionWidgetTypeConditional extends Model
     ];
 
     // Relationship validated.
+    /*
     public function questionWidgetType()
     {
         return $this->belongsTo(QuestionWidgetType::class);
     }
+    */
 
     // Relationship verified.
     public function captions()
