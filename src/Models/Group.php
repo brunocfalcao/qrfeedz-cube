@@ -59,8 +59,8 @@ class Group extends Model
     public function authorizations()
     {
         return $this->morphToMany(Authorization::class, 'authorizable')
-            ->withPivot('user_id')
-            ->withTimestamps();
+                    ->withPivot('user_id')
+                    ->withTimestamps();
     }
 
     /**
@@ -69,9 +69,9 @@ class Group extends Model
     public function authorizationsForUser(User $user)
     {
         return $this->morphToMany(Authorization::class, 'authorizable')
-            ->withPivot('user_id')
-            ->wherePivot('user_id', $user->id)
-            ->withTimestamps();
+                    ->withPivot('user_id')
+                    ->wherePivot('user_id', $user->id)
+                    ->withTimestamps();
     }
 
     /**

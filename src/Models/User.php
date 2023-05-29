@@ -46,18 +46,16 @@ class User extends Authenticatable
         return $this->belongsTo(Affiliate::class);
     }
 
+    /**
+     * Related client where this user belongs to.
+     *
+     * Source: clients.id
+     * Relationship: validated
+     */
     public function client()
     {
         return $this->belongsTo(Client::class);
     }
-
-    /*
-    public function authorizations()
-    {
-        return $this->hasMany(UserAuthorization::class)
-            ->withTimestamps();
-    }
-    */
 
     /**
      * ---------------------- BUSINESS METHODS -----------------------------
@@ -68,6 +66,11 @@ class User extends Authenticatable
      * in a specific authorization type.
      * Normally used on policies, e.g.:
      * Check if the user has "admin" permissions in a client X.
+     *
+     * @param  Model   $model
+     * @param  string  $type
+     *
+     * @return boolean
      */
     public function isAuthorizedAs(Model $model, string $type)
     {
@@ -79,17 +82,24 @@ class User extends Authenticatable
     }
 
     /**
+     */
+
+    /**
      * This special query will return if an user has at least a single
      * entry in the authorizables table with a specific authorization
-     * type. Useful to discover if, e.g. an user is an "affiliate" somewhere.
+     * type.
+     *
+     * @param  string  $type Authorization canonical
+     *
+     * @return boolean
      */
     public function isAtLeastAuthorizedAs(string $type)
     {
         // Needs to be obtained via a direct query.
         return DB::table('authorizables')
-            ->where('user_id', $this->id)
-            ->where('authorization_id', Authorization::firstWhere('canonical', $type)->id)
-            ->whereNull('deleted_at')
-            ->count() > 0;
+                 ->where('user_id', $this->id)
+                 ->where('authorization_id', Authorization::firstWhere('canonical', $type)->id)
+                 ->whereNull('deleted_at')
+                 ->count() > 0;
     }
 }

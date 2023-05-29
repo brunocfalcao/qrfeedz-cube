@@ -70,27 +70,6 @@ class Client extends Model
                     ->withTimestamps();
     }
 
-    public function authorizationsForUser(User $user)
-    {
-        return $this->morphToMany(Authorization::class, 'authorizable')
-                    ->withPivot('user_id')
-                    ->wherePivot('user_id', $user->id)
-                    ->withTimestamps();
-    }
-
-    /**
-     * Special relationship that will return the authorizations for a logged
-     * user. Used to simplify the query of getting what authorizations does
-     * the logged user has respective to client authorizations.
-     */
-    public function loggedUserAuthorizations()
-    {
-        return $this->morphToMany(Authorization::class, 'authorizable')
-            ->withPivot('user_id')
-            ->wherePivot('user_id', Auth::id)
-            ->withTimestamps();
-    }
-
     /**
      * Related categories that belong to this client. Each client own sees
      * its own categories that were created by its users.
@@ -107,10 +86,15 @@ class Client extends Model
     public function tags()
     {
         return $this->morphToMany(Tag::class, 'model', 'taggable')
-            ->withTimestamps();
+                    ->withTimestamps();
     }
 
-    // Relationship validated.
+    /**
+     * Related users that belong to this client.
+     *
+     * Source: users.client_id
+     * Relationship: validated
+     */
     public function users()
     {
         return $this->hasMany(User::class);
