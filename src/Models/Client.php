@@ -2,11 +2,8 @@
 
 namespace QRFeedz\Cube\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Auth;
-use QRFeedz\Database\Factories\ClientFactory;
 
 /**
  * A client is the main entity. It encompasses questionnaires, related users,
@@ -16,7 +13,6 @@ use QRFeedz\Database\Factories\ClientFactory;
  */
 class Client extends Model
 {
-    use HasFactory;
     use SoftDeletes;
 
     protected $guarded = [];
@@ -49,6 +45,12 @@ class Client extends Model
         return $this->hasMany(Group::class);
     }
 
+    /**
+     * Related questionnaires. One client can have several questionaires.
+     *
+     * Source: questionnaires.id
+     * Relationship: validated
+     */
     public function questionnaires()
     {
         return $this->hasMany(Questionnaire::class);
@@ -98,10 +100,5 @@ class Client extends Model
     public function users()
     {
         return $this->hasMany(User::class);
-    }
-
-    protected static function newFactory()
-    {
-        return ClientFactory::new();
     }
 }

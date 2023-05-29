@@ -13,6 +13,12 @@ class Country extends Model
 
     protected $guarded = [];
 
+    /**
+     * Related client country from its address.
+     *
+     * Source: clients.country_id
+     * Relationship: validated
+     */
     public function clients()
     {
         return $this->hasMany(Client::class);

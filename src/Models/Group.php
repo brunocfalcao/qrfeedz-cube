@@ -2,14 +2,11 @@
 
 namespace QRFeedz\Cube\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use QRFeedz\Database\Factories\GroupFactory;
 
 class Group extends Model
 {
-    use HasFactory;
     use SoftDeletes;
 
     protected $guarded = [];
@@ -85,10 +82,5 @@ class Group extends Model
             ->withPivot('user_id')
             ->wherePivot('user_id', Auth::id)
             ->withTimestamps();
-    }
-
-    protected static function newFactory()
-    {
-        return GroupFactory::new();
     }
 }

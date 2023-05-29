@@ -40,7 +40,12 @@ class Questionnaire extends Model
         return $this->hasOne(OpenAIPromptConfiguration::class);
     }
 
-    // Relationship validated.
+    /**
+     * The related client. A questionnaire always belongs to a client.
+     *
+     * Source: clients.id
+     * Relationship: validated
+     */
     public function client()
     {
         return $this->belongsTo(Client::class);
