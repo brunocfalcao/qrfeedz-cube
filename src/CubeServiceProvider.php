@@ -12,15 +12,15 @@ use QRFeedz\Cube\Models\Country;
 use QRFeedz\Cube\Models\Group;
 use QRFeedz\Cube\Models\Locale;
 use QRFeedz\Cube\Models\OpenAIPrompt;
-use QRFeedz\Cube\Models\PageType;
+use QRFeedz\Cube\Models\Page;
 use QRFeedz\Cube\Models\Pivots\PageTypeQuestionnaire;
 use QRFeedz\Cube\Models\Question;
 use QRFeedz\Cube\Models\Questionnaire;
-use QRFeedz\Cube\Models\QuestionWidgetTypeConditional;
 use QRFeedz\Cube\Models\Response;
 use QRFeedz\Cube\Models\Tag;
 use QRFeedz\Cube\Models\User;
-use QRFeedz\Cube\Models\WidgetType;
+use QRFeedz\Cube\Models\Widget;
+use QRFeedz\Cube\Models\WidgetInstanceConditional;
 use QRFeedz\Cube\Observers\AffiliateObserver;
 use QRFeedz\Cube\Observers\AuthorizationObserver;
 use QRFeedz\Cube\Observers\CategoryObserver;
@@ -29,7 +29,7 @@ use QRFeedz\Cube\Observers\CountryObserver;
 use QRFeedz\Cube\Observers\GroupObserver;
 use QRFeedz\Cube\Observers\LocaleObserver;
 use QRFeedz\Cube\Observers\OpenAIPromptObserver;
-use QRFeedz\Cube\Observers\PageTypeObserver;
+use QRFeedz\Cube\Observers\PageObserver;
 use QRFeedz\Cube\Observers\PageTypeQuestionnaireObserver;
 use QRFeedz\Cube\Observers\QuestionnaireObserver;
 use QRFeedz\Cube\Observers\QuestionObserver;
@@ -58,14 +58,13 @@ class CubeServiceProvider extends ServiceProvider
     protected function registerObservers()
     {
         Tag::observe(TagObserver::class);
-        PageTypeQuestionnaire::observe(PageTypeQuestionnaireObserver::class);
         User::observe(UserObserver::class);
         Group::observe(GroupObserver::class);
         Client::observe(ClientObserver::class);
-        WidgetType::observe(WidgetTypeObserver::class);
+        Widget::observe(WidgetTypeObserver::class);
         Locale::observe(LocaleObserver::class);
         Country::observe(CountryObserver::class);
-        PageType::observe(PageTypeObserver::class);
+        Page::observe(PageObserver::class);
         Question::observe(QuestionObserver::class);
         Response::observe(ResponseObserver::class);
         Category::observe(CategoryObserver::class);
@@ -73,6 +72,7 @@ class CubeServiceProvider extends ServiceProvider
         OpenAIPrompt::observe(OpenAIPromptObserver::class);
         Authorization::observe(AuthorizationObserver::class);
         Questionnaire::observe(QuestionnaireObserver::class);
-        QuestionWidgetTypeConditional::observe(QuestionWidgetTypeConditionalObserver::class);
+        //PageTypeQuestionnaire::observe(PageTypeQuestionnaireObserver::class);
+        WidgetInstanceConditional::observe(QuestionWidgetTypeConditionalObserver::class);
     }
 }

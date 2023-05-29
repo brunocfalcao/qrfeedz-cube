@@ -5,24 +5,42 @@ namespace QRFeedz\Cube\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Categories and tags are customizable attributes for client users.
+ * Categories typically apply to establishments like restaurants,
+ * hotels, and cafeterias, but users can create their own
+ * categories as well.
+ */
 class Category extends Model
 {
     use SoftDeletes;
 
     protected $guarded = [];
 
+    /**
+     * The related client, relationship exception via any polymorphic and
+     * authorizable type.  A category is related to a client because
+     * a category might not be attached to any questionnaire at the
+     * moment of its creation.
+     *
+     * Source: categories.client_id
+     * Relationship: validated
+     */
     public function clients()
     {
-        return $this->morphedByMany(Client::class, 'categorizable');
+        return $this->belongsTo(Client::class);
     }
 
-    public function groups()
-    {
-        return $this->morphedByMany(Group::class, 'categorizable');
-    }
-
+    /**
+     * A questionnaire can belong to a category. It's actually the main
+     * categorization possible.
+     *
+     * Source: questionnaires.category_id
+     * Relationship: validated
+     */
     public function questionnaires()
     {
-        return $this->morphedByMany(Questionnaire::class, 'categorizable');
+        return $this->belongsToMany(Questionnaire::class)
+                    ->withTimestamps();
     }
 }

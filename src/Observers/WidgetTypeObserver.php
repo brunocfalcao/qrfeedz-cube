@@ -2,11 +2,11 @@
 
 namespace QRFeedz\Cube\Observers;
 
-use QRFeedz\Cube\Models\WidgetType;
+use QRFeedz\Cube\Models\Widget;
 
 class WidgetTypeObserver
 {
-    public function saving(WidgetType $model)
+    public function saving(Widget $model)
     {
         //
     }

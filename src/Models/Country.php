@@ -18,6 +18,12 @@ class Country extends Model
         return $this->hasMany(Client::class);
     }
 
+    /**
+     * Related affiliates country.
+     *
+     * Source: affiliates.country_id
+     * Relationship: validated
+     */
     public function affiliates()
     {
         return $this->hasMany(Affiliate::class);

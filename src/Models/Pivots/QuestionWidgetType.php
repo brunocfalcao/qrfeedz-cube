@@ -26,7 +26,7 @@ class QuestionWidgetType extends Pivot
     // Relationship validated.
     public function widgetType()
     {
-        return $this->belongsTo(WidgetType::class);
+        return $this->belongsTo(Widget::class);
     }
 
     // Relationship validated.
@@ -51,6 +51,6 @@ class QuestionWidgetType extends Pivot
     // Relationship verified.
     public function conditionals()
     {
-        return $this->hasMany(QuestionWidgetTypeConditional::class);
+        return $this->hasMany(WidgetInstanceConditional::class);
     }
 }

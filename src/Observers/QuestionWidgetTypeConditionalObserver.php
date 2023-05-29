@@ -2,54 +2,54 @@
 
 namespace QRFeedz\Cube\Observers;
 
-use QRFeedz\Cube\Models\QuestionWidgetTypeConditional;
+use QRFeedz\Cube\Models\WidgetInstanceConditional;
 
 class QuestionWidgetTypeConditionalObserver
 {
     /**
-     * Handle the QuestionWidgetTypeConditional "saving" event.
+     * Handle the WidgetInstanceConditional "saving" event.
      */
-    public function saving(QuestionWidgetTypeConditional $model)
+    public function saving(WidgetInstanceConditional $model)
     {
         //
     }
 
     /**
-     * Handle the QuestionWidgetTypeConditional "created" event.
+     * Handle the WidgetInstanceConditional "created" event.
      */
-    public function created(QuestionWidgetTypeConditional $model)
+    public function created(WidgetInstanceConditional $model)
     {
         //
     }
 
     /**
-     * Handle the QuestionWidgetTypeConditional "updated" event.
+     * Handle the WidgetInstanceConditional "updated" event.
      */
-    public function updated(QuestionWidgetTypeConditional $model)
+    public function updated(WidgetInstanceConditional $model)
     {
         //
     }
 
     /**
-     * Handle the QuestionWidgetTypeConditional "deleted" event.
+     * Handle the WidgetInstanceConditional "deleted" event.
      */
-    public function deleted(QuestionWidgetTypeConditional $model)
+    public function deleted(WidgetInstanceConditional $model)
     {
         //
     }
 
     /**
-     * Handle the QuestionWidgetTypeConditional "restored" event.
+     * Handle the WidgetInstanceConditional "restored" event.
      */
-    public function restored(QuestionWidgetTypeConditional $model)
+    public function restored(WidgetInstanceConditional $model)
     {
         //
     }
 
     /**
-     * Handle the QuestionWidgetTypeConditional "force deleted" event.
+     * Handle the WidgetInstanceConditional "force deleted" event.
      */
-    public function forceDeleted(QuestionWidgetTypeConditional $model)
+    public function forceDeleted(WidgetInstanceConditional $model)
     {
         //
     }

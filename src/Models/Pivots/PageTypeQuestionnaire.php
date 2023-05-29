@@ -15,7 +15,7 @@ class PageTypeQuestionnaire extends Pivot
 
     public function pageType()
     {
-        return $this->belongsTo(PageType::class);
+        return $this->belongsTo(Page::class);
     }
 
     // Relationship validated.

@@ -40,26 +40,13 @@ class Group extends Model
     }
 
     /**
-     * Categories are data unifiers to the group. Meaning a group can belong
-     * to several categories created by the client to better seggregate
-     * information. As example, you can have a group called
-     * "wine products" and then categories like "vintage",
-     * "new", etc.
-     */
-    public function categories()
-    {
-        return $this->morphToMany(Category::class, 'model', 'categorizables')
-            ->withTimestamps();
-    }
-
-    /**
      * The same as categories, applies also to tags. Normally this logic
      * is defined by the client itself when it understands the potential
      * of making reports out of this.
      */
     public function tags()
     {
-        return $this->morphToMany(Tag::class, 'model', 'taggables')
+        return $this->morphToMany(Tag::class, 'model', 'taggable')
             ->withTimestamps();
     }
 
@@ -71,7 +58,7 @@ class Group extends Model
      */
     public function authorizations()
     {
-        return $this->morphToMany(Authorization::class, 'authorizables')
+        return $this->morphToMany(Authorization::class, 'authorizable')
             ->withPivot('user_id')
             ->withTimestamps();
     }
@@ -81,7 +68,7 @@ class Group extends Model
      */
     public function authorizationsForUser(User $user)
     {
-        return $this->morphToMany(Authorization::class, 'authorizables')
+        return $this->morphToMany(Authorization::class, 'authorizable')
             ->withPivot('user_id')
             ->wherePivot('user_id', $user->id)
             ->withTimestamps();
@@ -94,7 +81,7 @@ class Group extends Model
      */
     public function loggedUserAuthorizations()
     {
-        return $this->morphToMany(Authorization::class, 'authorizables')
+        return $this->morphToMany(Authorization::class, 'authorizable')
             ->withPivot('user_id')
             ->wherePivot('user_id', Auth::id)
             ->withTimestamps();

@@ -7,10 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use QRFeedz\Cube\Models\Pivots\PageTypeQuestionnaire;
 use QRFeedz\Cube\Models\Pivots\QuestionWidgetType;
 use QRFeedz\Services\ThemeColor;
 
+/**
+ * The questionnaire is a crucial entity that enables the gathering of
+ * feedback about a client's interest in a location. Typically,
+ * questionnaires are associated with physical locations such
+ * as restaurants or stores, but they can also be related to
+ * specific items like hotel rooms or specific areas within
+ * a store.
+ */
 class Questionnaire extends Model
 {
     use HasFactory;
@@ -48,7 +55,7 @@ class Questionnaire extends Model
     // Relationship validated.
     public function authorizations()
     {
-        return $this->morphToMany(Authorization::class, 'authorizables')
+        return $this->morphToMany(Authorization::class, 'authorizable')
             ->withPivot('user_id')
             ->withTimestamps();
     }
@@ -56,7 +63,7 @@ class Questionnaire extends Model
     // Relationship validated.
     public function authorizationsForUser(User $user)
     {
-        return $this->morphToMany(Authorization::class, 'authorizables')
+        return $this->morphToMany(Authorization::class, 'authorizable')
             ->withPivot('user_id')
             ->wherePivot('user_id', $user->id)
             ->withTimestamps();
@@ -69,7 +76,7 @@ class Questionnaire extends Model
      */
     public function loggedUserAuthorizations()
     {
-        return $this->morphToMany(Authorization::class, 'authorizables')
+        return $this->morphToMany(Authorization::class, 'authorizable')
             ->withPivot('user_id')
             ->wherePivot('user_id', Auth::id())
             ->withTimestamps();
@@ -92,18 +99,24 @@ class Questionnaire extends Model
     // Relationship validated.
     public function pageTypes()
     {
-        return $this->belongsToMany(PageType::class)
-            ->using(PageTypeQuestionnaire::class)
+        return $this->belongsToMany(Page::class)
             ->withPivot(['id', 'index', 'group', 'view_component_override'])
             ->orderBy('index')
             ->withTimestamps();
     }
 
-    // Relationship validated.
+    /**
+     * The questionnaire can belong to several categories that were selected
+     * by the client users. Normally it will be to one only, but it can
+     * be to several if that's the case.
+     *
+     * Source: category.id
+     * Relationship: validated
+     */
     public function categories()
     {
-        return $this->morphToMany(Category::class, 'model', 'categorizables')
-            ->withTimestamps();
+        return $this->belongsToMany(Category::class)
+                    ->withTimestamps();
     }
 
     // Relationship validated.
@@ -115,7 +128,7 @@ class Questionnaire extends Model
     // Relationship validated.
     public function tags()
     {
-        return $this->morphToMany(Tag::class, 'model', 'taggables')
+        return $this->morphToMany(Tag::class, 'model', 'taggable')
             ->withTimestamps();
     }
 

@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use QRFeedz\Cube\Concerns\HasAutoIncrementsByGroup;
 use QRFeedz\Cube\Models\Pivots\PageTypeQuestionnaire;
-use QRFeedz\Cube\Models\Pivots\QuestionWidgetType;
 
 class Question extends Model
 {
@@ -41,8 +40,7 @@ class Question extends Model
     // Relationship validated.
     public function widgetTypes()
     {
-        return $this->belongsToMany(WidgetType::class)
-            ->using(QuestionWidgetType::class)
+        return $this->belongsToMany(Widget::class)
             ->with(['id', 'widget_index', 'widget_data'])
             ->withTimestamps();
     }

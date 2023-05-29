@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use QRFeedz\Cube\Models\Pivots\QuestionWidgetType;
 
-class QuestionWidgetTypeConditional extends Model
+class WidgetInstanceConditional extends Model
 {
     use SoftDeletes;
 
