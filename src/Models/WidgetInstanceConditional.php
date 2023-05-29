@@ -3,8 +3,8 @@
 namespace QRFeedz\Cube\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use QRFeedz\Cube\Models\Pivots\QuestionWidgetType;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class WidgetInstanceConditional extends Model
 {
