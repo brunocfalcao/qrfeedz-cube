@@ -2,7 +2,6 @@
 
 namespace QRFeedz\Cube\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use QRFeedz\Cube\Concerns\HasAutoIncrementsByGroup;
@@ -11,7 +10,6 @@ use QRFeedz\Cube\Models\Pivots\PageTypeQuestionnaire;
 class Question extends Model
 {
     use HasAutoIncrementsByGroup;
-    use HasFactory;
     use SoftDeletes;
 
     protected $guarded = [];

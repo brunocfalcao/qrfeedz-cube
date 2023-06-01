@@ -2,7 +2,6 @@
 
 namespace QRFeedz\Cube\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +19,6 @@ use QRFeedz\Services\ThemeColor;
  */
 class Questionnaire extends Model
 {
-    use HasFactory;
     use SoftDeletes;
 
     protected $guarded = [];
@@ -51,27 +49,31 @@ class Questionnaire extends Model
         return $this->belongsTo(Client::class);
     }
 
-    // Relationship validated.
-    public function group()
+    /**
+     * A questionnaire can belong to several groups at the same time.
+     *
+     * Source: groups.id
+     * Relationship: validated
+     */
+    public function groups()
     {
-        return $this->belongsTo(Group::class);
+        return $this->belongsToMany(Group::class)
+                    ->withTimestamps();
     }
 
-    // Relationship validated.
     public function authorizations()
     {
         return $this->morphToMany(Authorization::class, 'authorizable')
-            ->withPivot('user_id')
-            ->withTimestamps();
+                    ->withPivot('user_id')
+                    ->withTimestamps();
     }
 
-    // Relationship validated.
     public function authorizationsForUser(User $user)
     {
         return $this->morphToMany(Authorization::class, 'authorizable')
-            ->withPivot('user_id')
-            ->wherePivot('user_id', $user->id)
-            ->withTimestamps();
+                    ->withPivot('user_id')
+                    ->wherePivot('user_id', $user->id)
+                    ->withTimestamps();
     }
 
     /**
@@ -82,9 +84,9 @@ class Questionnaire extends Model
     public function loggedUserAuthorizations()
     {
         return $this->morphToMany(Authorization::class, 'authorizable')
-            ->withPivot('user_id')
-            ->wherePivot('user_id', Auth::id())
-            ->withTimestamps();
+                    ->withPivot('user_id')
+                    ->wherePivot('user_id', Auth::id())
+                    ->withTimestamps();
     }
 
     /**
