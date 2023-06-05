@@ -11,10 +11,17 @@ class Tag extends Model
 
     protected $guarded = [];
 
-    // Relationship validated.
+    /**
+     * Tags that are related with clients. The client tags are reserved only
+     * for super admin management.
+     *
+     * Source: clients.id
+     * Relationship: validated
+     */
     public function clients()
     {
-        return $this->morphedByMany(Client::class, 'categorizable');
+        return $this->belongsToMany(Client::class)
+                    ->withTimestamps();
     }
 
     // Relationship validated.

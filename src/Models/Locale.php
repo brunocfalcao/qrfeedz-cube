@@ -12,7 +12,12 @@ class Locale extends Model
 
     protected $guarded = [];
 
-    // Relationship verified.
+    /**
+     * The clients default locales that are from a specific locale.
+     *
+     * Source: clients.id
+     * Relationship: validated
+     */
     public function clients()
     {
         return $this->hasMany(Client::class);

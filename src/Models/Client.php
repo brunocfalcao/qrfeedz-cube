@@ -30,11 +30,25 @@ class Client extends Model
         return $this->belongsTo(Affiliate::class);
     }
 
+
+    /**
+     * The default locale in case a message needs to be sent to the client,
+     * an email or whatever.
+     *
+     * Source: locales.id
+     * Relationship: validated
+     */
     public function locale()
     {
         return $this->belongsTo(Locale::class);
     }
 
+    /**
+     * A client address country relationship.
+     *
+     * Source: countries.id
+     * Relationship: validated
+     */
     public function country()
     {
         return $this->belongsTo(Country::class);
@@ -92,10 +106,17 @@ class Client extends Model
         return $this->hasMany(Category::class);
     }
 
-    // Relationship validated.
+    /**
+     * Any tags that can belong to the client. The client tags are only used
+     * by super admins to categorize/organize clients into specific tags
+     * groups.
+     *
+     * Source: tags.id
+     * Relationship: validated
+     */
     public function tags()
     {
-        return $this->morphToMany(Tag::class, 'model', 'taggable')
+        return $this->belongsToMany(Tag::class)
                     ->withTimestamps();
     }
 
