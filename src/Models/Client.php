@@ -30,7 +30,6 @@ class Client extends Model
         return $this->belongsTo(Affiliate::class);
     }
 
-
     /**
      * The default locale in case a message needs to be sent to the client,
      * an email or whatever.
