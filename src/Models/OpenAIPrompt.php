@@ -17,7 +17,13 @@ class OpenAIPrompt extends Model
         'should_be_email_aware' => 'boolean',
     ];
 
-    // Relationship validated.
+    /**
+     * Each questionnaire should have an AI prompt to optimize the feedback
+     * conclusions to the questionnaire owner.
+     *
+     * Source: questionnaires.id
+     * Relationship: validated
+     */
     public function questionnaire()
     {
         return $this->belongsTo(Questionnaire::class);

@@ -24,24 +24,40 @@ class Locale extends Model
     }
 
     // Relationship validated.
+
+    /**
+     * The questionnaire default locale. Basically, it will be the locale
+     * that information will be shown when there is no locale specified
+     * on the questionnaire context.
+     *
+     * Source: questionnaires.id
+     * Relationship: validated
+     */
     public function questionnaires()
     {
         return $this->hasMany(Questionnaire::class);
     }
 
-    // Relationship verified.
+    /**
+     * All the questions that have a specific locale id. Still, it's not
+     * at all useful since the morphed models would actually have the
+     * right caption to show.
+     *
+     * Source: questions.id
+     * Relationship: validated
+     */
     public function questions()
     {
-        return $this->morphedByMany(Question::class, 'localable')
-            ->with(['caption', 'placeholder'])
-            ->withTimestamps();
+        return $this->morphedByMany(Question::class, 'model')
+                    ->with(['caption', 'placeholder'])
+                    ->withTimestamps();
     }
 
     // Relationship validated.
     /*
     public function questionWidgetTypes()
     {
-        return $this->morphedByMany(QuestionWidgetType::class, 'localable')
+        return $this->morphedByMany(QuestionWidgetType::class, 'model')
             ->with(['caption', 'placeholder'])
             ->withTimestamps();
     }

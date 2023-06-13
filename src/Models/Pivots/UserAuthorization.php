@@ -19,21 +19,21 @@ class UserAuthorization extends Pivot
 
     public function clients()
     {
-        return $this->morphedByMany(Client::class, 'authorizable')
+        return $this->morphedByMany(Client::class, 'model')
             ->withPivot('user_id')
             ->withTimestamps();
     }
 
     public function groups()
     {
-        return $this->morphedByMany(Group::class, 'authorizable')
+        return $this->morphedByMany(Group::class, 'model')
             ->withPivot('user_id')
             ->withTimestamps();
     }
 
     public function questionnaires()
     {
-        return $this->morphedByMany(Questionnaire::class, 'authorizable')
+        return $this->morphedByMany(Questionnaire::class, 'model')
             ->withPivot('user_id')
             ->withTimestamps();
     }

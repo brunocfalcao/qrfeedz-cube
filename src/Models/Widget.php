@@ -17,16 +17,21 @@ class Widget extends Model
         'is_full_page' => 'boolean',
     ];
 
-    // Relationship validated.
+    /**
+     * The related questions where the respective widget is being used.
+     *
+     * Source: questions.id
+     * Relationship: validated
+     */
     public function questions()
     {
         return $this->belongsToMany(Question::class)
-            ->with(['id', 'widget_index', 'widget_data'])
-            ->withTimestamps();
+                    ->with(['widget_index', 'widget_data'])
+                    ->withTimestamps();
     }
 
-    public function questionWidget()
+    // TODO: Connection with WidgetInstance model (WidgetInstance)
+    public function instances()
     {
-        return $this->hasMany(QuestionWidget::class);
     }
 }

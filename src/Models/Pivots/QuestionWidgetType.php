@@ -43,7 +43,7 @@ class QuestionWidgetType extends Pivot
      */
     public function captions()
     {
-        return $this->morphToMany(Locale::class, 'localables')
+        return $this->morphToMany(Locale::class, 'model')
             ->with(['caption', 'placeholder'])
             ->withTimestamps();
     }

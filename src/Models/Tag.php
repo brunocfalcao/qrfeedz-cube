@@ -24,15 +24,15 @@ class Tag extends Model
                     ->withTimestamps();
     }
 
-    // Relationship validated.
-    public function groups()
-    {
-        return $this->morphedByMany(Group::class, 'categorizable');
-    }
-
-    // Relationship validated.
+    /**
+     * Tags related to the questionnaire, they are added by admin users
+     * that belong to the respective questionnaire client.
+     *
+     * Source: questionnaire.id
+     * Relationship:
+     */
     public function questionnaires()
     {
-        return $this->morphedByMany(Questionnaire::class, 'categorizable');
+        return $this->morphedByMany(Questionnaire::class, 'model');
     }
 }

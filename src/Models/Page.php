@@ -11,10 +11,18 @@ class Page extends Model
 
     protected $guarded = [];
 
+    /**
+     * Relationship between what pages are part of the related questionnaire.
+     * The N-N table (page_questionnaire) is also a model that will show
+     * what page instances will be created for each questionnaire.
+     *
+     * Source: questionnaires.id
+     * Relationship: validated
+     */
     public function questionnaires()
     {
         return $this->belongsToMany(Questionnaire::class)
-            ->withPivot(['id', 'index', 'group', 'view_component_override'])
-            ->withTimestamps();
+                    ->withPivot(['index', 'group', 'view_component_override'])
+                    ->withTimestamps();
     }
 }

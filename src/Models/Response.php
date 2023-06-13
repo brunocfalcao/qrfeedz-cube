@@ -12,10 +12,15 @@ class Response extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'data' => 'array',
+        'values' => 'array',
     ];
 
-    // Relationship validated.
+    /**
+     * The respective question where this response is related to.
+     *
+     * Source: questions.id
+     * Relationship: validated
+     */
     public function question()
     {
         return $this->belongsTo(Question::class);

@@ -27,9 +27,7 @@ class Questionnaire extends Model
         'starts_at' => 'datetime',
         'ends_at' => 'datetime',
 
-        'is_active' => 'boolean',
-        'has_splash_screenscreen' => 'boolean',
-        'has_select_language_screen' => 'boolean',
+        'is_active' => 'boolean'
     ];
 
     // Relationship validated.
@@ -61,31 +59,16 @@ class Questionnaire extends Model
                     ->withTimestamps();
     }
 
+    /**
+     * Related user authorizations for the questionnaire
+     *
+     * Source: authorizations.id
+     * Relationship: validated
+     */
     public function authorizations()
     {
-        return $this->morphToMany(Authorization::class, 'authorizable')
+        return $this->morphToMany(Authorization::class, 'model')
                     ->withPivot('user_id')
-                    ->withTimestamps();
-    }
-
-    public function authorizationsForUser(User $user)
-    {
-        return $this->morphToMany(Authorization::class, 'authorizable')
-                    ->withPivot('user_id')
-                    ->wherePivot('user_id', $user->id)
-                    ->withTimestamps();
-    }
-
-    /**
-     * Special relationship that will return the authorizations for a logged
-     * user. Used to simplify the query of getting what authorizations does
-     * the logged user has respective to questionnaire authorizations.
-     */
-    public function loggedUserAuthorizations()
-    {
-        return $this->morphToMany(Authorization::class, 'authorizable')
-                    ->withPivot('user_id')
-                    ->wherePivot('user_id', Auth::id())
                     ->withTimestamps();
     }
 
@@ -103,13 +86,19 @@ class Questionnaire extends Model
     }
     */
 
-    // Relationship validated.
-    public function pageTypes()
+    /**
+     * Relationship between what pages are part of the related questionnaire.
+     * The N-N table (page_questionnaire) is also a model that will show
+     * what page instances will be created for each questionnaire.
+     *
+     * Source: pages.id
+     * Relationship: validated
+     */
+    public function pages()
     {
         return $this->belongsToMany(Page::class)
-            ->withPivot(['id', 'index', 'group', 'view_component_override'])
-            ->orderBy('index')
-            ->withTimestamps();
+                    ->withPivot(['index', 'group', 'view_component_override'])
+                    ->withTimestamps();
     }
 
     /**
@@ -126,20 +115,37 @@ class Questionnaire extends Model
                     ->withTimestamps();
     }
 
-    // Relationship validated.
+    /**
+     * Each questionnaire has a relationship to its AI prompts, that will
+     * run each time a feedback conclusion is needed.
+     *
+     * Source: openai_prompts.id
+     * Relationship: validated
+     */
     public function openAIPrompt()
     {
         return $this->hasOne(OpenAIPrompt::class);
     }
 
-    // Relationship validated.
+    /**
+     * Questionnaire can have several tags.
+     *
+     * Source: tags.id
+     * Relationship: validated
+     */
     public function tags()
     {
-        return $this->morphToMany(Tag::class, 'model', 'taggable')
-            ->withTimestamps();
+        return $this->morphToMany(Tag::class, 'model')
+                    ->withTimestamps();
     }
 
-    // Relationship validated.
+    /**
+     * This is the default locale for content that is not directly translated
+     * or that wasn't yet chosen by the visitor.
+     *
+     * Source: locales.id
+     * Relationship: validated
+     */
     public function locale()
     {
         return $this->belongsTo(Locale::class);
@@ -181,6 +187,28 @@ class Questionnaire extends Model
     /**
      * ---------------------- BUSINESS METHODS -----------------------------
      */
+
+    /**
+     * What authorizations are given to the passed user, for
+     * this questionnaire.
+     */
+    public function authorizationsForUser(User $user)
+    {
+        return $this->morphToMany(Authorization::class, 'model')
+                    ->withPivot('user_id')
+                    ->wherePivot('user_id', $user->id)
+                    ->withTimestamps();
+    }
+
+    /**
+     * Special relationship that will return the authorizations for a logged
+     * user. Used to simplify the query of getting what authorizations does
+     * the logged user has respective to questionnaire authorizations.
+     */
+    public function loggedUserAuthorizations()
+    {
+        return $this->authorizationsForUser(Auth::user());
+    }
 
     /**
      * A questionnaire is valid if:
