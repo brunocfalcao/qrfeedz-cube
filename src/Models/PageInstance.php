@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * where created per questionnaire. It has an id that will be then related
  * with questions, widgets, and so on.
  *
- * The page instance table is the pivot table page_questionnaire.
+ * The page instance table is the pivot table page_instances.
  *
  * A page instance is an unique instance creation of a page in a questionnaire
  * and is of type of the Page model.
@@ -20,13 +20,23 @@ class PageInstance extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'page_questionnaire';
-
     protected $guarded = [];
 
     protected $casts = [
         'data' => 'array'
     ];
+
+    /**
+     * A page instance can have (although not recommended) have several
+     * questions on its own page.
+     *
+     * Source: questions.id
+     * Relationship: validated
+     */
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
 
     public function page()
     {

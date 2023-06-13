@@ -88,7 +88,7 @@ class Questionnaire extends Model
 
     /**
      * Relationship between what pages are part of the related questionnaire.
-     * The N-N table (page_questionnaire) is also a model that will show
+     * The N-N table (page_instances) is also a model that will show
      * what page instances will be created for each questionnaire.
      *
      * Source: pages.id
@@ -96,7 +96,7 @@ class Questionnaire extends Model
      */
     public function pages()
     {
-        return $this->belongsToMany(Page::class)
+        return $this->belongsToMany(Page::class, 'page_instances')
                     ->withPivot(['index', 'group', 'view_component_override'])
                     ->withTimestamps();
     }

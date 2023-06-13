@@ -32,8 +32,20 @@ class Question extends Model
         return $this->hasMany(Response::class);
     }
 
-    public function pages()
+    /**
+     * In what page instances is this question being used. A page instance
+     * is a special model PageInstance that is part of the page_instances
+     * N-N table. While the page - questionnaire relationship shows what
+     * page types are used in a questionnaire, the pageInstance is needed
+     * to use certain relationships that are not possible to get from the
+     * N-N relationship between the page and the questionnaire.
+     *
+     * Source: page_instances.id
+     * Relationship: validated
+     */
+    public function pagesInstances()
     {
+        return $this->belongsTo(PageInstance::class);
     }
 
     /**
