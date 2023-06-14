@@ -53,18 +53,13 @@ class QuestionInstance extends Model
     }
 
     /**
-     * What widgets are used on this question instance. The intermediate
-     * table is also a special model called WidgetInstance that will
-     * allow other widget logic to be connected to it.
-     *
-     * Source: widgets.id
-     * Relationship: validated
+     * What exactly widget instances are related with this question instance.
+     * This is different from the widgets
+     * @return [type] [description]
      */
-    public function widgets()
+    public function widgetInstances()
     {
-        return $this->belongsToMany(Widget::class)
-                    ->with(['widget_index', 'widget_data'])
-                    ->withTimestamps();
+        return $this->hasMany(WidgetInstance::class);
     }
 
     /**

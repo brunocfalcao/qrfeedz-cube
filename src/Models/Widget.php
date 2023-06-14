@@ -18,20 +18,14 @@ class Widget extends Model
     ];
 
     /**
-     * The related questions where the respective widget is being used.
+     * Related widget instance that is using this widget.
      *
-     * Source: question_instances.id
+     * Source: widget_instances.od
      * Relationship: validated
      */
-    public function questionIntances()
+    public function widgetInstances()
     {
-        return $this->belongsToMany(QuestionInstance::class)
-                    ->with(['widget_index', 'widget_data'])
+        return $this->hasMany(WidgetInstance::class)
                     ->withTimestamps();
-    }
-
-    // TODO: Connection with WidgetInstance model (WidgetInstance)
-    public function instances()
-    {
     }
 }

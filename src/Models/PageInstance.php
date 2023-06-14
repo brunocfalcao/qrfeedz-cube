@@ -38,11 +38,23 @@ class PageInstance extends Model
         return $this->hasMany(QuestionInstance::class);
     }
 
+    /**
+     * Related page.
+     *
+     * Source: pages.id
+     * Relationship: validated
+     */
     public function page()
     {
         return $this->belongsTo(Page::class);
     }
 
+    /**
+     * What is the related questionnaire that this page instance belongs to.
+     *
+     * Source: questionnaires.id
+     * Relationship: validated
+     */
     public function questionnaire()
     {
         return $this->belongsTo(Questionnaire::class);

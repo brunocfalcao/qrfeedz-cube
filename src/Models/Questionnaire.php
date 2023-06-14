@@ -72,33 +72,16 @@ class Questionnaire extends Model
                     ->withTimestamps();
     }
 
-    /**
-     * The different question-widget instances that will be part of this
-     * questionnaire. They are unique for this questionnaire and cannot
-     * be replicated to other questionnaires from the same client.
-     *
-     * Relationship validated.
-     */
-    /*
-    public function questionWidgetTypes()
-    {
-        return $this->hasMany(QuestionWidgetType::class);
-    }
-    */
 
     /**
-     * Relationship between what pages are part of the related questionnaire.
-     * The N-N table (page_instances) is also a model that will show
-     * what page instances will be created for each questionnaire.
+     * What page instances are part of this questionnaire.
      *
-     * Source: pages.id
+     * Source: page_instances.id
      * Relationship: validated
      */
-    public function pages()
+    public function pageInstances()
     {
-        return $this->belongsToMany(Page::class, 'page_instances')
-                    ->withPivot(['index', 'group', 'view_component_override'])
-                    ->withTimestamps();
+        return $this->hasMany(PageInstance::class);
     }
 
     /**
