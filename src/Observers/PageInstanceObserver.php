@@ -2,11 +2,11 @@
 
 namespace QRFeedz\Cube\Observers;
 
-use QRFeedz\Cube\Models\Pivots\PageTypeQuestionnaire;
+use QRFeedz\Cube\Models\PageInstance;
 
-class PageTypeQuestionnaireObserver
+class PageInstanceObserver
 {
-    public function saving(PageTypeQuestionnaire $model)
+    public function saving(PageInstance $model)
     {
         if (blank($model->index)) {
             $model->incrementByGroup(['questionnaire_id', 'group']);

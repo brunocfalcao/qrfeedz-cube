@@ -14,7 +14,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * A page instance is an unique instance creation of a page in a questionnaire
  * and is of type of the Page model.
- *
  */
 class PageInstance extends Model
 {
@@ -23,7 +22,7 @@ class PageInstance extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'data' => 'array'
+        'data' => 'array',
     ];
 
     /**
@@ -58,5 +57,19 @@ class PageInstance extends Model
     public function questionnaire()
     {
         return $this->belongsTo(Questionnaire::class);
+    }
+
+    /**
+     * ---------------------- BUSINESS METHODS -----------------------------
+     */
+
+    /**
+     * Returns the respective target view component. If it's overriden then
+     * returns the updated one.
+     */
+    public function targetViewComponent()
+    {
+        return $this->view_component_override ??
+               $this->pageType->view_component_namespace;
     }
 }

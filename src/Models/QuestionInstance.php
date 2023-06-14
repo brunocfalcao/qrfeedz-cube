@@ -5,7 +5,6 @@ namespace QRFeedz\Cube\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use QRFeedz\Cube\Concerns\HasAutoIncrementsByGroup;
-use QRFeedz\Cube\Models\Pivots\PageTypeQuestionnaire;
 
 class QuestionInstance extends Model
 {
@@ -53,9 +52,10 @@ class QuestionInstance extends Model
     }
 
     /**
-     * What exactly widget instances are related with this question instance.
-     * This is different from the widgets
-     * @return [type] [description]
+     * What widget instances are exactly related with this question instance.
+     *
+     * Source: widget_instances.id
+     * Relationship: validated
      */
     public function widgetInstances()
     {

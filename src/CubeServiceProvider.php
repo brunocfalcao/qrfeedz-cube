@@ -13,13 +13,14 @@ use QRFeedz\Cube\Models\Group;
 use QRFeedz\Cube\Models\Locale;
 use QRFeedz\Cube\Models\OpenAIPrompt;
 use QRFeedz\Cube\Models\Page;
-use QRFeedz\Cube\Models\Pivots\PageTypeQuestionnaire;
+use QRFeedz\Cube\Models\PageInstance;
 use QRFeedz\Cube\Models\QuestionInstance;
 use QRFeedz\Cube\Models\Questionnaire;
 use QRFeedz\Cube\Models\Response;
 use QRFeedz\Cube\Models\Tag;
 use QRFeedz\Cube\Models\User;
 use QRFeedz\Cube\Models\Widget;
+use QRFeedz\Cube\Models\WidgetInstance;
 use QRFeedz\Cube\Models\WidgetInstanceConditional;
 use QRFeedz\Cube\Observers\AffiliateObserver;
 use QRFeedz\Cube\Observers\AuthorizationObserver;
@@ -29,15 +30,16 @@ use QRFeedz\Cube\Observers\CountryObserver;
 use QRFeedz\Cube\Observers\GroupObserver;
 use QRFeedz\Cube\Observers\LocaleObserver;
 use QRFeedz\Cube\Observers\OpenAIPromptObserver;
+use QRFeedz\Cube\Observers\PageInstanceObserver;
 use QRFeedz\Cube\Observers\PageObserver;
-use QRFeedz\Cube\Observers\PageTypeQuestionnaireObserver;
-use QRFeedz\Cube\Observers\QuestionnaireObserver;
 use QRFeedz\Cube\Observers\QuestionInstanceObserver;
+use QRFeedz\Cube\Observers\QuestionnaireObserver;
 use QRFeedz\Cube\Observers\QuestionWidgetTypeConditionalObserver;
 use QRFeedz\Cube\Observers\ResponseObserver;
 use QRFeedz\Cube\Observers\TagObserver;
 use QRFeedz\Cube\Observers\UserObserver;
-use QRFeedz\Cube\Observers\WidgetTypeObserver;
+use QRFeedz\Cube\Observers\WidgetInstanceObserver;
+use QRFeedz\Cube\Observers\WidgetObserver;
 
 class CubeServiceProvider extends ServiceProvider
 {
@@ -58,21 +60,22 @@ class CubeServiceProvider extends ServiceProvider
     protected function registerObservers()
     {
         Tag::observe(TagObserver::class);
+        Page::observe(PageObserver::class);
         User::observe(UserObserver::class);
         Group::observe(GroupObserver::class);
         Client::observe(ClientObserver::class);
-        Widget::observe(WidgetTypeObserver::class);
+        Widget::observe(WidgetObserver::class);
+        WidgetInstance::observe(WidgetInstanceObserver::class);
         Locale::observe(LocaleObserver::class);
         Country::observe(CountryObserver::class);
-        Page::observe(PageObserver::class);
-        QuestionInstance::observe(QuestionInstanceObserver::class);
         Response::observe(ResponseObserver::class);
         Category::observe(CategoryObserver::class);
         Affiliate::observe(AffiliateObserver::class);
+        PageInstance::observe(PageInstanceObserver::class);
         OpenAIPrompt::observe(OpenAIPromptObserver::class);
         Authorization::observe(AuthorizationObserver::class);
         Questionnaire::observe(QuestionnaireObserver::class);
-        //PageTypeQuestionnaire::observe(PageTypeQuestionnaireObserver::class);
+        QuestionInstance::observe(QuestionInstanceObserver::class);
         WidgetInstanceConditional::observe(QuestionWidgetTypeConditionalObserver::class);
     }
 }

@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
-use QRFeedz\Cube\Models\Pivots\QuestionWidgetType;
 use QRFeedz\Services\ThemeColor;
 
 /**
@@ -27,7 +26,7 @@ class Questionnaire extends Model
         'starts_at' => 'datetime',
         'ends_at' => 'datetime',
 
-        'is_active' => 'boolean'
+        'is_active' => 'boolean',
     ];
 
     // Relationship validated.
@@ -71,7 +70,6 @@ class Questionnaire extends Model
                     ->withPivot('user_id')
                     ->withTimestamps();
     }
-
 
     /**
      * What page instances are part of this questionnaire.
