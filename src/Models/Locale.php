@@ -39,16 +39,16 @@ class Locale extends Model
     }
 
     /**
-     * All the questions that have a specific locale id. Still, it's not
+     * All the question instances that have a specific locale id. Still, it's not
      * at all useful since the morphed models would actually have the
      * right caption to show.
      *
-     * Source: questions.id
+     * Source: question_instances.id
      * Relationship: validated
      */
-    public function questions()
+    public function questionInstances()
     {
-        return $this->morphedByMany(Question::class, 'model')
+        return $this->morphedByMany(QuestionInstance::class, 'model')
                     ->with(['caption', 'placeholder'])
                     ->withTimestamps();
     }

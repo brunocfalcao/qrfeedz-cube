@@ -30,12 +30,12 @@ class PageInstance extends Model
      * A page instance can have (although not recommended) have several
      * questions on its own page.
      *
-     * Source: questions.id
+     * Source: question_instances.id
      * Relationship: validated
      */
-    public function questions()
+    public function questionInstances()
     {
-        return $this->hasMany(Question::class);
+        return $this->hasMany(QuestionInstance::class);
     }
 
     public function page()

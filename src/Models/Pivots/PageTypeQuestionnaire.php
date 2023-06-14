@@ -19,9 +19,9 @@ class PageTypeQuestionnaire extends Pivot
     }
 
     // Relationship validated.
-    public function questions()
+    public function questionInstances()
     {
-        return $this->hasMany(Question::class);
+        return $this->hasMany(QuestionInstance::class);
     }
 
     // Relationship validated.

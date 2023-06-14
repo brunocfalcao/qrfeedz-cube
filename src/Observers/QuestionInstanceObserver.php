@@ -2,11 +2,11 @@
 
 namespace QRFeedz\Cube\Observers;
 
-use QRFeedz\Cube\Models\Question;
+use QRFeedz\Cube\Models\QuestionInstance;
 
-class QuestionObserver
+class QuestionInstanceObserver
 {
-    public function saving(Question $model)
+    public function saving(QuestionInstance $model)
     {
         if (blank($model->index)) {
             $model->incrementByGroup('page_type_questionnaire_id');

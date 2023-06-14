@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use QRFeedz\Cube\Concerns\HasAutoIncrementsByGroup;
 use QRFeedz\Cube\Models\Pivots\PageTypeQuestionnaire;
 
-class Question extends Model
+class QuestionInstance extends Model
 {
     use HasAutoIncrementsByGroup;
     use SoftDeletes;
@@ -22,7 +22,7 @@ class Question extends Model
     ];
 
     /**
-     * The related responses answered by visitors, part of the question.
+     * The related responses answered by visitors, part of the question instance.
      *
      * Source: responses.id
      * Relationship: validated
@@ -33,12 +33,16 @@ class Question extends Model
     }
 
     /**
-     * In what page instances is this question being used. A page instance
-     * is a special model PageInstance that is part of the page_instances
-     * N-N table. While the page - questionnaire relationship shows what
-     * page types are used in a questionnaire, the pageInstance is needed
-     * to use certain relationships that are not possible to get from the
-     * N-N relationship between the page and the questionnaire.
+     * In what page instances is this question instance being used. A page
+     * instance is a special model PageInstance that is part of the
+     * page_instances N-N table. While the page - questionnaire
+     * relationship shows what page types are used in a
+     * questionnaire, the pageInstance is needed to
+     * use certain relationships that are not
+     * possible to get from the N-N
+     * relationship between the
+     * page and the
+     * questionnaire.
      *
      * Source: page_instances.id
      * Relationship: validated
@@ -49,9 +53,9 @@ class Question extends Model
     }
 
     /**
-     * What widgets are used on this question. The intermediate table is also
-     * a special model called WidgetInstance that will allow other widget
-     * logic to be connected to it.
+     * What widgets are used on this question instance. The intermediate
+     * table is also a special model called WidgetInstance that will
+     * allow other widget logic to be connected to it.
      *
      * Source: widgets.id
      * Relationship: validated
@@ -64,9 +68,10 @@ class Question extends Model
     }
 
     /**
-     * A question itself has a caption, so this caption can be translated
-     * in several languages. Therefore we have these captions that will
-     * return all the caption locales that were created.
+     * A question instance itself has a caption, so this caption can be
+     * translated in several languages. Therefore we have these
+     * captions that will return all the caption locales that
+     * were created.
      *
      * Source: locales.id
      * Relationship: validated

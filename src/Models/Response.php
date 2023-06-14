@@ -16,13 +16,13 @@ class Response extends Model
     ];
 
     /**
-     * The respective question where this response is related to.
+     * The respective question instance where this response is related to.
      *
-     * Source: questions.id
+     * Source: question_instances.id
      * Relationship: validated
      */
-    public function question()
+    public function questionInstance()
     {
-        return $this->belongsTo(Question::class);
+        return $this->belongsTo(QuestionInstance::class);
     }
 }

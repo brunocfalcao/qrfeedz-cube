@@ -20,12 +20,12 @@ class Widget extends Model
     /**
      * The related questions where the respective widget is being used.
      *
-     * Source: questions.id
+     * Source: question_instances.id
      * Relationship: validated
      */
-    public function questions()
+    public function questionIntances()
     {
-        return $this->belongsToMany(Question::class)
+        return $this->belongsToMany(QuestionInstance::class)
                     ->with(['widget_index', 'widget_data'])
                     ->withTimestamps();
     }
