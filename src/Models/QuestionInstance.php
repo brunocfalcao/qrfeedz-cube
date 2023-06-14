@@ -47,7 +47,7 @@ class QuestionInstance extends Model
      * Source: page_instances.id
      * Relationship: validated
      */
-    public function pagesInstances()
+    public function pagesInstance()
     {
         return $this->belongsTo(PageInstance::class);
     }

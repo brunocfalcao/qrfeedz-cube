@@ -53,13 +53,18 @@ class Locale extends Model
                     ->withTimestamps();
     }
 
-    // Relationship validated.
-    /*
-    public function questionWidgetTypes()
+    /**
+     * All the question instances that have a specific locale id. Still, it's not
+     * at all useful since the morphed models would actually have the
+     * right caption to show.
+     *
+     * Source: question_instances.id
+     * Relationship: validated
+     */
+    public function widgetInstances()
     {
-        return $this->morphedByMany(QuestionWidgetType::class, 'model')
-            ->with(['caption', 'placeholder'])
-            ->withTimestamps();
+        return $this->morphedByMany(WidgetInstance::class, 'model')
+                    ->with(['caption', 'placeholder'])
+                    ->withTimestamps();
     }
-    */
 }

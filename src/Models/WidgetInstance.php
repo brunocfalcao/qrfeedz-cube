@@ -34,4 +34,20 @@ class WidgetInstance extends Model
     {
         return $this->belongsTo(Widget::class);
     }
+
+    /**
+     * A widget instance itself has a caption, so this caption can be
+     * translated in several languages. Therefore we have these
+     * captions that will return all the caption locales that
+     * were created.
+     *
+     * Source: locales.id
+     * Relationship: validated
+     */
+    public function captions()
+    {
+        return $this->morphToMany(Locale::class, 'model')
+                    ->with(['caption', 'placeholder'])
+                    ->withTimestamps();
+    }
 }
