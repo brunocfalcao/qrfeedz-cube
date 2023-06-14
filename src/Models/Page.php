@@ -11,6 +11,12 @@ class Page extends Model
 
     protected $guarded = [];
 
+    /**
+     * Related page instances that have a respective page id.
+     *
+     * Source: page_instances.id
+     * Relationship: validated
+     */
     public function pageInstances()
     {
         return $this->hasMany(PageInstance::class)

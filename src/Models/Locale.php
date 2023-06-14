@@ -14,6 +14,7 @@ class Locale extends Model
     /**
      * The clients default locales that are from a specific locale.
      *
+     *
      * Source: clients.id
      * Relationship: validated
      */
@@ -21,8 +22,6 @@ class Locale extends Model
     {
         return $this->hasMany(Client::class);
     }
-
-    // Relationship validated.
 
     /**
      * The questionnaire default locale. Basically, it will be the locale
