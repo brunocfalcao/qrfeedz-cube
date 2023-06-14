@@ -65,7 +65,6 @@ class CubeServiceProvider extends ServiceProvider
         Group::observe(GroupObserver::class);
         Client::observe(ClientObserver::class);
         Widget::observe(WidgetObserver::class);
-        WidgetInstance::observe(WidgetInstanceObserver::class);
         Locale::observe(LocaleObserver::class);
         Country::observe(CountryObserver::class);
         Response::observe(ResponseObserver::class);
@@ -75,6 +74,7 @@ class CubeServiceProvider extends ServiceProvider
         OpenAIPrompt::observe(OpenAIPromptObserver::class);
         Authorization::observe(AuthorizationObserver::class);
         Questionnaire::observe(QuestionnaireObserver::class);
+        WidgetInstance::observe(WidgetInstanceObserver::class);
         QuestionInstance::observe(QuestionInstanceObserver::class);
         WidgetInstanceConditional::observe(QuestionWidgetTypeConditionalObserver::class);
     }
