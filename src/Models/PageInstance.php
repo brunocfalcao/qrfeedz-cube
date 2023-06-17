@@ -21,13 +21,17 @@ class PageInstance extends Model
 
     protected $guarded = [];
 
+    protected $appends = [
+        'view_component',
+    ];
+
     protected $casts = [
         'data' => 'array',
     ];
 
     /**
-     * A page instance can have (although not recommended) have several
-     * questions on its own page.
+     * A page instance can have (although not recommended) several questions
+     * on its own page.
      *
      * Source: question_instances.id
      * Relationship: validated
@@ -67,9 +71,9 @@ class PageInstance extends Model
      * Returns the respective target view component. If it's overriden then
      * returns the updated one.
      */
-    public function targetViewComponent()
+    public function getViewComponentAttribute()
     {
         return $this->view_component_override ??
-               $this->pageType->view_component_namespace;
+               $this->page->view_component_namespace;
     }
 }
