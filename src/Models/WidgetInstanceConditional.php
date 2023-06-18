@@ -27,7 +27,6 @@ class WidgetInstanceConditional extends Model
         return $this->belongsTo(WidgetInstance::class);
     }
 
-
     // Relationship verified.
     public function captions()
     {

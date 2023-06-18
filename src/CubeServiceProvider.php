@@ -34,10 +34,10 @@ use QRFeedz\Cube\Observers\PageInstanceObserver;
 use QRFeedz\Cube\Observers\PageObserver;
 use QRFeedz\Cube\Observers\QuestionInstanceObserver;
 use QRFeedz\Cube\Observers\QuestionnaireObserver;
-use QRFeedz\Cube\Observers\WidgetInstanceConditionalObserver;
 use QRFeedz\Cube\Observers\ResponseObserver;
 use QRFeedz\Cube\Observers\TagObserver;
 use QRFeedz\Cube\Observers\UserObserver;
+use QRFeedz\Cube\Observers\WidgetInstanceConditionalObserver;
 use QRFeedz\Cube\Observers\WidgetInstanceObserver;
 use QRFeedz\Cube\Observers\WidgetObserver;
 
