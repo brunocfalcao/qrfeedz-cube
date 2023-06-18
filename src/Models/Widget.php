@@ -12,8 +12,7 @@ class Widget extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'is_reportable' => 'boolean',
-        'is_countable' => 'boolean',
+        'is_progressable' => 'boolean',
         'is_full_page' => 'boolean',
     ];
 

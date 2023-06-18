@@ -50,4 +50,15 @@ class WidgetInstance extends Model
                     ->with(['caption', 'placeholder'])
                     ->withTimestamps();
     }
+
+    /**
+     * The respective widget instance conditionals, in case they exist.
+     *
+     * Source: widget_instance_conditionals.id
+     * Relationship: validated
+     */
+    public function widgetInstanceConditionals()
+    {
+        return $this->hasMany(WidgetInstanceConditional::class);
+    }
 }

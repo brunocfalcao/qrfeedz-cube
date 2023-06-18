@@ -16,19 +16,23 @@ class WidgetInstanceConditional extends Model
         'then' => 'array',
     ];
 
-    // Relationship validated.
-    /*
-    public function questionWidgetType()
+    /**
+     * The related parent widget instance.
+     *
+     * Source: widget_instances.id
+     * Relationship: validated
+     */
+    public function widgetInstance()
     {
-        return $this->belongsTo(QuestionWidgetType::class);
+        return $this->belongsTo(WidgetInstance::class);
     }
-    */
+
 
     // Relationship verified.
     public function captions()
     {
         return $this->morphToMany(Locale::class, 'model')
-            ->with(['caption', 'placeholder'])
-            ->withTimestamps();
+                    ->with(['caption', 'placeholder'])
+                    ->withTimestamps();
     }
 }

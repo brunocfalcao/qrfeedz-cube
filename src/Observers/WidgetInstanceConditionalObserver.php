@@ -4,7 +4,7 @@ namespace QRFeedz\Cube\Observers;
 
 use QRFeedz\Cube\Models\WidgetInstanceConditional;
 
-class QuestionWidgetTypeConditionalObserver
+class WidgetInstanceConditionalObserver
 {
     /**
      * Handle the WidgetInstanceConditional "saving" event.
