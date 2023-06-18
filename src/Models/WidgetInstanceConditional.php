@@ -27,7 +27,12 @@ class WidgetInstanceConditional extends Model
         return $this->belongsTo(WidgetInstance::class);
     }
 
-    // Relationship verified.
+    /**
+     * Related condition locales.
+     *
+     * Source: locales.id
+     * Relationship: validated
+     */
     public function captions()
     {
         return $this->morphToMany(Locale::class, 'model')

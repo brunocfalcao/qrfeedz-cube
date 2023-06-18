@@ -14,7 +14,6 @@ class Locale extends Model
     /**
      * The clients default locales that are from a specific locale.
      *
-     *
      * Source: clients.id
      * Relationship: validated
      */
@@ -62,6 +61,19 @@ class Locale extends Model
     public function widgetInstances()
     {
         return $this->morphedByMany(WidgetInstance::class, 'model')
+                    ->with(['caption', 'placeholder'])
+                    ->withTimestamps();
+    }
+
+    /**
+     * The conditional message locales that needed to be specified.
+     *
+     * Source: widget_instance_conditionals
+     * Relationship: validated
+     */
+    public function widgetInstanceConditionals()
+    {
+        return $this->morphedByMany(WidgetInstanceConditional::class, 'model')
                     ->with(['caption', 'placeholder'])
                     ->withTimestamps();
     }

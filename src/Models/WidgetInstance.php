@@ -11,7 +11,9 @@ class WidgetInstance extends Model
 
     protected $guarded = [];
 
-    protected $casts = [];
+    protected $casts = [
+        'data' => 'array',
+    ];
 
     /**
      * Related question instance.
