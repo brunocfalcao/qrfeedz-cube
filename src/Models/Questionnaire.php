@@ -2,10 +2,10 @@
 
 namespace QRFeedz\Cube\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 use QRFeedz\Services\ThemeColor;
 
 /**
@@ -16,11 +16,9 @@ use QRFeedz\Services\ThemeColor;
  * specific items like hotel rooms or specific areas within
  * a store.
  */
-class Questionnaire extends Model
+class Questionnaire extends QRFeedzModel
 {
     use SoftDeletes;
-
-    protected $guarded = [];
 
     protected $casts = [
         'starts_at' => 'datetime',

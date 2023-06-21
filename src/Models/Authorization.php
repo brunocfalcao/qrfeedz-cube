@@ -2,8 +2,8 @@
 
 namespace QRFeedz\Cube\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
 /**
  * An authorization is an abstract permission that allows users to have
@@ -13,11 +13,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * users will always have access to all categories from
  * that client context.
  */
-class Authorization extends Model
+class Authorization extends QRFeedzModel
 {
     use SoftDeletes;
-
-    protected $guarded = [];
 
     /**
      * An user would have a specific permission to a client. The permission

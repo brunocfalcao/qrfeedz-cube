@@ -2,8 +2,8 @@
 
 namespace QRFeedz\Cube\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
 /**
  * The page instance model is a model-pivot that will show what pages
@@ -15,11 +15,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * A page instance is an unique instance creation of a page in a questionnaire
  * and is of type of the Page model.
  */
-class PageInstance extends Model
+class PageInstance extends QRFeedzModel
 {
     use SoftDeletes;
-
-    protected $guarded = [];
 
     protected $appends = [
         'view_component',

@@ -2,14 +2,12 @@
 
 namespace QRFeedz\Cube\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
-class Tag extends Model
+class Tag extends QRFeedzModel
 {
     use SoftDeletes;
-
-    protected $guarded = [];
 
     /**
      * Tags that are related with clients. The client tags are reserved only

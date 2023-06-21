@@ -2,8 +2,8 @@
 
 namespace QRFeedz\Cube\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
 /**
  * Categories and tags are customizable attributes for client users.
@@ -11,11 +11,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * hotels, and cafeterias, but users can create their own
  * categories as well.
  */
-class Category extends Model
+class Category extends QRFeedzModel
 {
     use SoftDeletes;
-
-    protected $guarded = [];
 
     /**
      * The related client, relationship exception via any polymorphic and

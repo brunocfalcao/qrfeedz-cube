@@ -2,14 +2,12 @@
 
 namespace QRFeedz\Cube\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
-class Country extends Model
+class Country extends QRFeedzModel
 {
     use SoftDeletes;
-
-    protected $guarded = [];
 
     /**
      * Related client country from its address.

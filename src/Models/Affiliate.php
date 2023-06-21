@@ -2,8 +2,8 @@
 
 namespace QRFeedz\Cube\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
 /**
  * An affiliate is a person who can earn a commission based on the number of
@@ -11,11 +11,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * payment from each client is divided between qrfeedz and the
  * affiliate.
  */
-class Affiliate extends Model
+class Affiliate extends QRFeedzModel
 {
     use SoftDeletes;
-
-    protected $guarded = [];
 
     protected $casts = [
         'commission_percentage' => 'integer',

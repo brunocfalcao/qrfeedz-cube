@@ -2,14 +2,12 @@
 
 namespace QRFeedz\Cube\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
-class Page extends Model
+class Page extends QRFeedzModel
 {
     use SoftDeletes;
-
-    protected $guarded = [];
 
     /**
      * Related page instances that have a respective page id.

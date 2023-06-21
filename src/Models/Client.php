@@ -2,8 +2,8 @@
 
 namespace QRFeedz\Cube\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
 /**
  * A client is the main entity. It encompasses questionnaires, related users,
@@ -11,11 +11,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * structures. Clients are invoiced based on the number of contracts
  * they have, typically for each active questionnaire per month.
  */
-class Client extends Model
+class Client extends QRFeedzModel
 {
     use SoftDeletes;
-
-    protected $guarded = [];
 
     /**
      * A client can be won via an affiliate. If so, qrfeedz will give a

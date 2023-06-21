@@ -2,14 +2,12 @@
 
 namespace QRFeedz\Cube\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
-class Response extends Model
+class Response extends QRFeedzModel
 {
     use SoftDeletes;
-
-    protected $guarded = [];
 
     protected $casts = [
         'values' => 'array',

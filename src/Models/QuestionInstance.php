@@ -2,16 +2,14 @@
 
 namespace QRFeedz\Cube\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use QRFeedz\Cube\Concerns\HasAutoIncrementsByGroup;
+use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
-class QuestionInstance extends Model
+class QuestionInstance extends QRFeedzModel
 {
     use HasAutoIncrementsByGroup;
     use SoftDeletes;
-
-    protected $guarded = [];
 
     protected $casts = [
         'is_required' => 'boolean',
