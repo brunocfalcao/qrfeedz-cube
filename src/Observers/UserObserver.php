@@ -10,6 +10,10 @@ class UserObserver
 {
     public function created(User $user)
     {
+        /**
+         * Trigger user created event. Normally it will at least send an email
+         * notification to the user to say that he was created in QRFeedz.
+         */
         UserCreated::dispatch($user);
     }
 
