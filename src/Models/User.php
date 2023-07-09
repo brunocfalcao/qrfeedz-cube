@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
+use QRFeedz\Cube\Models\Locale;
 
 /**
  * An user is an individual who has access to the back office. Typically,
@@ -98,5 +99,17 @@ class User extends Authenticatable
                  ->where('authorization_id', Authorization::firstWhere('canonical', $type)->id)
                  ->whereNull('deleted_at')
                  ->count() > 0;
+    }
+
+    /** ---------------------- DEFAULT VALUES ------------------------------- */
+
+    // Fallback to client locale, or to english.
+    public function defaultLocaleIdAttribute()
+    {
+        if ($this->client) {
+            return $this->client->locale_id;
+        } else {
+            return Locale::firstWhere('canonical', 'en')->id;
+        }
     }
 }
