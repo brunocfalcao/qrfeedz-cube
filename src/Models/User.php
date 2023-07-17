@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
-use QRFeedz\Cube\Models\Locale;
+use QRFeedz\Cube\Concerns\Authenticates;
 
 /**
  * An user is an individual who has access to the back office. Typically,
@@ -19,7 +19,7 @@ use QRFeedz\Cube\Models\Locale;
  */
 class User extends Authenticatable
 {
-    use Notifiable, SoftDeletes;
+    use Authenticates, Notifiable, SoftDeletes;
 
     protected $guarded = [];
 
