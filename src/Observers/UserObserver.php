@@ -3,18 +3,17 @@
 namespace QRFeedz\Cube\Observers;
 
 use Illuminate\Support\Facades\Auth;
-use QRFeedz\Cube\Events\Users\UserCreated;
 use QRFeedz\Cube\Models\User;
+use QRFeedz\Services\Jobs\ResetUserPasswordJob;
 
 class UserObserver
 {
     public function created(User $user)
     {
-        /**
-         * Trigger user created event. Normally it will at least send an email
-         * notification to the user to say that he was created in QRFeedz.
-         */
-        UserCreated::dispatch($user);
+        // If the password is blank, then send reset password email.
+        if (blank($user->password)) {
+            ResetUserPasswordJob::dispatch($user->id);
+        }
     }
 
     public function saving(User $user)

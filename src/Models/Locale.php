@@ -10,6 +10,17 @@ class Locale extends QRFeedzModel
     use SoftDeletes;
 
     /**
+     * The user default locales that are from a specific locale.
+     *
+     * Source: users.id
+     * Relationship: validated
+     */
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    /**
      * The clients default locales that are from a specific locale.
      *
      * Source: clients.id

@@ -2,6 +2,7 @@
 
 namespace QRFeedz\Cube\Models;
 
+use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -17,7 +18,7 @@ use QRFeedz\Cube\Concerns\Authenticates;
  * Additionally, a user can also be an affiliate who
  * earns commissions.
  */
-class User extends Authenticatable
+class User extends Authenticatable implements HasLocalePreference
 {
     use Authenticates, Notifiable, SoftDeletes;
 
@@ -32,6 +33,11 @@ class User extends Authenticatable
         'is_super_admin' => 'boolean',
     ];
 
+    public function preferredLocale()
+    {
+        return $this->locale->canonical;
+    }
+
     /**
      * An user can also be an affiliate and will earn commissions each month
      * for each new client they gather, or clients that are monthly active on
@@ -43,6 +49,18 @@ class User extends Authenticatable
     public function affiliate()
     {
         return $this->belongsTo(Affiliate::class);
+    }
+
+    /**
+     * Related locale, used on the preferredLocale() method for automated
+     * locale identification for mailables.
+     *
+     * Source: locales.id
+     * Relationship: validated
+     */
+    public function locale()
+    {
+        return $this->belongsTo(Locale::class);
     }
 
     /**

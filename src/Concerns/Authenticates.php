@@ -2,6 +2,8 @@
 
 namespace QRFeedz\Cube\Concerns;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 
@@ -16,18 +18,35 @@ trait Authenticates
      */
     public function getPasswordResetLink($invalidate = false, $notify = false)
     {
+        // Remove any entries from the password reset table for this user.
+        DB::table('password_reset_tokens')
+          ->where('email', $this->email)
+          ->delete();
+
+        // Invalidate password if necessary.
         if ($invalidate) {
-            $this->update([
-                'password' => bcrypt(Str::random(20)),
-            ]);
+            $this->invalidatePassword();
         }
 
-        $token = Password::getRepository()->create($this);
+        // Obtain a new password reset token.
+        $token = Password::broker()->createToken($this);
         $resetLink = route('password.reset', ['token' => $token]);
 
         if ($notify) {
         }
 
         return $resetLink;
+    }
+
+    /**
+     * Invalidates the user password.
+     *
+     * @return void
+     */
+    public function invalidatePassword()
+    {
+        $this->update([
+            'password' => Hash::make(Str::random(16)),
+        ]);
     }
 }
