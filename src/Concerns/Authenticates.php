@@ -16,7 +16,7 @@ trait Authenticates
      * @param  bool  $notify     Send the user a reset password notification
      * @return string            The password reset link.
      */
-    public function getPasswordResetLink($invalidate = false, $notify = false)
+    public function getPasswordResetLink($invalidate = false)
     {
         // Remove any entries from the password reset table for this user.
         DB::table('password_reset_tokens')
@@ -31,9 +31,6 @@ trait Authenticates
         // Obtain a new password reset token.
         $token = Password::broker()->createToken($this);
         $resetLink = route('password.reset', ['token' => $token]);
-
-        if ($notify) {
-        }
 
         return $resetLink;
     }
