@@ -121,7 +121,7 @@ class User extends Authenticatable implements HasLocalePreference
 
     /** ---------------------- DEFAULT VALUES ------------------------------- */
 
-    // Fallback to client locale, or to english.
+    // Fallback to client locale, or lastly to english.
     public function defaultLocaleIdAttribute()
     {
         if ($this->client) {

@@ -10,9 +10,12 @@ class UserObserver
 {
     public function created(User $user)
     {
-        // If the password is blank, then send reset password email.
-        if (blank($user->password)) {
-            ResetUserPasswordJob::dispatch($user->id);
+        /**
+         * If the password is blank, or inexisting, then send reset
+         * password email.
+         */
+        if (blank($user->password) || ! isset($user->password)) {
+            ResetUserPasswordJob::dispatch($user->id, true);
         }
     }
 
