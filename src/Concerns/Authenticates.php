@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
+use QRFeedz\Services\Facades\QRFeedz;
 
 trait Authenticates
 {
@@ -28,9 +29,9 @@ trait Authenticates
             $this->invalidatePassword();
         }
 
-        // Obtain a new password reset token.
+        // Obtain a new password reset token, generate the email link.
         $token = Password::broker()->createToken($this);
-        $resetLink = route('password.reset', ['token' => $token]);
+        $resetLink = QRFeedz::customURL("password/reset/{$token}", 'admin');
 
         return $resetLink;
     }
