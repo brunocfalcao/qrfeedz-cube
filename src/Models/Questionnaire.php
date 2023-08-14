@@ -79,7 +79,8 @@ class Questionnaire extends QRFeedzModel
      */
     public function pageInstances()
     {
-        return $this->hasMany(PageInstance::class);
+        return $this->hasMany(PageInstance::class)
+                    ->orderBy('id');
     }
 
     /**
