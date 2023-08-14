@@ -52,19 +52,6 @@ class Client extends QRFeedzModel
     }
 
     /**
-     * A client can have many groups. Groups are only belonging to one
-     * client, so the users can't see groups from clients that they
-     * don't belong to.
-     *
-     * Source: groups.id
-     * Relationsship: validated
-     */
-    public function groups()
-    {
-        return $this->hasMany(Group::class);
-    }
-
-    /**
      * Related questionnaires. One client can have several questionaires.
      *
      * Source: questionnaires.id

@@ -80,7 +80,11 @@ class PageInstance extends QRFeedzModel
     /** ---------------------- DEFAULT VALUES ------------------------------- */
     public function defaultIndexAttribute()
     {
-        return $this->incrementByGroup('questionnaire_id');
+        return $this->incrementByGroup([
+            'questionnaire_id',
+            'page_id',
+            'group',
+        ]);
     }
 
     public function defaultUuidAttribute()

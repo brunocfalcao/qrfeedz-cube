@@ -52,9 +52,9 @@ class Questionnaire extends QRFeedzModel
      * Source: groups.id
      * Relationship: validated
      */
-    public function groups()
+    public function group()
     {
-        return $this->belongsToMany(Group::class)
+        return $this->belongsTo(Group::class)
                     ->withTimestamps();
     }
 

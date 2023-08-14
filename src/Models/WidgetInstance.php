@@ -3,11 +3,12 @@
 namespace QRFeedz\Cube\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use QRFeedz\Cube\Concerns\HasAutoIncrementsByGroup;
 use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
 class WidgetInstance extends QRFeedzModel
 {
-    use SoftDeletes;
+    use HasAutoIncrementsByGroup, SoftDeletes;
 
     protected $casts = [
         'data' => 'array',
@@ -60,5 +61,11 @@ class WidgetInstance extends QRFeedzModel
     public function widgetInstanceConditionals()
     {
         return $this->hasMany(WidgetInstanceConditional::class);
+    }
+
+    /** ---------------------- DEFAULT VALUES ------------------------------- */
+    public function defaultIndexAttribute()
+    {
+        return $this->incrementByGroup('question_instance_id');
     }
 }

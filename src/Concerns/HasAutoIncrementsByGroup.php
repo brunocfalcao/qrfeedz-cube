@@ -12,7 +12,7 @@ trait HasAutoIncrementsByGroup
      * @return void
      */
     public function incrementByGroup(
-        string|array $groupColumn,
+        string|array $groupColumns,
         string $incrementColumn = 'index',
         int $defaultValue = 1
     ) {
@@ -25,8 +25,8 @@ trait HasAutoIncrementsByGroup
         $query = $this->newQueryWithPossibleTrashed();
 
         // Normalize group column to an array.
-        if (! is_array($groupColumn)) {
-            $groupColumns = (array) $groupColumn;
+        if (! is_array($groupColumns)) {
+            $groupColumns = (array) $groupColumns;
         }
 
         // Apply the grouping conditions.

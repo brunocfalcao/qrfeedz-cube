@@ -22,27 +22,7 @@ class Group extends QRFeedzModel
      */
     public function questionnaires()
     {
-        return $this->belongsToMany(Questionnaire::class)
+        return $this->hasMany(Questionnaire::class)
                     ->withTimestamps();
-    }
-
-    /**
-     * A group can only belong to a client. So the clients can create whatever
-     * groups they want to.
-     *
-     * Source: clients.id
-     * Relationship: validated
-     */
-    public function client()
-    {
-        return $this->belongsTo(Client::class);
-    }
-
-    /** ---------------------- DEFAULT VALUES ------------------------------- */
-
-    // If null, then 'user' (can also be used as 'system').
-    public function defaultTypeAttribute()
-    {
-        return 'user';
     }
 }

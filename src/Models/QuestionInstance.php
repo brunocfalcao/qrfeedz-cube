@@ -75,4 +75,10 @@ class QuestionInstance extends QRFeedzModel
                     ->with(['caption', 'placeholder'])
                     ->withTimestamps();
     }
+
+    /** ---------------------- DEFAULT VALUES ------------------------------- */
+    public function defaultIndexAttribute()
+    {
+        return $this->incrementByGroup('page_instance_id');
+    }
 }
