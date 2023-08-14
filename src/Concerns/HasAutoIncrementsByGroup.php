@@ -9,9 +9,6 @@ trait HasAutoIncrementsByGroup
     /**
      * Increment by a specific group.
      *
-     * @param string|array $groupColumn
-     * @param string $incrementColumn
-     * @param int $defaultValue
      * @return void
      */
     public function incrementByGroup(
@@ -28,7 +25,7 @@ trait HasAutoIncrementsByGroup
         $query = $this->newQueryWithPossibleTrashed();
 
         // Normalize group column to an array.
-        if (!is_array($groupColumn)) {
+        if (! is_array($groupColumn)) {
             $groupColumns = (array) $groupColumn;
         }
 
@@ -44,8 +41,6 @@ trait HasAutoIncrementsByGroup
 
     /**
      * Create a new model query builder that includes trashed models if applicable.
-     *
-     * @return Builder
      */
     protected function newQueryWithPossibleTrashed(): Builder
     {
