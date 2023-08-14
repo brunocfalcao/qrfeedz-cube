@@ -37,4 +37,12 @@ class Group extends QRFeedzModel
     {
         return $this->belongsTo(Client::class);
     }
+
+    /** ---------------------- DEFAULT VALUES ------------------------------- */
+
+    // If null, then 'user' (can also be used as 'system').
+    public function defaultTypeAttribute()
+    {
+        return 'user';
+    }
 }

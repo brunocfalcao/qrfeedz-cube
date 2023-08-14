@@ -54,7 +54,7 @@ class Locale extends QRFeedzModel
      */
     public function questionInstances()
     {
-        return $this->morphedByMany(QuestionInstance::class, 'model')
+        return $this->morphedByMany(QuestionInstance::class, 'model', 'localables')
                     ->with(['caption', 'placeholder'])
                     ->withTimestamps();
     }
@@ -69,7 +69,7 @@ class Locale extends QRFeedzModel
      */
     public function widgetInstances()
     {
-        return $this->morphedByMany(WidgetInstance::class, 'model')
+        return $this->morphedByMany(WidgetInstance::class, 'model', 'localables')
                     ->with(['caption', 'placeholder'])
                     ->withTimestamps();
     }
@@ -82,7 +82,7 @@ class Locale extends QRFeedzModel
      */
     public function widgetInstanceConditionals()
     {
-        return $this->morphedByMany(WidgetInstanceConditional::class, 'model')
+        return $this->morphedByMany(WidgetInstanceConditional::class, 'model', 'localables')
                     ->with(['caption', 'placeholder'])
                     ->withTimestamps();
     }

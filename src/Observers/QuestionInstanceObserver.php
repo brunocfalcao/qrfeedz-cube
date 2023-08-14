@@ -8,8 +8,6 @@ class QuestionInstanceObserver
 {
     public function saving(QuestionInstance $model)
     {
-        if (blank($model->index)) {
-            $model->incrementByGroup('page_instance_id');
-        }
+        $model->index = $model->incrementByGroup('page_instance_id');
     }
 }

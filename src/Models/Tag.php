@@ -31,6 +31,6 @@ class Tag extends QRFeedzModel
      */
     public function questionnaires()
     {
-        return $this->morphedByMany(Questionnaire::class, 'model');
+        return $this->morphedByMany(Questionnaire::class, 'model', 'taggables');
     }
 }

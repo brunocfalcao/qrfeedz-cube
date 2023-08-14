@@ -27,7 +27,7 @@ class Authorization extends QRFeedzModel
      */
     public function clients()
     {
-        return $this->morphedByMany(Client::class, 'model')
+        return $this->morphedByMany(Client::class, 'model', 'authorizables')
                     ->withPivot('user_id')
                     ->withTimestamps();
     }
@@ -40,7 +40,7 @@ class Authorization extends QRFeedzModel
      */
     public function questionnaires()
     {
-        return $this->morphedByMany(Questionnaire::class, 'model')
+        return $this->morphedByMany(Questionnaire::class, 'model', 'authorizables')
                     ->withPivot('user_id')
                     ->withTimestamps();
     }
@@ -53,7 +53,7 @@ class Authorization extends QRFeedzModel
      */
     public function groups()
     {
-        return $this->morphedByMany(Group::class, 'model')
+        return $this->morphedByMany(Group::class, 'model', 'authorizables')
                     ->withPivot('user_id')
                     ->withTimestamps();
     }

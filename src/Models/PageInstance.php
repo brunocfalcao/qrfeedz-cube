@@ -3,6 +3,8 @@
 namespace QRFeedz\Cube\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
+use QRFeedz\Cube\Concerns\HasAutoIncrementsByGroup;
 use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
 /**
@@ -17,7 +19,7 @@ use QRFeedz\Foundation\Abstracts\QRFeedzModel;
  */
 class PageInstance extends QRFeedzModel
 {
-    use SoftDeletes;
+    use HasAutoIncrementsByGroup, SoftDeletes;
 
     protected $appends = [
         'view_component',
@@ -73,5 +75,16 @@ class PageInstance extends QRFeedzModel
     {
         return $this->view_component_override ??
                $this->page->view_component_namespace;
+    }
+
+    /** ---------------------- DEFAULT VALUES ------------------------------- */
+    public function defaultIndexAttribute()
+    {
+        return $this->incrementByGroup('questionnaire_id');
+    }
+
+    public function defaultUuidAttribute()
+    {
+        return (string) Str::uuid();
     }
 }

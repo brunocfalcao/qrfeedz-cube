@@ -25,6 +25,8 @@ class Questionnaire extends QRFeedzModel
         'ends_at' => 'datetime',
 
         'is_active' => 'boolean',
+
+        'data' => 'array',
     ];
 
     // Relationship validated.
