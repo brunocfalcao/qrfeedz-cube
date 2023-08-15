@@ -73,17 +73,4 @@ class Locale extends QRFeedzModel
                     ->with(['caption', 'placeholder'])
                     ->withTimestamps();
     }
-
-    /**
-     * The conditional message locales that needed to be specified.
-     *
-     * Source: widget_instance_conditionals
-     * Relationship: validated
-     */
-    public function widgetInstanceConditionals()
-    {
-        return $this->morphedByMany(WidgetInstanceConditional::class, 'model', 'localables')
-                    ->with(['caption', 'placeholder'])
-                    ->withTimestamps();
-    }
 }

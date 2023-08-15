@@ -3,6 +3,7 @@
 namespace QRFeedz\Cube\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use QRFeedz\Cube\Concerns\HasAutoIncrementsByGroup;
 use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
@@ -80,5 +81,10 @@ class QuestionInstance extends QRFeedzModel
     public function defaultIndexAttribute()
     {
         return $this->incrementByGroup('page_instance_id');
+    }
+
+    public function defaultUuidAttribute()
+    {
+        return (string) Str::uuid();
     }
 }

@@ -3,6 +3,7 @@
 namespace QRFeedz\Cube\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use QRFeedz\Cube\Concerns\HasAutoIncrementsByGroup;
 use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
@@ -12,7 +13,20 @@ class WidgetInstance extends QRFeedzModel
 
     protected $casts = [
         'data' => 'array',
+        'when' => 'array',
+        'then' => 'array',
     ];
+
+    /**
+     * Related parent widget, in case this instance is a widget child instance.
+     *
+     * Source: widget_instances.id
+     * Relationship: validated
+     */
+    public function parentWidgetInstance()
+    {
+        return $this->belongsTo(WidgetInstance::class, 'widget_instance_id');
+    }
 
     /**
      * Related question instance.
@@ -52,20 +66,14 @@ class WidgetInstance extends QRFeedzModel
                     ->withTimestamps();
     }
 
-    /**
-     * The respective widget instance conditionals, in case they exist.
-     *
-     * Source: widget_instance_conditionals.id
-     * Relationship: validated
-     */
-    public function widgetInstanceConditionals()
-    {
-        return $this->hasMany(WidgetInstanceConditional::class);
-    }
-
     /** ---------------------- DEFAULT VALUES ------------------------------- */
     public function defaultIndexAttribute()
     {
         return $this->incrementByGroup('question_instance_id');
+    }
+
+    public function defaultUuidAttribute()
+    {
+        return (string) Str::uuid();
     }
 }

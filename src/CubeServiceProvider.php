@@ -20,7 +20,6 @@ use QRFeedz\Cube\Models\Tag;
 use QRFeedz\Cube\Models\User;
 use QRFeedz\Cube\Models\Widget;
 use QRFeedz\Cube\Models\WidgetInstance;
-use QRFeedz\Cube\Models\WidgetInstanceConditional;
 use QRFeedz\Cube\Observers\AffiliateObserver;
 use QRFeedz\Cube\Observers\AuthorizationObserver;
 use QRFeedz\Cube\Observers\CategoryObserver;
@@ -36,7 +35,6 @@ use QRFeedz\Cube\Observers\QuestionnaireObserver;
 use QRFeedz\Cube\Observers\ResponseObserver;
 use QRFeedz\Cube\Observers\TagObserver;
 use QRFeedz\Cube\Observers\UserObserver;
-use QRFeedz\Cube\Observers\WidgetInstanceConditionalObserver;
 use QRFeedz\Cube\Observers\WidgetInstanceObserver;
 use QRFeedz\Cube\Observers\WidgetObserver;
 
@@ -71,6 +69,5 @@ class CubeServiceProvider extends ServiceProvider
         Questionnaire::observe(QuestionnaireObserver::class);
         WidgetInstance::observe(WidgetInstanceObserver::class);
         QuestionInstance::observe(QuestionInstanceObserver::class);
-        WidgetInstanceConditional::observe(WidgetInstanceConditionalObserver::class);
     }
 }
