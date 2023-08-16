@@ -29,6 +29,17 @@ class WidgetInstance extends QRFeedzModel
     }
 
     /**
+     * Related child widgets, in case they are widget conditional instances.
+     *
+     * Source: widget_instances.id
+     * Relationship: validated
+     */
+    public function childWidgetInstances()
+    {
+        return $this->hasMany(WidgetInstance::class, 'widget_instance_id');
+    }
+
+    /**
      * Related question instance.
      *
      * Source: question_instances.id
@@ -69,7 +80,10 @@ class WidgetInstance extends QRFeedzModel
     /** ---------------------- DEFAULT VALUES ------------------------------- */
     public function defaultIndexAttribute()
     {
-        return $this->incrementByGroup('question_instance_id');
+        // Don't apply for widget instance conditionals.
+        if (! $this->widget_instance_id) {
+            return $this->incrementByGroup('question_instance_id');
+        }
     }
 
     public function defaultUuidAttribute()
