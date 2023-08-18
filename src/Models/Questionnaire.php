@@ -2,6 +2,7 @@
 
 namespace QRFeedz\Cube\Models;
 
+use Brunocfalcao\Cerebrus\Cerebrus;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -203,5 +204,14 @@ class Questionnaire extends QRFeedzModel
             $this->is_active &&
             $this->ends_at ? now()->between($this->starts_at, $this->ends_at) :
                              now() >= $this->starts_at;
+    }
+
+    public static function fromSession()
+    {
+        $session = new Cerebrus();
+
+        return $session->has('questionnaire') ?
+                $session->get('questionnaire') :
+                null;
     }
 }
