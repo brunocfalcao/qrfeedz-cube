@@ -77,9 +77,20 @@ class User extends Authenticatable implements HasLocalePreference
     /**
      * ---------------------- BUSINESS METHODS -----------------------------
      */
+    public function isSuperAdmin()
+    {
+        return $this->is_super_admin;
+    }
+
+    public function isAfilliate()
+    {
+        return ! blank($this->affiliate_id);
+    }
+
     public function isAffiliateOf(Client $client)
     {
-        return $this?->affiliate->client_id == $client->affiliate_id;
+        return $this->affiliate_id == $client->affiliate_id &&
+               ! blank($this->affiliate_id);
     }
 
     /**
