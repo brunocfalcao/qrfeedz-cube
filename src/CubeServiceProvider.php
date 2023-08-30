@@ -3,7 +3,6 @@
 namespace QRFeedz\Cube;
 
 use Illuminate\Support\ServiceProvider;
-use QRFeedz\Cube\Models\Affiliate;
 use QRFeedz\Cube\Models\Authorization;
 use QRFeedz\Cube\Models\Category;
 use QRFeedz\Cube\Models\Client;
@@ -20,7 +19,6 @@ use QRFeedz\Cube\Models\Tag;
 use QRFeedz\Cube\Models\User;
 use QRFeedz\Cube\Models\Widget;
 use QRFeedz\Cube\Models\WidgetInstance;
-use QRFeedz\Cube\Observers\AffiliateObserver;
 use QRFeedz\Cube\Observers\AuthorizationObserver;
 use QRFeedz\Cube\Observers\CategoryObserver;
 use QRFeedz\Cube\Observers\ClientObserver;
@@ -62,7 +60,6 @@ class CubeServiceProvider extends ServiceProvider
         Country::observe(CountryObserver::class);
         Response::observe(ResponseObserver::class);
         Category::observe(CategoryObserver::class);
-        Affiliate::observe(AffiliateObserver::class);
         PageInstance::observe(PageInstanceObserver::class);
         OpenAIPrompt::observe(OpenAIPromptObserver::class);
         Authorization::observe(AuthorizationObserver::class);

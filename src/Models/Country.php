@@ -21,13 +21,13 @@ class Country extends QRFeedzModel
     }
 
     /**
-     * Related affiliates country.
+     * Related client country from its address.
      *
-     * Source: affiliates.country_id
+     * Source: users.country_id
      * Relationship: validated
      */
-    public function affiliates()
+    public function users()
     {
-        return $this->hasMany(Affiliate::class);
+        return $this->hasMany(User::class);
     }
 }

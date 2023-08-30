@@ -20,12 +20,12 @@ class Client extends QRFeedzModel
      * commission to that affiliate per each payment that this client
      * will generate.
      *
-     * Source: clients.affiliate_id
+     * Source: users.id
      * Relationship: validated
      */
     public function affiliate()
     {
-        return $this->belongsTo(Affiliate::class);
+        return $this->belongsTo(Affiliate::class, 'id', 'user_affiliate_id');
     }
 
     /**

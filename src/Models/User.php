@@ -31,24 +31,13 @@ class User extends Authenticatable implements HasLocalePreference
 
     protected $casts = [
         'is_super_admin' => 'boolean',
+
+        'commission_percentage' => 'integer'
     ];
 
     public function preferredLocale()
     {
         return $this->locale->canonical;
-    }
-
-    /**
-     * An user can also be an affiliate and will earn commissions each month
-     * for each new client they gather, or clients that are monthly active on
-     * their records.
-     *
-     * Source: users.affiliate_id
-     * Relationship: validated
-     */
-    public function affiliate()
-    {
-        return $this->belongsTo(Affiliate::class);
     }
 
     /**
@@ -64,7 +53,8 @@ class User extends Authenticatable implements HasLocalePreference
     }
 
     /**
-     * Related client where this user belongs to.
+     * Related client where this user belongs to. This is not related with
+     * the affiliate logic (one user can have many client as affiliate).
      *
      * Source: clients.id
      * Relationship: validated
@@ -75,6 +65,28 @@ class User extends Authenticatable implements HasLocalePreference
     }
 
     /**
+     * These are the clients that an affiliate has.
+     *
+     * Source: clients.user_affiliate_id
+     * Relationship: validated
+     */
+    public function clients()
+    {
+        return $this->hasMany(Client::class, 'user_affiliate_id');
+    }
+
+    /**
+     * The related country from the affiliate address.
+     *
+     * Source: affiliates.country_id
+     * Relationship: validated
+     */
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    /**
      * ---------------------- BUSINESS METHODS -----------------------------
      */
     public function isSuperAdmin()
@@ -82,15 +94,14 @@ class User extends Authenticatable implements HasLocalePreference
         return $this->is_super_admin;
     }
 
-    public function isAfilliate()
+    public function isAffiliate()
     {
-        return ! blank($this->affiliate_id);
+        return $this->commission_percentage > 0;
     }
 
     public function isAffiliateOf(Client $client)
     {
-        return $this->affiliate_id == $client->affiliate_id &&
-               ! blank($this->affiliate_id);
+        return $client->where('user_affiliate_id', $this->id)->exists();
     }
 
     /**
@@ -99,12 +110,16 @@ class User extends Authenticatable implements HasLocalePreference
      * Normally used on policies, e.g.:
      * Check if the user has "admin" permissions in a client X.
      *
-     * @param  Model  $model [description]
-     * @param  string  $type  [description]
-     * @return bool        [description]
+     * @param  Model  $model|null [description]
+     * @param  string  $type      [description]
+     * @return bool               [description]
      */
-    public function isAuthorizedAs(Model $model, string $type)
+    public function isAuthorizedAs(Model $model = null, string $type)
     {
+        if (! $model) {
+            return false;
+        }
+
         return $model
             ->authorizationsForUser($this)
             ->get()

@@ -16,15 +16,13 @@ class Category extends QRFeedzModel
     use SoftDeletes;
 
     /**
-     * The related client, relationship exception via any polymorphic and
-     * authorizable type.  A category is related to a client because
-     * a category might not be attached to any questionnaire at the
-     * moment of its creation.
+     * A category is related to a client because a category might not be
+     * attached to any questionnaire at the moment of its creation.
      *
      * Source: categories.client_id
      * Relationship: validated
      */
-    public function clients()
+    public function client()
     {
         return $this->belongsTo(Client::class);
     }
