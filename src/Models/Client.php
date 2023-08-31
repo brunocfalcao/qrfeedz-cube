@@ -3,6 +3,7 @@
 namespace QRFeedz\Cube\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use QRFeedz\Cube\Traits\HasAuthorizations;
 use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
 /**
@@ -13,7 +14,7 @@ use QRFeedz\Foundation\Abstracts\QRFeedzModel;
  */
 class Client extends QRFeedzModel
 {
-    use SoftDeletes;
+    use HasAuthorizations, SoftDeletes;
 
     /**
      * A client can be won via an affiliate. If so, qrfeedz will give a
@@ -25,7 +26,7 @@ class Client extends QRFeedzModel
      */
     public function affiliate()
     {
-        return $this->belongsTo(Affiliate::class, 'id', 'user_affiliate_id');
+        return $this->belongsTo(User::class, 'user_affiliate_id');
     }
 
     /**
@@ -60,22 +61,6 @@ class Client extends QRFeedzModel
     public function questionnaires()
     {
         return $this->hasMany(Questionnaire::class);
-    }
-
-    /**
-     * A client can have several types of authorization per user that is
-     * connected to it. The relationship between an user and a client is
-     * given on the users.client_id, but the permission type is given
-     * here.
-     *
-     * Source: authorizables.authorizable_type = 'Client' + authorizable_id
-     * Relationship: verified.
-     */
-    public function authorizations()
-    {
-        return $this->morphToMany(Authorization::class, 'model')
-                    ->withPivot('user_id')
-                    ->withTimestamps();
     }
 
     /**

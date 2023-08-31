@@ -67,7 +67,7 @@ class Questionnaire extends QRFeedzModel
      */
     public function authorizations()
     {
-        return $this->morphToMany(Authorization::class, 'model')
+        return $this->morphToMany(Authorization::class, 'model', 'authorizables')
                     ->withPivot('user_id')
                     ->withTimestamps();
     }
@@ -177,7 +177,7 @@ class Questionnaire extends QRFeedzModel
      */
     public function authorizationsForUser(User $user)
     {
-        return $this->morphToMany(Authorization::class, 'model')
+        return $this->morphToMany(Authorization::class, 'model', 'authorizables')
                     ->withPivot('user_id')
                     ->wherePivot('user_id', $user->id)
                     ->withTimestamps();

@@ -15,7 +15,8 @@ class Group extends QRFeedzModel
 
     /**
      * A group can belong to several questionnaires, and vice-versa.
-     * This is a N-N relationship.
+     * Groups are system-assigned, and not user-based assigned, so the
+     * backoffice can be dynamically rendered and scoped.
      *
      * Source: questionnaires.id
      * Relationship: validated

@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\DB;
 use QRFeedz\Cube\Concerns\Authenticates;
+use QRFeedz\Cube\Traits\HasAuthorizations;
 
 /**
  * An user is an individual who has access to the back office. Typically,
@@ -20,7 +20,7 @@ use QRFeedz\Cube\Concerns\Authenticates;
  */
 class User extends Authenticatable implements HasLocalePreference
 {
-    use Authenticates, Notifiable, SoftDeletes;
+    use Authenticates, HasAuthorizations, Notifiable, SoftDeletes;
 
     protected $guarded = [];
 
@@ -32,7 +32,7 @@ class User extends Authenticatable implements HasLocalePreference
     protected $casts = [
         'is_super_admin' => 'boolean',
 
-        'commission_percentage' => 'integer'
+        'commission_percentage' => 'integer',
     ];
 
     public function preferredLocale()
@@ -70,7 +70,7 @@ class User extends Authenticatable implements HasLocalePreference
      * Source: clients.user_affiliate_id
      * Relationship: validated
      */
-    public function clients()
+    public function affiliatedClients()
     {
         return $this->hasMany(Client::class, 'user_affiliate_id');
     }
@@ -89,26 +89,12 @@ class User extends Authenticatable implements HasLocalePreference
     /**
      * ---------------------- BUSINESS METHODS -----------------------------
      */
-    public function isSuperAdmin()
-    {
-        return $this->is_super_admin;
-    }
-
-    public function isAffiliate()
-    {
-        return $this->commission_percentage > 0;
-    }
-
-    public function isAffiliateOf(Client $client)
-    {
-        return $client->where('user_affiliate_id', $this->id)->exists();
-    }
 
     /**
      * Used to check if a given model instance is authorized in another model
      * in a specific authorization type.
      * Normally used on policies, e.g.:
-     * Check if the user has "admin" permissions in a client X.
+     * Check if the user has "admin" ($type) permissions in a client X ($model).
      *
      * @param  Model  $model|null [description]
      * @param  string  $type      [description]
@@ -127,22 +113,19 @@ class User extends Authenticatable implements HasLocalePreference
             ->contains($type);
     }
 
-    /**
-     * This special query will return if an user has at least a single
-     * entry in the authorizables table with a specific authorization
-     * type.
-     *
-     * @param  string  $type Authorization canonical
-     * @return bool
-     */
-    public function isAtLeastAuthorizedAs(string $type)
+    public function isSuperAdmin()
     {
-        // Needs to be obtained via a direct query.
-        return DB::table('authorizables')
-                 ->where('user_id', $this->id)
-                 ->where('authorization_id', Authorization::firstWhere('canonical', $type)->id)
-                 ->whereNull('deleted_at')
-                 ->count() > 0;
+        return $this->is_super_admin;
+    }
+
+    public function isAffiliate()
+    {
+        return $this->commission_percentage > 0;
+    }
+
+    public function isAffiliateOf(Client $client)
+    {
+        return $client->where('user_affiliate_id', $this->id)->exists();
     }
 
     /** ---------------------- DEFAULT VALUES ------------------------------- */
