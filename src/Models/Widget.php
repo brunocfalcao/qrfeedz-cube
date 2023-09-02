@@ -22,7 +22,6 @@ class Widget extends QRFeedzModel
      */
     public function widgetInstances()
     {
-        return $this->hasMany(WidgetInstance::class)
-                    ->withTimestamps();
+        return $this->hasMany(WidgetInstance::class);
     }
 }

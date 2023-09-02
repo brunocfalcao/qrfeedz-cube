@@ -5,38 +5,19 @@ namespace QRFeedz\Cube\Models;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
-/**
- * Categories and tags are customizable attributes for client users.
- * Categories typically apply to establishments like restaurants,
- * hotels, and cafeterias, but users can create their own
- * categories as well.
- */
 class Category extends QRFeedzModel
 {
     use SoftDeletes;
 
     /**
-     * A category is related to a client because a category might not be
-     * attached to any questionnaire at the moment of its creation.
-     *
-     * Source: categories.client_id
-     * Relationship: validated
-     */
-    public function client()
-    {
-        return $this->belongsTo(Client::class);
-    }
-
-    /**
-     * A questionnaire can belong to a category. It's actually the main
-     * categorization possible.
+     * A system-assigned category will have several questionnaires from its
+     * value.
      *
      * Source: questionnaires.category_id
      * Relationship: validated
      */
     public function questionnaires()
     {
-        return $this->belongsToMany(Questionnaire::class)
-                    ->withTimestamps();
+        return $this->hasMany(Questionnaire::class);
     }
 }

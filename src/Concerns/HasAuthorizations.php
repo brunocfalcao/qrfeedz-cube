@@ -1,8 +1,9 @@
 <?php
 
-namespace QRFeedz\Cube\Traits;
+namespace QRFeedz\Cube\Concerns;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use QRFeedz\Cube\Models\Authorization;
 use QRFeedz\Cube\Models\User;
@@ -12,7 +13,9 @@ trait HasAuthorizations
     /**
      * This special query will return if an user has at least a single
      * entry in the authorizables table with a specific authorization
-     * type.
+     * type. As example, if we want to know if an user is "at least"
+     * client-admin somewhere, then we call it
+     * isAtLeastAuthorizedAs('client-admin').
      *
      * @param  string  $type Authorization canonical
      * @return bool
@@ -29,7 +32,8 @@ trait HasAuthorizations
 
     /**
      * Returns the authorizations that are part of the user that is passed
-     * as the parameter.
+     * as the parameter. On this case returns the morphable authorizations
+     * for this user (from clients, questionnaires, etc).
      */
     public function authorizationsForUser(User $user)
     {
@@ -61,5 +65,15 @@ trait HasAuthorizations
         )
             ->withPivot('user_id')
             ->withTimestamps();
+    }
+
+    /**
+     * Special relationship that will return the authorizations for a logged
+     * user. Used to simplify the query of getting what authorizations does
+     * the logged user has respective to questionnaire authorizations.
+     */
+    public function loggedUserAuthorizations()
+    {
+        return $this->authorizationsForUser(Auth::user());
     }
 }

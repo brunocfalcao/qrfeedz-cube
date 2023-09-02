@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use QRFeedz\Cube\Concerns\Authenticates;
-use QRFeedz\Cube\Traits\HasAuthorizations;
+use QRFeedz\Cube\Concerns\HasAuthorizations;
 
 /**
  * An user is an individual who has access to the back office. Typically,

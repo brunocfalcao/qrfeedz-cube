@@ -3,7 +3,7 @@
 namespace QRFeedz\Cube\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-use QRFeedz\Cube\Traits\HasAuthorizations;
+use QRFeedz\Cube\Concerns\HasAuthorizations;
 use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
 /**
@@ -61,18 +61,6 @@ class Client extends QRFeedzModel
     public function questionnaires()
     {
         return $this->hasMany(Questionnaire::class);
-    }
-
-    /**
-     * Related categories that belong to this client. Each client own sees
-     * its own categories that were created by its users.
-     *
-     * Source: categories.client_id
-     * Relationship: validated
-     */
-    public function categories()
-    {
-        return $this->hasMany(Category::class);
     }
 
     /**

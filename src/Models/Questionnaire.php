@@ -4,8 +4,8 @@ namespace QRFeedz\Cube\Models;
 
 use Brunocfalcao\Cerebrus\Cerebrus;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use QRFeedz\Cube\Concerns\HasAuthorizations;
 use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 use QRFeedz\Services\ThemeColor;
 
@@ -19,7 +19,7 @@ use QRFeedz\Services\ThemeColor;
  */
 class Questionnaire extends QRFeedzModel
 {
-    use SoftDeletes;
+    use HasAuthorizations, SoftDeletes;
 
     protected $casts = [
         'starts_at' => 'datetime',
@@ -48,31 +48,6 @@ class Questionnaire extends QRFeedzModel
     }
 
     /**
-     * A questionnaire can belong to several groups at the same time.
-     *
-     * Source: groups.id
-     * Relationship: validated
-     */
-    public function group()
-    {
-        return $this->belongsTo(Group::class)
-                    ->withTimestamps();
-    }
-
-    /**
-     * Related user authorizations for the questionnaire
-     *
-     * Source: authorizations.id
-     * Relationship: validated
-     */
-    public function authorizations()
-    {
-        return $this->morphToMany(Authorization::class, 'model', 'authorizables')
-                    ->withPivot('user_id')
-                    ->withTimestamps();
-    }
-
-    /**
      * What page instances are part of this questionnaire.
      *
      * Source: page_instances.id
@@ -85,16 +60,17 @@ class Questionnaire extends QRFeedzModel
     }
 
     /**
-     * The questionnaire can belong to several categories that were selected
-     * by the client users. Normally it will be to one only, but it can
-     * be to several if that's the case.
+     * The questionnaire will belong to a system-assigned category. This allows
+     * the backoffice to dynamically generate reports based on the category
+     * itself. E.g.: A restaurant questionnaire will not have the same display
+     * in the backoffice as a product questionnaire.
      *
      * Source: category.id
      * Relationship: validated
      */
-    public function categories()
+    public function category()
     {
-        return $this->belongsToMany(Category::class)
+        return $this->belongsTo(Category::class)
                     ->withTimestamps();
     }
 
@@ -170,28 +146,6 @@ class Questionnaire extends QRFeedzModel
     /**
      * ---------------------- BUSINESS METHODS -----------------------------
      */
-
-    /**
-     * What authorizations are given to the passed user, for
-     * this questionnaire.
-     */
-    public function authorizationsForUser(User $user)
-    {
-        return $this->morphToMany(Authorization::class, 'model', 'authorizables')
-                    ->withPivot('user_id')
-                    ->wherePivot('user_id', $user->id)
-                    ->withTimestamps();
-    }
-
-    /**
-     * Special relationship that will return the authorizations for a logged
-     * user. Used to simplify the query of getting what authorizations does
-     * the logged user has respective to questionnaire authorizations.
-     */
-    public function loggedUserAuthorizations()
-    {
-        return $this->authorizationsForUser(Auth::user());
-    }
 
     /**
      * A questionnaire is valid if:

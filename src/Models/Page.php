@@ -17,7 +17,6 @@ class Page extends QRFeedzModel
      */
     public function pageInstances()
     {
-        return $this->hasMany(PageInstance::class)
-                    ->withTimestamps();
+        return $this->hasMany(PageInstance::class);
     }
 }

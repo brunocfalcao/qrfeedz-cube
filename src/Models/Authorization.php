@@ -44,17 +44,4 @@ class Authorization extends QRFeedzModel
                     ->withPivot('user_id')
                     ->withTimestamps();
     }
-
-    /**
-     * Defines what permission should each user have to the group.
-     *
-     * Source: authorizables.authorizable_type = 'Group' + authorizable_id
-     * Relationship: verified.
-     */
-    public function groups()
-    {
-        return $this->morphedByMany(Group::class, 'model', 'authorizables')
-                    ->withPivot('user_id')
-                    ->withTimestamps();
-    }
 }
