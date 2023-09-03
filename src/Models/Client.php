@@ -63,6 +63,11 @@ class Client extends QRFeedzModel
         return $this->hasMany(Questionnaire::class);
     }
 
+    public function locations()
+    {
+        return $this->hasMany(Location::class);
+    }
+
     /**
      * Any tags that can belong to the client. The client tags are only used
      * by super admins to categorize/organize clients into specific tags

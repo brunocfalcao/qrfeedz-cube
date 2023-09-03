@@ -75,6 +75,17 @@ class Questionnaire extends QRFeedzModel
     }
 
     /**
+     * The related locations.
+     *
+     * Source: location.id
+     * Relationship: validated
+     */
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
+
+    /**
      * Each questionnaire has a relationship to its AI prompts, that will
      * run each time a feedback conclusion is needed.
      *

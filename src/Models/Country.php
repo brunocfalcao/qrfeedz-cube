@@ -30,4 +30,15 @@ class Country extends QRFeedzModel
     {
         return $this->hasMany(User::class);
     }
+
+    /**
+     * The related locations.
+     *
+     * Source: location.id
+     * Relationship: validated
+     */
+    public function locations()
+    {
+        return $this->hasMany(Location::class);
+    }
 }
