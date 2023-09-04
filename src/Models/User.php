@@ -84,6 +84,23 @@ class User extends Authenticatable implements HasLocalePreference
      */
 
     /**
+     * Returns if an user is:
+     *     - Super admin or
+     *     - Affiliate or
+     *     - <business>-admin (client-, questionnaire-, gdpr, etc).
+     *
+     * @return boolean
+     */
+    public function isAllowedAdminAccess()
+    {
+        return $this->isSuperAdmin() ||
+               $this->isAffiliate() ||
+               $this->isAtLeastAuthorizedAs('client-admin') ||
+               $this->isAtLeastAuthorizedAs('questionnaire-admin') ||
+               $this->isAtLeastAuthorizedAs('gdpr');
+    }
+
+    /**
      * Used to check if a given model instance is authorized in another model
      * in a specific authorization type.
      * Normally used on policies, e.g.:
