@@ -89,7 +89,7 @@ class User extends Authenticatable implements HasLocalePreference
      *     - Affiliate or
      *     - <business>-admin (client-, questionnaire-, gdpr, etc).
      *
-     * @return boolean
+     * @return bool
      */
     public function isAllowedAdminAccess()
     {
