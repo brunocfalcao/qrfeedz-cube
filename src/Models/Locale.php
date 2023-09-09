@@ -55,7 +55,7 @@ class Locale extends QRFeedzModel
     public function questionInstances()
     {
         return $this->morphedByMany(QuestionInstance::class, 'model', 'localables')
-                    ->with(['caption', 'placeholder'])
+                    ->withPivot(['caption', 'placeholder'])
                     ->withTimestamps();
     }
 
@@ -70,7 +70,7 @@ class Locale extends QRFeedzModel
     public function widgetInstances()
     {
         return $this->morphedByMany(WidgetInstance::class, 'model', 'localables')
-                    ->with(['caption', 'placeholder'])
+                    ->withPivot(['caption', 'placeholder'])
                     ->withTimestamps();
     }
 }
