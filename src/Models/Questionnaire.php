@@ -70,8 +70,7 @@ class Questionnaire extends QRFeedzModel
      */
     public function category()
     {
-        return $this->belongsTo(Category::class)
-                    ->withTimestamps();
+        return $this->belongsTo(Category::class);
     }
 
     /**
