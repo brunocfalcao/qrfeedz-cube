@@ -72,7 +72,7 @@ class QuestionInstance extends QRFeedzModel
      */
     public function captions()
     {
-        return $this->morphToMany(Locale::class, 'model')
+        return $this->morphToMany(Locale::class, 'model', 'localables')
                     ->withPivot(['caption', 'placeholder'])
                     ->withTimestamps();
     }

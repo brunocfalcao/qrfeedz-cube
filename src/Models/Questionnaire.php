@@ -6,6 +6,7 @@ use Brunocfalcao\Cerebrus\Cerebrus;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use QRFeedz\Cube\Concerns\HasAuthorizations;
+use QRFeedz\Cube\Models\OpenAIPrompt as OpenAIPromptModel;
 use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 use QRFeedz\Services\ThemeColor;
 
@@ -29,12 +30,6 @@ class Questionnaire extends QRFeedzModel
 
         'data' => 'array',
     ];
-
-    // Relationship validated.
-    public function OpenAIPromptConfigurations()
-    {
-        return $this->hasOne(OpenAIPromptConfiguration::class);
-    }
 
     /**
      * The related client. A questionnaire always belongs to a client.
@@ -93,7 +88,7 @@ class Questionnaire extends QRFeedzModel
      */
     public function openAIPrompt()
     {
-        return $this->hasOne(OpenAIPrompt::class);
+        return $this->hasOne(OpenAIPromptModel::class);
     }
 
     /**
@@ -104,7 +99,7 @@ class Questionnaire extends QRFeedzModel
      */
     public function tags()
     {
-        return $this->morphToMany(Tag::class, 'model')
+        return $this->morphToMany(Tag::class, 'model', 'taggables')
                     ->withTimestamps();
     }
 

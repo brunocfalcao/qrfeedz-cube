@@ -74,7 +74,7 @@ class PageInstance extends QRFeedzModel
     public function getViewComponentAttribute()
     {
         return $this->view_component_override ??
-               $this->page->view_component_namespace;
+               $this->page?->view_component_namespace;
     }
 
     /** ---------------------- DEFAULT VALUES ------------------------------- */
