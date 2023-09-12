@@ -15,7 +15,8 @@ class ClientObserver
     public function created(Client $model)
     {
         /**
-         * When we create a new client, we replicate it to a location.
+         * When we create a new client, we create a location with the exact
+         * same location coordinates.
          */
         Location::create([
             'name' => $model->name,

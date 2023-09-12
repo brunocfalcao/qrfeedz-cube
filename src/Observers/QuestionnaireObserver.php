@@ -9,6 +9,10 @@ class QuestionnaireObserver
 {
     public function created(Questionnaire $model)
     {
+        /**
+         * Each questionnaire creation will have an AI Prompt also
+         * automatically created.
+         */
         $openAIPrompt = new OpenAIPrompt();
 
         $openAIPrompt->questionnaire_id = $model->id;
