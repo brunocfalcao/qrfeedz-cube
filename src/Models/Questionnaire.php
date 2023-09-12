@@ -143,14 +143,14 @@ class Questionnaire extends QRFeedzModel
     {
         $colors = ThemeColor::make()->compute();
 
-        return $colors['primary'];
+        return '#'.$colors['primary'];
     }
 
     public function defaultColorSecondaryAttribute()
     {
         $colors = ThemeColor::make($this->color_primary)->compute();
 
-        return $colors['complementary'];
+        return '#'.$colors['complementary'];
     }
 
     /**
