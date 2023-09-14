@@ -23,4 +23,15 @@ class Response extends QRFeedzModel
     {
         return $this->belongsTo(QuestionInstance::class);
     }
+
+    /**
+     * The related widget instance where this response is related to.
+     *
+     * Source: widget_instances.id
+     * Relationship: validated
+     */
+    public function widgetInstance()
+    {
+        return $this->belongsTo(WidgetInstance::class);
+    }
 }

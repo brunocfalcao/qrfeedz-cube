@@ -77,6 +77,17 @@ class WidgetInstance extends QRFeedzModel
                     ->withTimestamps();
     }
 
+    /**
+     * The responses that were given relatively to this widget instance.
+     *
+     * Source: responses.id
+     * Relationship: validated
+     */
+    public function responses()
+    {
+        return $this->hasMany(Response::class);
+    }
+
     /** ---------------------- DEFAULT VALUES ------------------------------- */
     public function defaultIndexAttribute()
     {
