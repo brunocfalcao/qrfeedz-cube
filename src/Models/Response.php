@@ -10,7 +10,7 @@ class Response extends QRFeedzModel
     use SoftDeletes;
 
     protected $casts = [
-        'values' => 'array',
+        'value' => 'array',
     ];
 
     /**

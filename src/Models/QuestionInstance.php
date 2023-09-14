@@ -9,13 +9,11 @@ use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
 class QuestionInstance extends QRFeedzModel
 {
-    use HasAutoIncrementsByGroup;
-    use SoftDeletes;
+    use HasAutoIncrementsByGroup, SoftDeletes;
 
     protected $casts = [
         'is_required' => 'boolean',
         'is_analytical' => 'boolean',
-        'is_single_value' => 'boolean',
         'is_used_for_personal_data' => 'boolean',
     ];
 
@@ -45,7 +43,7 @@ class QuestionInstance extends QRFeedzModel
      * Source: page_instances.id
      * Relationship: validated
      */
-    public function pagesInstance()
+    public function pageInstance()
     {
         return $this->belongsTo(PageInstance::class);
     }
