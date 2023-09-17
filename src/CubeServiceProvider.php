@@ -60,9 +60,10 @@ class CubeServiceProvider extends ServiceProvider
     {
         $this->registerObservers();
 
-        if (!app()->runningInConsole()) {
+        if (! app()->runningInConsole()) {
             $this->registerGates();
             $this->registerPolicies();
+            $this->registerGlobalScopes();
         }
     }
 
@@ -94,7 +95,7 @@ class CubeServiceProvider extends ServiceProvider
 
     protected function registerPolicies()
     {
-        $modelPaths = glob(__DIR__ . '/Models/*.php');
+        $modelPaths = glob(__DIR__.'/Models/*.php');
         $modelClasses = array_map(function ($path) {
             return basename($path, '.php');
         }, $modelPaths);
@@ -106,7 +107,7 @@ class CubeServiceProvider extends ServiceProvider
                 $prefix = 'Frontend';
                 break;
             case 'admin':
-            case 'backend':  // Both admin and backend use 'Admin'
+            case 'backend':  // Both admin and backend use 'Admin'.
                 $prefix = 'Admin';
                 break;
         }
@@ -117,7 +118,40 @@ class CubeServiceProvider extends ServiceProvider
                 $policyClass = "\\QRFeedz\\Cube\\Policies\\{$prefix}\\{$model}Policy";
 
                 if (class_exists($modelClass) && class_exists($policyClass)) {
+                    info("attribuing policy {$policyClass} to model {$modelClass}");
                     Gate::policy($modelClass, $policyClass);
+                }
+            }
+        }
+    }
+
+    protected function registerGlobalScopes()
+    {
+        $modelPaths = glob(__DIR__.'/Models/*.php');
+        $modelClasses = array_map(function ($path) {
+            return basename($path, '.php');
+        }, $modelPaths);
+
+        $prefix = null;
+
+        switch (QRFeedz::context()) {
+            case 'frontend':
+                $prefix = 'Frontend';
+                break;
+            case 'admin':
+            case 'backend':
+                $prefix = 'Admin';
+                break;
+        }
+
+        if ($prefix) {
+            foreach ($modelClasses as $model) {
+                $modelClass = "\\QRFeedz\\Cube\\Models\\{$model}";
+                $scopeClass = "\\QRFeedz\\Cube\\Scopes\\{$prefix}\\{$model}Scope";
+
+                if (class_exists($modelClass) && class_exists($scopeClass)) {
+                    info("attribuing global scope {$scopeClass} to model {$modelClass}");
+                    $modelClass::addGlobalScope(new $scopeClass);
                 }
             }
         }
