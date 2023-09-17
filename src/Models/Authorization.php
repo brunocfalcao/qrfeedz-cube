@@ -44,4 +44,17 @@ class Authorization extends QRFeedzModel
                     ->withPivot('user_id')
                     ->withTimestamps();
     }
+
+    /**
+     * ---------------------- BUSINESS METHODS -----------------------------
+     */
+    public function canBeDeleted()
+    {
+        return
+            // No clients relationship items.
+            $this->clients()->count() == 0 &&
+
+            // No questionnaire relationship items.
+            $this->questionnaires()->count() == 0;
+    }
 }

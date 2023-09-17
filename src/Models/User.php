@@ -82,7 +82,6 @@ class User extends Authenticatable implements HasLocalePreference
     /**
      * ---------------------- BUSINESS METHODS -----------------------------
      */
-
     /**
      * Returns if an user is:
      *     - Super admin or
@@ -96,8 +95,7 @@ class User extends Authenticatable implements HasLocalePreference
         return $this->isSuperAdmin() ||
                $this->isAffiliate() ||
                $this->isAtLeastAuthorizedAs('client-admin') ||
-               $this->isAtLeastAuthorizedAs('questionnaire-admin') ||
-               $this->isAtLeastAuthorizedAs('gdpr');
+               $this->isAtLeastAuthorizedAs('location-admin');
     }
 
     /**
@@ -121,6 +119,11 @@ class User extends Authenticatable implements HasLocalePreference
             ->get()
             ->pluck('name')
             ->contains($type);
+    }
+
+    public function isAdmin()
+    {
+        return $this->is_admin;
     }
 
     public function isSuperAdmin()
@@ -150,7 +153,6 @@ class User extends Authenticatable implements HasLocalePreference
     }
 
     /** ---------------------- DEFAULT VALUES ------------------------------- */
-
     // Fallback to client locale, or lastly to english.
     public function defaultLocaleIdAttribute()
     {

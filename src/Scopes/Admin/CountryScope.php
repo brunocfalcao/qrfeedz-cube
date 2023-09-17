@@ -10,8 +10,10 @@ class CountryScope implements Scope
 {
     public function apply(Builder $builder, Model $model)
     {
+        /*
         $table = $model->getTable();
         $keyName = $model->getKeyName();
-        $builder->where("{$table}.{$keyName}", '<', 12);
+        $builder->where("{$table}.{$keyName}", '>', 0);
+        */
     }
 }

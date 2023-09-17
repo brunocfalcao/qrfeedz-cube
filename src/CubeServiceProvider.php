@@ -117,9 +117,15 @@ class CubeServiceProvider extends ServiceProvider
                 $modelClass = "\\QRFeedz\\Cube\\Models\\{$model}";
                 $policyClass = "\\QRFeedz\\Cube\\Policies\\{$prefix}\\{$model}Policy";
 
-                if (class_exists($modelClass) && class_exists($policyClass)) {
-                    info("attribuing policy {$policyClass} to model {$modelClass}");
-                    Gate::policy($modelClass, $policyClass);
+                try {
+                    if (class_exists($modelClass) && class_exists($policyClass)) {
+                        $modelClassObject = new $modelClass;
+                        $policyClassObject = new $policyClass;
+
+                        Gate::policy(get_class($modelClassObject), get_class($policyClassObject));
+                    }
+                } catch (\Exception $ex) {
+                    info('Policy Registration Error: ' . $ex->getMessage());
                 }
             }
         }
@@ -149,9 +155,11 @@ class CubeServiceProvider extends ServiceProvider
                 $modelClass = "\\QRFeedz\\Cube\\Models\\{$model}";
                 $scopeClass = "\\QRFeedz\\Cube\\Scopes\\{$prefix}\\{$model}Scope";
 
-                if (class_exists($modelClass) && class_exists($scopeClass)) {
-                    info("attribuing global scope {$scopeClass} to model {$modelClass}");
-                    $modelClass::addGlobalScope(new $scopeClass);
+                try {
+                    if (class_exists($modelClass) && class_exists($scopeClass)) {
+                        $modelClass::addGlobalScope(new $scopeClass);
+                    }
+                } catch (\Exception $ex) {
                 }
             }
         }

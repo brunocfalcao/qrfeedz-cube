@@ -5,6 +5,10 @@ namespace QRFeedz\Cube\Policies\Admin;
 use QRFeedz\Cube\Models\Authorization;
 use QRFeedz\Cube\Models\User;
 
+/**
+ * All authorizations in admin/backend are only managed by the super admin.
+ * In any other place an Authorization model can be seen.
+ */
 class AuthorizationPolicy
 {
     public function viewAny(User $user)
@@ -29,7 +33,7 @@ class AuthorizationPolicy
 
     public function delete(User $user, Authorization $model)
     {
-        return $user->isSuperAdmin();
+        return $model->canBeDeleted();
     }
 
     public function restore(User $user, Authorization $model)
@@ -39,7 +43,7 @@ class AuthorizationPolicy
 
     public function forceDelete(User $user, Authorization $model)
     {
-        return $user->isSuperAdmin();
+        return $model->canBeDeleted();
     }
 
     public function replicate(User $user, Authorization $model)
