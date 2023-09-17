@@ -125,7 +125,7 @@ class CubeServiceProvider extends ServiceProvider
                         Gate::policy(get_class($modelClassObject), get_class($policyClassObject));
                     }
                 } catch (\Exception $ex) {
-                    info('Policy Registration Error: ' . $ex->getMessage());
+                    info('Policy Registration Error: '.$ex->getMessage());
                 }
             }
         }
