@@ -2,7 +2,24 @@
 
 namespace QRFeedz\Cube;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use QRFeedz\Cube\Gates\AuthorizationGates;
+use QRFeedz\Cube\Gates\CategoryGates;
+use QRFeedz\Cube\Gates\ClientGates;
+use QRFeedz\Cube\Gates\CountryGates;
+use QRFeedz\Cube\Gates\LocaleGates;
+use QRFeedz\Cube\Gates\LocationGates;
+use QRFeedz\Cube\Gates\OpenAIPromptGates;
+use QRFeedz\Cube\Gates\PageGates;
+use QRFeedz\Cube\Gates\PageInstanceGates;
+use QRFeedz\Cube\Gates\QuestionInstanceGates;
+use QRFeedz\Cube\Gates\QuestionnaireGates;
+use QRFeedz\Cube\Gates\ResponseGates;
+use QRFeedz\Cube\Gates\TagGates;
+use QRFeedz\Cube\Gates\UserGates;
+use QRFeedz\Cube\Gates\WidgetGates;
+use QRFeedz\Cube\Gates\WidgetInstanceGates;
 use QRFeedz\Cube\Models\Authorization;
 use QRFeedz\Cube\Models\Category;
 use QRFeedz\Cube\Models\Client;
@@ -35,17 +52,75 @@ use QRFeedz\Cube\Observers\TagObserver;
 use QRFeedz\Cube\Observers\UserObserver;
 use QRFeedz\Cube\Observers\WidgetInstanceObserver;
 use QRFeedz\Cube\Observers\WidgetObserver;
+use QRFeedz\Services\Facades\QRFeedz;
 
 class CubeServiceProvider extends ServiceProvider
 {
     public function boot()
     {
         $this->registerObservers();
+
+        if (!app()->runningInConsole()) {
+            $this->registerGates();
+            $this->registerPolicies();
+        }
     }
 
     public function register()
     {
         //
+    }
+
+    protected function registerGates()
+    {
+        TagGates::apply();
+        UserGates::apply();
+        PageGates::apply();
+        WidgetGates::apply();
+        LocaleGates::apply();
+        ClientGates::apply();
+        WidgetGates::apply();
+        CountryGates::apply();
+        ResponseGates::apply();
+        CategoryGates::apply();
+        LocationGates::apply();
+        PageInstanceGates::apply();
+        OpenAIPromptGates::apply();
+        AuthorizationGates::apply();
+        QuestionnaireGates::apply();
+        WidgetInstanceGates::apply();
+        QuestionInstanceGates::apply();
+    }
+
+    protected function registerPolicies()
+    {
+        $modelPaths = glob(__DIR__ . '/Models/*.php');
+        $modelClasses = array_map(function ($path) {
+            return basename($path, '.php');
+        }, $modelPaths);
+
+        $prefix = null;
+
+        switch (QRFeedz::context()) {
+            case 'frontend':
+                $prefix = 'Frontend';
+                break;
+            case 'admin':
+            case 'backend':  // Both admin and backend use 'Admin'
+                $prefix = 'Admin';
+                break;
+        }
+
+        if ($prefix) {
+            foreach ($modelClasses as $model) {
+                $modelClass = "\\QRFeedz\\Cube\\Models\\{$model}";
+                $policyClass = "\\QRFeedz\\Cube\\Policies\\{$prefix}\\{$model}Policy";
+
+                if (class_exists($modelClass) && class_exists($policyClass)) {
+                    Gate::policy($modelClass, $policyClass);
+                }
+            }
+        }
     }
 
     protected function registerObservers()
