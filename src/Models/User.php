@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use QRFeedz\Cube\Concerns\Authenticates;
 use QRFeedz\Cube\Concerns\HasAuthorizations;
 
@@ -69,6 +70,35 @@ class User extends Authenticatable implements HasLocalePreference
     }
 
     /**
+     * This special query will return if an user has at least a single
+     * entry in the authorizables table with a specific authorization
+     * type. As example, if we want to know if an user is "at least"
+     * client-admin somewhere, then we call it
+     * isAtLeastAuthorizedAs('client-admin').
+     *
+     * @param  string  $type Authorization canonical
+     * @return bool
+     */
+    public function isAtLeastAuthorizedAs(string $type)
+    {
+        // Needs to be obtained via a direct query.
+        return DB::table('authorizables')
+                 ->where('user_id', $this->id)
+                 ->where('authorization_id', Authorization::firstWhere('canonical', $type)->id)
+                 ->whereNull('deleted_at')
+                 ->count() > 0;
+    }
+
+    public function authorizationsAs(string $type)
+    {
+        return DB::table('authorizables')
+                 ->where('user_id', $this->id)
+                 ->where('authorization_id', Authorization::firstWhere('canonical', $type)->id)
+                 ->whereNull('deleted_at')
+                 ->get();
+    }
+
+    /**
      * The related country from the affiliate address.
      *
      * Source: affiliates.country_id
@@ -104,9 +134,8 @@ class User extends Authenticatable implements HasLocalePreference
      * Normally used on policies, e.g.:
      * Check if the user has "admin" ($type) permissions in a client X ($model).
      *
-     * @param  Model  $model|null [description]
-     * @param  string  $type      [description]
-     * @return bool               [description]
+     * @param  Model  $model|null
+     * @return bool
      */
     public function isAuthorizedAs(Model $model = null, string $type)
     {
@@ -121,16 +150,30 @@ class User extends Authenticatable implements HasLocalePreference
             ->contains($type);
     }
 
+    /**
+     * The user is admin. Kind'of super admin but with less authorization.
+     */
     public function isAdmin()
     {
         return $this->is_admin;
     }
 
+    /**
+     * The user is super admin. All previleges are given.
+     */
     public function isSuperAdmin()
     {
         return $this->is_super_admin;
     }
 
+    public function isAdminLike()
+    {
+        return $this->isSuperAdmin() || $this->isAdmin();
+    }
+
+    /**
+     * The user is affiliate, meaning the commission percentage is given.
+     */
     public function isAffiliate()
     {
         // Well, I could have used a "is_affiliate" but at the end this is okay.

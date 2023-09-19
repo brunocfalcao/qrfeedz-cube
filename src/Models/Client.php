@@ -52,17 +52,6 @@ class Client extends QRFeedzModel
         return $this->belongsTo(Country::class);
     }
 
-    /**
-     * Related questionnaires. One client can have several questionaires.
-     *
-     * Source: questionnaires.id
-     * Relationship: validated
-     */
-    public function questionnaires()
-    {
-        return $this->hasMany(Questionnaire::class);
-    }
-
     public function locations()
     {
         return $this->hasMany(Location::class);

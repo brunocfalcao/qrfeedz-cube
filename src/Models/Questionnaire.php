@@ -32,17 +32,6 @@ class Questionnaire extends QRFeedzModel
     ];
 
     /**
-     * The related client. A questionnaire always belongs to a client.
-     *
-     * Source: clients.id
-     * Relationship: validated
-     */
-    public function client()
-    {
-        return $this->belongsTo(Client::class);
-    }
-
-    /**
      * What page instances are part of this questionnaire.
      *
      * Source: page_instances.id

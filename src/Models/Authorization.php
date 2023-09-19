@@ -45,8 +45,20 @@ class Authorization extends QRFeedzModel
                     ->withTimestamps();
     }
 
+    public function locations()
+    {
+        return $this->morphedByMany(Location::class, 'model', 'authorizables')
+                    ->withPivot('user_id')
+                    ->withTimestamps();
+    }
+
     /**
      * ---------------------- BUSINESS METHODS -----------------------------
+     */
+
+    /**
+     * Decides if an eloquent model can be deleted, so all the conditions need
+     * to meet before the instance is deleted. Can be used for force delete too.
      */
     public function canBeDeleted()
     {
