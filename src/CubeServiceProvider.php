@@ -20,38 +20,6 @@ use QRFeedz\Cube\Gates\TagGates;
 use QRFeedz\Cube\Gates\UserGates;
 use QRFeedz\Cube\Gates\WidgetGates;
 use QRFeedz\Cube\Gates\WidgetInstanceGates;
-use QRFeedz\Cube\Models\Authorization;
-use QRFeedz\Cube\Models\Category;
-use QRFeedz\Cube\Models\Client;
-use QRFeedz\Cube\Models\Country;
-use QRFeedz\Cube\Models\Locale;
-use QRFeedz\Cube\Models\Location;
-use QRFeedz\Cube\Models\OpenAIPrompt;
-use QRFeedz\Cube\Models\Page;
-use QRFeedz\Cube\Models\PageInstance;
-use QRFeedz\Cube\Models\QuestionInstance;
-use QRFeedz\Cube\Models\Questionnaire;
-use QRFeedz\Cube\Models\Response;
-use QRFeedz\Cube\Models\Tag;
-use QRFeedz\Cube\Models\User;
-use QRFeedz\Cube\Models\Widget;
-use QRFeedz\Cube\Models\WidgetInstance;
-use QRFeedz\Cube\Observers\AuthorizationObserver;
-use QRFeedz\Cube\Observers\CategoryObserver;
-use QRFeedz\Cube\Observers\ClientObserver;
-use QRFeedz\Cube\Observers\CountryObserver;
-use QRFeedz\Cube\Observers\LocaleObserver;
-use QRFeedz\Cube\Observers\LocationObserver;
-use QRFeedz\Cube\Observers\OpenAIPromptObserver;
-use QRFeedz\Cube\Observers\PageInstanceObserver;
-use QRFeedz\Cube\Observers\PageObserver;
-use QRFeedz\Cube\Observers\QuestionInstanceObserver;
-use QRFeedz\Cube\Observers\QuestionnaireObserver;
-use QRFeedz\Cube\Observers\ResponseObserver;
-use QRFeedz\Cube\Observers\TagObserver;
-use QRFeedz\Cube\Observers\UserObserver;
-use QRFeedz\Cube\Observers\WidgetInstanceObserver;
-use QRFeedz\Cube\Observers\WidgetObserver;
 use QRFeedz\Services\Facades\QRFeedz;
 
 class CubeServiceProvider extends ServiceProvider
@@ -167,21 +135,22 @@ class CubeServiceProvider extends ServiceProvider
 
     protected function registerObservers()
     {
-        Tag::observe(TagObserver::class);
-        Page::observe(PageObserver::class);
-        User::observe(UserObserver::class);
-        Client::observe(ClientObserver::class);
-        Widget::observe(WidgetObserver::class);
-        Locale::observe(LocaleObserver::class);
-        Location::observe(LocationObserver::class);
-        Country::observe(CountryObserver::class);
-        Response::observe(ResponseObserver::class);
-        Category::observe(CategoryObserver::class);
-        PageInstance::observe(PageInstanceObserver::class);
-        OpenAIPrompt::observe(OpenAIPromptObserver::class);
-        Authorization::observe(AuthorizationObserver::class);
-        Questionnaire::observe(QuestionnaireObserver::class);
-        WidgetInstance::observe(WidgetInstanceObserver::class);
-        QuestionInstance::observe(QuestionInstanceObserver::class);
+        $modelPaths = glob(__DIR__.'/Models/*.php');
+        $modelClasses = array_map(function ($path) {
+            return basename($path, '.php');
+        }, $modelPaths);
+
+        foreach ($modelClasses as $model) {
+            $modelClass = "\\QRFeedz\\Cube\\Models\\{$model}";
+            $observerClass = "\\QRFeedz\\Cube\\Observers\\{$model}Observer";
+
+            try {
+                if (class_exists($modelClass) && class_exists($observerClass)) {
+                    $modelClass::observe($observerClass);
+                }
+            } catch (\Exception $ex) {
+                info('Observer Registration Error: '.$ex->getMessage());
+            }
+        }
     }
 }

@@ -29,7 +29,7 @@ class AuthorizationPolicy
 
     public function delete(User $user, Authorization $model)
     {
-        return $model->canBeDeleted();
+        return $user->isSuperAdmin();
     }
 
     public function restore(User $user, Authorization $model)
@@ -39,7 +39,7 @@ class AuthorizationPolicy
 
     public function forceDelete(User $user, Authorization $model)
     {
-        return $model->canBeDeleted();
+        return $user->isSuperAdmin();
     }
 
     public function replicate(User $user, Authorization $model)

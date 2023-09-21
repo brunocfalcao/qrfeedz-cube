@@ -3,6 +3,7 @@
 namespace QRFeedz\Cube\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
 /**
@@ -63,10 +64,8 @@ class Authorization extends QRFeedzModel
     public function canBeDeleted()
     {
         return
-            // No clients relationship items.
-            $this->clients()->count() == 0 &&
-
-            // No questionnaire relationship items.
-            $this->questionnaires()->count() == 0;
+            DB::table('authorizables')
+              ->where('authorization_id', $this->id)
+              ->count() > 0;
     }
 }
