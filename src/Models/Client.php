@@ -81,4 +81,23 @@ class Client extends QRFeedzModel
     {
         return $this->hasMany(User::class);
     }
+
+    /**
+     * ---------------------- BUSINESS METHODS -----------------------------
+     */
+
+    /**
+     * Decides if an eloquent model can be deleted, so all the conditions need
+     * to meet before the instance is deleted. Can be used for force delete too.
+     */
+    public function canBeDeleted()
+    {
+        /**
+         * A client can be deleted if:
+         * - All locations are deleted.
+         * If a location is deleted, then all the children questionnaires are
+         * also already deleted.
+         */
+        return $this->locations->count() == 0;
+    }
 }

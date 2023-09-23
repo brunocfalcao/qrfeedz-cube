@@ -63,8 +63,12 @@ class LocationPolicy
 
     public function delete(User $user, Location $model)
     {
-        // For now we can't execute this action. But we can update them.
-        return false;
+        return
+            // The user is a super admin.
+            $user->isSuperAdmin() &&
+
+            // Model can be deleted.
+            $model->canBeDeleted();
     }
 
     public function restore(User $user, Location $model)

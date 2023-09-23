@@ -59,19 +59,23 @@ class ClientPolicy
 
     public function delete(User $user, Client $model)
     {
-        // The user is a super admin.
-        return $user->isSuperAdmin();
+        return
+            // The user is a super admin.
+            $user->isSuperAdmin() &&
+
+            // Model can be deleted.
+            $model->canBeDeleted();
     }
 
     public function restore(User $user, Client $model)
     {
-        // We cannot force delete clients, neither restore them.
-        return false;
+        // Only if it was trashed.
+        return $model->trashed();
     }
 
     public function forceDelete(User $user, Client $model)
     {
-        // We cannot force delete clients, neither restore them.
+        // We cannot force delete clients, no matter what scenario it is.
         return false;
     }
 

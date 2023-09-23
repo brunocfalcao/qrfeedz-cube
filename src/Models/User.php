@@ -123,9 +123,9 @@ class User extends Authenticatable implements HasLocalePreference
     public function isAllowedAdminAccess()
     {
         return $this->isSuperAdmin() ||
-               $this->isAffiliate() ||
                $this->isAtLeastAuthorizedAs('client-admin') ||
-               $this->isAtLeastAuthorizedAs('location-admin');
+               $this->isAtLeastAuthorizedAs('location-admin') ||
+               $this->isAtLeastAuthorizedAs('questionnaire-admin');
     }
 
     /**
