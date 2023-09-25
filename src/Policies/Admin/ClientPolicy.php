@@ -2,6 +2,7 @@
 
 namespace QRFeedz\Cube\Policies\Admin;
 
+use QRFeedz\Cube\Models\Authorization;
 use QRFeedz\Cube\Models\Client;
 use QRFeedz\Cube\Models\User;
 

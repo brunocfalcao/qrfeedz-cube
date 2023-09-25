@@ -4,6 +4,7 @@ namespace QRFeedz\Cube;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
+use QRFeedz\Cube\Commands\TestCommand;
 use QRFeedz\Cube\Gates\AuthorizationGates;
 use QRFeedz\Cube\Gates\CategoryGates;
 use QRFeedz\Cube\Gates\ClientGates;
@@ -33,11 +34,22 @@ class CubeServiceProvider extends ServiceProvider
             $this->registerPolicies();
             $this->registerGlobalScopes();
         }
+
+        $this->registerCommands();
     }
 
     public function register()
     {
         //
+    }
+
+    protected function registerCommands()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                TestCommand::class,
+            ]);
+        }
     }
 
     protected function registerGates()

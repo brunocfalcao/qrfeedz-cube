@@ -37,7 +37,12 @@ class AuthorizationPolicy
 
     public function delete(User $user, Authorization $model)
     {
-        return $user->isSuperAdmin();
+        return
+            // Model can be deleted.
+            $model->canBeDeleted() &&
+
+            // User is super admin.
+            $user->isSuperAdmin();
     }
 
     public function restore(User $user, Authorization $model)
@@ -47,7 +52,12 @@ class AuthorizationPolicy
 
     public function forceDelete(User $user, Authorization $model)
     {
-        return $user->isSuperAdmin();
+        return
+            // Model is previously soft deleted.
+            $model->trashed() &&
+
+            // User is super admin.
+            $user->isSuperAdmin();
     }
 
     public function replicate(User $user, Authorization $model)
@@ -56,6 +66,16 @@ class AuthorizationPolicy
     }
 
     public function attachAnyClient(User $user, Authorization $model)
+    {
+        return false;
+    }
+
+    public function attachAnyQuestionnaire(User $user, Authorization $model)
+    {
+        return false;
+    }
+
+    public function attachAnyLocation(User $user, Authorization $model)
     {
         return false;
     }

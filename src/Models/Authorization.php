@@ -56,16 +56,15 @@ class Authorization extends QRFeedzModel
     /**
      * ---------------------- BUSINESS METHODS -----------------------------
      */
-
-    /**
-     * Decides if an eloquent model can be deleted, so all the conditions need
-     * to meet before the instance is deleted. Can be used for force delete too.
-     */
     public function canBeDeleted()
     {
         return
+            /**
+             * Only if this authorization id is not being used on
+             * on other any authorization lines.
+             */
             DB::table('authorizables')
               ->where('authorization_id', $this->id)
-              ->count() > 0;
+              ->count() == 0;
     }
 }

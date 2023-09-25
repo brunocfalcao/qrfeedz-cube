@@ -3,6 +3,7 @@
 namespace QRFeedz\Cube\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 use QRFeedz\Cube\Concerns\HasAuthorizations;
 use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
@@ -42,6 +43,17 @@ class Client extends QRFeedzModel
     }
 
     /**
+     * Related children questionnaires.
+     *
+     * Source: questionnaires.id
+     * Relationship: validated
+     */
+    public function questionnaires()
+    {
+        return $this->hasManyThrough(Questionnaire::class, Location::class);
+    }
+
+    /**
      * A client address country relationship.
      *
      * Source: countries.id
@@ -52,6 +64,12 @@ class Client extends QRFeedzModel
         return $this->belongsTo(Country::class);
     }
 
+    /**
+     * Related locations from this client
+     *
+     * Source: locations.id
+     * Relationship: validated
+     */
     public function locations()
     {
         return $this->hasMany(Location::class);
@@ -94,10 +112,16 @@ class Client extends QRFeedzModel
     {
         /**
          * A client can be deleted if:
-         * - All locations are deleted.
-         * If a location is deleted, then all the children questionnaires are
-         * also already deleted.
+         * - All locations are force deleted.
+         * - All users are force deleted.
          */
-        return $this->locations->count() == 0;
+        return
+            DB::table('locations')
+              ->where('client_id', $this->id)
+              ->count() == 0 &&
+
+            DB::table('users')
+              ->where('client_id')
+              ->count() == 0;
     }
 }

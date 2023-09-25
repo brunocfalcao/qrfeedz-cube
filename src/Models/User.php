@@ -114,7 +114,7 @@ class User extends Authenticatable implements HasLocalePreference
      */
     /**
      * Returns if an user is:
-     *     - Super admin or
+     *     - Admin-like or
      *     - Affiliate or
      *     - <business>-admin (client-, questionnaire-, gdpr, etc).
      *
@@ -122,7 +122,8 @@ class User extends Authenticatable implements HasLocalePreference
      */
     public function isAllowedAdminAccess()
     {
-        return $this->isSuperAdmin() ||
+        return $this->isAdminLike() ||
+               $this->isAffiliate() ||
                $this->isAtLeastAuthorizedAs('client-admin') ||
                $this->isAtLeastAuthorizedAs('location-admin') ||
                $this->isAtLeastAuthorizedAs('questionnaire-admin');
@@ -139,15 +140,26 @@ class User extends Authenticatable implements HasLocalePreference
      */
     public function isAuthorizedAs(Model $model = null, string $type)
     {
-        if (! $model) {
+        $authorizationId = Authorization::firstWhere('canonical', $type)->id;
+
+        if (! $authorizationId || ! $model) {
             return false;
         }
 
-        return $model
-            ->authorizationsForUser($this)
-            ->get()
-            ->pluck('name')
-            ->contains($type);
+        /**
+         * An user itself is not connected to authorizations because
+         * the user_id is a pivot column. So, we need to use a DB
+         * query for that. On this case, because it's a test we
+         * just make a simple sql query comparison
+         */
+        $className = get_class($model);
+
+        return DB::table('authorizables')
+                 ->where('authorization_id', $authorizationId)
+                 ->where('user_id', $this->id)
+                 ->where('model_id', $model->id)
+                 ->where('model_type', $className)
+                 ->count() > 0;
     }
 
     /**
@@ -166,18 +178,25 @@ class User extends Authenticatable implements HasLocalePreference
         return $this->is_super_admin;
     }
 
+    /**
+     * If an user is super admin, or system admin.
+     *
+     * @return bool
+     */
     public function isAdminLike()
     {
         return $this->isSuperAdmin() || $this->isAdmin();
     }
 
     /**
-     * The user is affiliate, meaning the commission percentage is given.
+     * The user is affiliate, meaning has clients as affiliates.
      */
     public function isAffiliate()
     {
-        // Well, I could have used a "is_affiliate" but at the end this is okay.
-        return $this->commission_percentage > 0;
+        return $this->affiliatedClients()
+                    // Even the ones that were already deleted.
+                    ->withTrashed()
+                    ->count() > 0;
     }
 
     public function isAffiliateOf(Client $client = null)

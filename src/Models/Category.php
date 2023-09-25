@@ -3,6 +3,7 @@
 namespace QRFeedz\Cube\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
 class Category extends QRFeedzModel
@@ -19,5 +20,21 @@ class Category extends QRFeedzModel
     public function questionnaires()
     {
         return $this->hasMany(Questionnaire::class);
+    }
+
+    /**
+     * ---------------------- BUSINESS METHODS -----------------------------
+     */
+    public function canBeDeleted()
+    {
+        return
+            /**
+             * Only if there is no questionnaire with this category, force
+             * deleted. If they are soft deleted, this category cannot
+             * be deleted.
+             */
+            DB::table('questionnaires')
+              ->where('category_id', $this->id)
+              ->count() == 0;
     }
 }

@@ -5,16 +5,23 @@ namespace QRFeedz\Cube\Policies\Admin;
 use QRFeedz\Cube\Models\Category;
 use QRFeedz\Cube\Models\User;
 
+/**
+ * Categories are system groups assigned to questionnaires. As example,
+ * categories can be products, restaurants, hotels, etc. Each of these
+ * categories will have computed logic on itself. For instance, if
+ * a client has questionnaires type=hotel, then it will group the
+ * hotel and questionnaires per room.
+ */
 class CategoryPolicy
 {
     public function viewAny(User $user)
     {
-        return $user->isSuperAdmin();
+        return $user->isAllowedAdminAccess();
     }
 
     public function view(User $user, Category $model)
     {
-        return $user->isSuperAdmin();
+        return $user->isAllowedAdminAccess();
     }
 
     public function create(User $user)
@@ -29,13 +36,12 @@ class CategoryPolicy
 
     public function delete(User $user, Category $model)
     {
-        return ! (
-            // User is super admin.
-            $user->isSuperAdmin() &&
+        return
+            // Model can be deleted.
+            $model->canBeDeleted() &&
 
-            // There are no questionnaires related with this category.
-            ! $model->questionnaires()->withTrashed()->exists()
-        );
+            // User is super admin.
+            $user->isSuperAdmin();
     }
 
     public function restore(User $user, Category $model)
@@ -45,16 +51,20 @@ class CategoryPolicy
 
     public function forceDelete(User $user, Category $model)
     {
-        return ! (
-            // User is super admin.
-            $user->isSuperAdmin() &&
+        return
+            // Model is previously soft deleted.
+            $model->trashed() &&
 
-            // There are no questionnaires related with this category.
-            ! $model->questionnaires()->withTrashed()->exists()
-        );
+            // User is super admin.
+            $user->isSuperAdmin();
     }
 
     public function replicate(User $user, Category $model)
+    {
+        return false;
+    }
+
+    public function addQuestionnaire(User $user, Category $model)
     {
         return false;
     }
