@@ -121,7 +121,7 @@ class Client extends QRFeedzModel
               ->count() == 0 &&
 
             DB::table('users')
-              ->where('client_id')
+              ->where('client_id', $this->id)
               ->count() == 0;
     }
 }
