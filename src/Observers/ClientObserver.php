@@ -15,6 +15,8 @@ class ClientObserver extends QRFeedzObserver
     {
         $this->validate($model, [
             'name' => 'required',
+            'address' => 'required',
+            'country' => 'required',
         ]);
     }
 
@@ -22,6 +24,8 @@ class ClientObserver extends QRFeedzObserver
     {
         $this->validate($model, [
             'name' => 'required',
+            'address' => 'required',
+            'country' => 'required',
         ]);
     }
 

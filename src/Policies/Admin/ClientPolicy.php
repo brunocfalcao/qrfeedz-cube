@@ -2,7 +2,6 @@
 
 namespace QRFeedz\Cube\Policies\Admin;
 
-use QRFeedz\Cube\Models\Authorization;
 use QRFeedz\Cube\Models\Client;
 use QRFeedz\Cube\Models\User;
 
@@ -10,14 +9,13 @@ class ClientPolicy
 {
     public function viewAny(User $user)
     {
-        // Anyone registered can view user resources.
-        return true;
+        return $user->isAllowedAdminAccess();
     }
 
     public function view(User $user, Client $model)
     {
         return
-            // The user has an "affiliate" authorization on the client instance.
+            // The user is affiliate for this client instance.
             $user->isAffiliateOf($model) ||
 
             // The user is a super admin.
@@ -26,8 +24,8 @@ class ClientPolicy
                 // The logged user belongs to the client instance.
                 $model->id == $user->client_id &&
 
-                // The logged user is "client-admin" on the client instance.
-                $user->isAuthorizedAs($model, 'client-admin')
+                // The logged user is allowed admin access.
+                $user->isAllowedAdminAccess()
             );
     }
 
@@ -76,13 +74,16 @@ class ClientPolicy
 
     public function forceDelete(User $user, Client $model)
     {
-        // We cannot force delete clients, no matter what scenario it is.
-        return false;
+        return
+            // Model is previously soft deleted.
+            $model->trashed() &&
+
+            // User is super admin.
+            $user->isSuperAdmin();
     }
 
     public function replicate(User $user, Client $model)
     {
-        // Replication is disabled for clients.
         return false;
     }
 }

@@ -25,6 +25,7 @@ class User extends Authenticatable implements HasLocalePreference
 
     protected $casts = [
         'is_super_admin' => 'boolean',
+        'is_admin' => 'boolean',
 
         'commission_percentage' => 'integer',
     ];
