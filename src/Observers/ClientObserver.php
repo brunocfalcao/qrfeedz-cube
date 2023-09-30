@@ -16,7 +16,7 @@ class ClientObserver extends QRFeedzObserver
         $this->validate($model, [
             'name' => 'required',
             'address' => 'required',
-            'country' => 'required',
+            'country_id' => 'required',
         ]);
     }
 
@@ -25,7 +25,7 @@ class ClientObserver extends QRFeedzObserver
         $this->validate($model, [
             'name' => 'required',
             'address' => 'required',
-            'country' => 'required',
+            'country_id' => 'required',
         ]);
     }
 
@@ -55,7 +55,9 @@ class ClientObserver extends QRFeedzObserver
             'client_id' => $model->id,
             'address' => $model->address,
             'postal_code' => $model->postal_code,
-            'locality' => $model->locality,
+            'city' => $model->city,
+            'latitude' => $model->latitude,
+            'longitude' => $model->longitude,
             'country_id' => $model->country_id,
         ]);
 
