@@ -2,6 +2,7 @@
 
 namespace QRFeedz\Cube\Policies\Admin;
 
+use Brunocfalcao\LaravelHelpers\Traits\NovaHelpers;
 use QRFeedz\Cube\Models\Authorization;
 use QRFeedz\Cube\Models\User;
 
@@ -15,6 +16,8 @@ use QRFeedz\Cube\Models\User;
  */
 class AuthorizationPolicy
 {
+    use NovaHelpers;
+
     public function viewAny(User $user)
     {
         return $user->isAllowedAdminAccess();

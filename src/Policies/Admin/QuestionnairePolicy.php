@@ -2,11 +2,14 @@
 
 namespace QRFeedz\Cube\Policies\Admin;
 
+use Brunocfalcao\LaravelHelpers\Traits\NovaHelpers;
 use QRFeedz\Cube\Models\Questionnaire;
 use QRFeedz\Cube\Models\User;
 
 class QuestionnairePolicy
 {
+    use NovaHelpers;
+
     public function viewAny(User $user)
     {
         return true;
@@ -81,6 +84,11 @@ class QuestionnairePolicy
     public function replicate(User $user, Questionnaire $model)
     {
         // Replication is disabled.
+        return false;
+    }
+
+    public function addOpenAIPrompt(User $user, Questionnaire $model)
+    {
         return false;
     }
 }

@@ -27,6 +27,8 @@ class CategoryObserver extends QRFeedzObserver
 
     public function deleting(Category $model)
     {
+        return true;
+
         if (! $model->canBeDeleted()) {
             throw new \Exception(class_basename($model).' model cannot be deleted');
         }

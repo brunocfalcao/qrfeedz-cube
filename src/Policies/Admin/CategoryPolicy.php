@@ -2,6 +2,7 @@
 
 namespace QRFeedz\Cube\Policies\Admin;
 
+use Brunocfalcao\LaravelHelpers\Traits\NovaHelpers;
 use QRFeedz\Cube\Models\Category;
 use QRFeedz\Cube\Models\User;
 
@@ -14,6 +15,8 @@ use QRFeedz\Cube\Models\User;
  */
 class CategoryPolicy
 {
+    use NovaHelpers;
+
     public function viewAny(User $user)
     {
         return $user->isAllowedAdminAccess();
@@ -36,6 +39,8 @@ class CategoryPolicy
 
     public function delete(User $user, Category $model)
     {
+        return true;
+
         return
             // Model can be deleted.
             $model->canBeDeleted() &&
@@ -51,6 +56,8 @@ class CategoryPolicy
 
     public function forceDelete(User $user, Category $model)
     {
+        return true;
+
         return
             // Model is previously soft deleted.
             $model->trashed() &&
@@ -66,6 +73,11 @@ class CategoryPolicy
 
     public function addQuestionnaire(User $user, Category $model)
     {
-        return false;
+        /**
+         * In case we are in the create category, we can add a new
+         * questionnaire. In case we are in the detail view of the
+         * category, we cannot add a questionnaire.
+         */
+        return ! ($this->novaContext() == 'detail');
     }
 }
