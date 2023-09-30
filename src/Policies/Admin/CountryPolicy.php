@@ -2,19 +2,25 @@
 
 namespace QRFeedz\Cube\Policies\Admin;
 
+use Brunocfalcao\LaravelHelpers\Traits\NovaHelpers;
 use QRFeedz\Cube\Models\Country;
 use QRFeedz\Cube\Models\User;
 
+/**
+ * Countries can't be deleted or changed. Period.
+ */
 class CountryPolicy
 {
+    use NovaHelpers;
+
     public function viewAny(User $user)
     {
-        return true;
+        return $user->isAllowedAdminAccess();
     }
 
     public function view(User $user, Country $model)
     {
-        return true;
+        return $user->isAllowedAdminAccess();
     }
 
     public function create(User $user)
@@ -29,17 +35,25 @@ class CountryPolicy
 
     public function delete(User $user, Country $model)
     {
-        return false;
+        return
+            // Model can be deleted.
+            $model->canBeDeleted();
     }
 
     public function restore(User $user, Country $model)
     {
-        return false;
+        // Only if it was trashed.
+        return $model->trashed();
     }
 
     public function forceDelete(User $user, Country $model)
     {
-        return false;
+        return
+            // Model is previously soft deleted.
+            $model->trashed() &&
+
+            // User is super admin.
+            $user->isSuperAdmin();
     }
 
     public function replicate(User $user, Country $model)
@@ -48,9 +62,13 @@ class CountryPolicy
         return false;
     }
 
-    public function addUser(User $user, Country $model)
+    public function addClient(User $user, Country $country)
     {
-        //info(request()->url());
-        return true;
+        return false;
+    }
+
+    public function addUser(User $user, Country $country)
+    {
+        return false;
     }
 }

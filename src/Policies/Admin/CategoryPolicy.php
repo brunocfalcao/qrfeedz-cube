@@ -56,8 +56,6 @@ class CategoryPolicy
 
     public function forceDelete(User $user, Category $model)
     {
-        return true;
-
         return
             // Model is previously soft deleted.
             $model->trashed() &&

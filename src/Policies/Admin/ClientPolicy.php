@@ -86,4 +86,9 @@ class ClientPolicy
     {
         return false;
     }
+
+    public function attachAnyAuthorization(User $user, Client $client)
+    {
+        return false;
+    }
 }

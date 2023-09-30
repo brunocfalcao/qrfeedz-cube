@@ -5,6 +5,7 @@ namespace QRFeedz\Cube\Concerns;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use QRFeedz\Cube\Models\Authorization;
+use QRFeedz\Cube\Models\AuthorizationUser;
 use QRFeedz\Cube\Models\User;
 
 trait HasAuthorizations
@@ -42,7 +43,8 @@ trait HasAuthorizations
             'model',
             'authorizables'
         )
-            ->withPivot('user_id')
+            //->withPivot('user_id')
+            ->using(AuthorizationUser::class)
             ->withTimestamps();
     }
 
