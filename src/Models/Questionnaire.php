@@ -5,7 +5,6 @@ namespace QRFeedz\Cube\Models;
 use Brunocfalcao\Cerebrus\Cerebrus;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
-use QRFeedz\Cube\Concerns\HasAuthorizations;
 use QRFeedz\Cube\Models\OpenAIPrompt as OpenAIPromptModel;
 use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 use QRFeedz\Services\ThemeColor;
@@ -20,7 +19,7 @@ use QRFeedz\Services\ThemeColor;
  */
 class Questionnaire extends QRFeedzModel
 {
-    use HasAuthorizations, SoftDeletes;
+    use SoftDeletes;
 
     protected $casts = [
         'starts_at' => 'datetime',

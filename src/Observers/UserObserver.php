@@ -4,9 +4,10 @@ namespace QRFeedz\Cube\Observers;
 
 use Illuminate\Support\Facades\Auth;
 use QRFeedz\Cube\Models\User;
+use QRFeedz\Foundation\Abstracts\QRFeedzObserver;
 use QRFeedz\Services\Jobs\Users\ResetUserPasswordJob;
 
-class UserObserver
+class UserObserver extends QRFeedzObserver
 {
     public function created(User $user)
     {

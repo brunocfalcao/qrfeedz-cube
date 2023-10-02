@@ -4,8 +4,6 @@ namespace QRFeedz\Cube\Concerns;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use QRFeedz\Cube\Models\Authorization;
-use QRFeedz\Cube\Models\AuthorizationUser;
 use QRFeedz\Cube\Models\User;
 
 trait HasAuthorizations
@@ -17,17 +15,6 @@ trait HasAuthorizations
      */
     public function authorizationsForUser(User $user, Model $model = null)
     {
-        return $this->morphToMany(
-            Authorization::class,
-            'model',
-            'authorizables'
-        )
-            ->withPivot('user_id')
-            ->wherePivot('user_id', $user->id)
-            ->when($model !== null, function ($query) use ($model) {
-                return $query->where('model_type', (string) $model);
-            })
-            ->withTimestamps();
     }
 
     /**
@@ -38,14 +25,6 @@ trait HasAuthorizations
      */
     public function authorizations()
     {
-        return $this->morphToMany(
-            Authorization::class,
-            'model',
-            'authorizables'
-        )
-            //->withPivot('user_id')
-            ->using(AuthorizationUser::class)
-            ->withTimestamps();
     }
 
     /**

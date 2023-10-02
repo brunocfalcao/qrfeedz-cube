@@ -72,7 +72,7 @@ class AuthorizationPolicy
 
     public function attachAnyClient(User $user, Authorization $model)
     {
-        return false;
+        return true;
     }
 
     public function attachAnyQuestionnaire(User $user, Authorization $model)

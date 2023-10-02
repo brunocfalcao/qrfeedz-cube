@@ -4,7 +4,6 @@ namespace QRFeedz\Cube\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
-use QRFeedz\Cube\Concerns\HasAuthorizations;
 use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
 /**
@@ -15,7 +14,7 @@ use QRFeedz\Foundation\Abstracts\QRFeedzModel;
  */
 class Client extends QRFeedzModel
 {
-    use HasAuthorizations, SoftDeletes;
+    use SoftDeletes;
 
     /**
      * A client can be won via an affiliate. If so, qrfeedz will give a
@@ -98,6 +97,17 @@ class Client extends QRFeedzModel
     public function users()
     {
         return $this->hasMany(User::class);
+    }
+
+    /**
+     * Source: authorizations.id
+     * Relationship: not validated
+     */
+    public function authorizations()
+    {
+        return $this->belongsToMany(Authorization::class)
+                    ->withPivot('user_id')
+                    ->withTimestamps();
     }
 
     /**

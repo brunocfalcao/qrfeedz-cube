@@ -5,22 +5,6 @@ namespace QRFeedz\Cube;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use QRFeedz\Cube\Commands\TestCommand;
-use QRFeedz\Cube\Gates\AuthorizationGates;
-use QRFeedz\Cube\Gates\CategoryGates;
-use QRFeedz\Cube\Gates\ClientGates;
-use QRFeedz\Cube\Gates\CountryGates;
-use QRFeedz\Cube\Gates\LocaleGates;
-use QRFeedz\Cube\Gates\LocationGates;
-use QRFeedz\Cube\Gates\OpenAIPromptGates;
-use QRFeedz\Cube\Gates\PageGates;
-use QRFeedz\Cube\Gates\PageInstanceGates;
-use QRFeedz\Cube\Gates\QuestionInstanceGates;
-use QRFeedz\Cube\Gates\QuestionnaireGates;
-use QRFeedz\Cube\Gates\ResponseGates;
-use QRFeedz\Cube\Gates\TagGates;
-use QRFeedz\Cube\Gates\UserGates;
-use QRFeedz\Cube\Gates\WidgetGates;
-use QRFeedz\Cube\Gates\WidgetInstanceGates;
 use QRFeedz\Services\Facades\QRFeedz;
 
 class CubeServiceProvider extends ServiceProvider
@@ -54,23 +38,22 @@ class CubeServiceProvider extends ServiceProvider
 
     protected function registerGates()
     {
-        TagGates::apply();
-        UserGates::apply();
-        PageGates::apply();
-        WidgetGates::apply();
-        LocaleGates::apply();
-        ClientGates::apply();
-        WidgetGates::apply();
-        CountryGates::apply();
-        ResponseGates::apply();
-        CategoryGates::apply();
-        LocationGates::apply();
-        PageInstanceGates::apply();
-        OpenAIPromptGates::apply();
-        AuthorizationGates::apply();
-        QuestionnaireGates::apply();
-        WidgetInstanceGates::apply();
-        QuestionInstanceGates::apply();
+        $gatePaths = glob(__DIR__.'/Gates/*.php');
+        $gateClasses = array_map(function ($path) {
+            return basename($path, '.php');
+        }, $gatePaths);
+
+        foreach ($gateClasses as $gate) {
+            $gateClass = "\\QRFeedz\\Cube\\Gates\\{$gate}";
+
+            try {
+                if (class_exists($gateClass) && method_exists($gateClass, 'apply')) {
+                    $gateClass::apply();
+                }
+            } catch (\Exception $ex) {
+                info('Gate Registration Error: '.$ex->getMessage());
+            }
+        }
     }
 
     protected function registerPolicies()

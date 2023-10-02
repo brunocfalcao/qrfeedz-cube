@@ -4,8 +4,9 @@ namespace QRFeedz\Cube\Observers;
 
 use QRFeedz\Cube\Models\OpenAIPrompt;
 use QRFeedz\Cube\Models\Questionnaire;
+use QRFeedz\Foundation\Abstracts\QRFeedzObserver;
 
-class QuestionnaireObserver
+class QuestionnaireObserver extends QRFeedzObserver
 {
     public function created(Questionnaire $model)
     {
