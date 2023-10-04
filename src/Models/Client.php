@@ -99,13 +99,9 @@ class Client extends QRFeedzModel
         return $this->hasMany(User::class);
     }
 
-    /**
-     * Source: authorizations.id
-     * Relationship: not validated
-     */
     public function authorizations()
     {
-        return $this->belongsToMany(Authorization::class)
+        return $this->morphToMany(Authorization::class, 'authorizable')
                     ->withPivot('user_id')
                     ->withTimestamps();
     }

@@ -11,7 +11,7 @@ class UserObserver extends QRFeedzObserver
 {
     public function saving(User $user)
     {
-        if (!app()->runningInConsole()) {
+        if (! app()->runningInConsole()) {
             /**
              * "is_admin" and "is_super_admin" attributes can only be changed by
              * a super admin user role.

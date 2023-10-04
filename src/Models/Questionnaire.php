@@ -99,7 +99,7 @@ class Questionnaire extends QRFeedzModel
      */
     public function authorizations()
     {
-        return $this->belongsToMany(Authorization::class)
+        return $this->morphToMany(Authorization::class, 'authorizable')
                     ->withPivot('user_id')
                     ->withTimestamps();
     }
