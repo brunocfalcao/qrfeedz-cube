@@ -57,8 +57,6 @@ class Questionnaire extends QRFeedzModel
     }
 
     /**
-     * The related locations.
-     *
      * Source: location.id
      * Relationship: validated
      */
@@ -68,9 +66,6 @@ class Questionnaire extends QRFeedzModel
     }
 
     /**
-     * Each questionnaire has a relationship to its AI prompts, that will
-     * run each time a feedback conclusion is needed.
-     *
      * Source: openai_prompts.id
      * Relationship: validated
      */
@@ -80,8 +75,6 @@ class Questionnaire extends QRFeedzModel
     }
 
     /**
-     * Questionnaire can have several tags.
-     *
      * Source: tags.id
      * Relationship: validated
      */
@@ -92,15 +85,23 @@ class Questionnaire extends QRFeedzModel
     }
 
     /**
-     * This is the default locale for content that is not directly translated
-     * or that wasn't yet chosen by the visitor.
-     *
      * Source: locales.id
      * Relationship: validated
      */
     public function locale()
     {
         return $this->belongsTo(Locale::class);
+    }
+
+    /**
+     * Source: authorizations.id
+     * Relationship: validated
+     */
+    public function authorizations()
+    {
+        return $this->belongsToMany(Authorization::class)
+                    ->withPivot('user_id')
+                    ->withTimestamps();
     }
 
     /** ---------------------- DEFAULT VALUES ------------------------------- */

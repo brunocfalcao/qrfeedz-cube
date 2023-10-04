@@ -9,27 +9,27 @@ use QRFeedz\Services\Jobs\Users\ResetUserPasswordJob;
 
 class UserObserver extends QRFeedzObserver
 {
-    public function created(User $user)
-    {
-        /**
-         * If the password is blank, or inexisting, then send reset
-         * password email.
-         */
-        if (blank($user->password) || ! isset($user->password)) {
-            ResetUserPasswordJob::dispatch($user->id, true);
-        }
-    }
-
     public function saving(User $user)
     {
-        /**
-         * The attribute "is_admin" can only be changed by users that are
-         * super admins (in case there is a user logged).
-         */
-        if (Auth::user()) {
-            if ($user->isDirty('is_admin') && ! Auth::user()->is_super_admin) {
-                throw \Exception('The attribute is_admin can only be changed by super admins');
+        if (!app()->runningInConsole()) {
+            /**
+             * "is_admin" and "is_super_admin" attributes can only be changed by
+             * a super admin user role.
+             */
+            if ($user->isDirty('is_admin') || $user->isDirty('is_super_admin')) {
+                if (! Auth::user()) {
+                    throw new \Exception('User admin attributes can only be changed by a super admin user profile');
+                }
+
+                if (Auth::user() && ! Auth::user()->isSuperAdmin()) {
+                    throw new \Exception('User admin attributes can only be changed by a super admin user profile');
+                }
             }
+        }
+
+        // Send reset password email if password is blank.
+        if (blank($user->password) || ! isset($user->password)) {
+            ResetUserPasswordJob::dispatch($user->id, true);
         }
     }
 }

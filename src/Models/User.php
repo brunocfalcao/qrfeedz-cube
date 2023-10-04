@@ -10,11 +10,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use QRFeedz\Cube\Concerns\Authenticates;
-use QRFeedz\Cube\Concerns\HasAuthorizations;
 
 class User extends Authenticatable implements HasLocalePreference
 {
-    use Authenticates, HasAuthorizations, Notifiable, SoftDeletes;
+    use Authenticates, Notifiable, SoftDeletes;
 
     protected $guarded = [];
 
@@ -26,6 +25,7 @@ class User extends Authenticatable implements HasLocalePreference
     protected $casts = [
         'is_super_admin' => 'boolean',
         'is_admin' => 'boolean',
+        'is_affiliate' => 'boolean',
 
         'commission_percentage' => 'integer',
     ];
@@ -90,15 +90,6 @@ class User extends Authenticatable implements HasLocalePreference
                  ->count() > 0;
     }
 
-    public function authorizationsAs(string $type)
-    {
-        return DB::table('authorizables')
-                 ->where('user_id', $this->id)
-                 ->where('authorization_id', Authorization::firstWhere('canonical', $type)->id)
-                 ->whereNull('deleted_at')
-                 ->get();
-    }
-
     /**
      * The related country from the affiliate address.
      *
@@ -123,11 +114,7 @@ class User extends Authenticatable implements HasLocalePreference
      */
     public function isAllowedAdminAccess()
     {
-        return $this->isAdminLike() ||
-               $this->isAffiliate() ||
-               $this->isAtLeastAuthorizedAs('client-admin') ||
-               $this->isAtLeastAuthorizedAs('location-admin') ||
-               $this->isAtLeastAuthorizedAs('questionnaire-admin');
+        return true;
     }
 
     /**
@@ -141,26 +128,7 @@ class User extends Authenticatable implements HasLocalePreference
      */
     public function isAuthorizedAs(Model $model = null, string $type)
     {
-        $authorizationId = Authorization::firstWhere('canonical', $type)->id;
-
-        if (! $authorizationId || ! $model) {
-            return false;
-        }
-
-        /**
-         * An user itself is not connected to authorizations because
-         * the user_id is a pivot column. So, we need to use a DB
-         * query for that. On this case, because it's a test we
-         * just make a simple sql query comparison
-         */
-        $className = get_class($model);
-
-        return DB::table('authorizables')
-                 ->where('authorization_id', $authorizationId)
-                 ->where('user_id', $this->id)
-                 ->where('model_id', $model->id)
-                 ->where('model_type', $className)
-                 ->count() > 0;
+        return true;
     }
 
     /**
@@ -194,10 +162,7 @@ class User extends Authenticatable implements HasLocalePreference
      */
     public function isAffiliate()
     {
-        return $this->affiliatedClients()
-                    // Even the ones that were already deleted.
-                    ->withTrashed()
-                    ->count() > 0;
+        return $this->is_affiliate;
     }
 
     public function isAffiliateOf(Client $client = null)

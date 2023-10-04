@@ -3,12 +3,11 @@
 namespace QRFeedz\Cube\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-use QRFeedz\Cube\Concerns\HasAuthorizations;
 use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
 class Location extends QRFeedzModel
 {
-    use HasAuthorizations, SoftDeletes;
+    use SoftDeletes;
 
     /**
      * The related client.
