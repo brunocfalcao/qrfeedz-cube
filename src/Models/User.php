@@ -90,6 +90,11 @@ class User extends Authenticatable implements HasLocalePreference
                  ->count() > 0;
     }
 
+    public function authorizations()
+    {
+        return $this->hasMany(UserAuthorization::class);
+    }
+
     /**
      * The related country from the affiliate address.
      *
