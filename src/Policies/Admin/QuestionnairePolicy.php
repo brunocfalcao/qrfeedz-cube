@@ -89,6 +89,13 @@ class QuestionnairePolicy
 
     public function addOpenAIPrompt(User $user, Questionnaire $model)
     {
-        return false;
+        // Cannot resume policy on detail, only.
+        return ! ($this->novaContext() == 'detail');
+    }
+
+    public function attachAnyAuthorization(User $user, Questionnaire $model)
+    {
+        // Cannot resume policy on detail, only.
+        return ! ($this->novaContext() == 'detail');
     }
 }
