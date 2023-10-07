@@ -18,18 +18,13 @@ class Authorization extends QRFeedzModel
 {
     use SoftDeletes;
 
-    public function clients()
+    /**
+     * Source: client_authorizations.authorization_id
+     * Relationship:
+     */
+    public function clientAuthorizations()
     {
-        return $this->morphedByMany(Client::class, 'authorizable')
-                    ->withPivot('user_id')
-                    ->withTimestamps();
-    }
-
-    public function questionnaires()
-    {
-        return $this->morphedByMany(Questionnaire::class, 'authorizable')
-                    ->withPivot('user_id')
-                    ->withTimestamps();
+        return $this->hasMany(ClientAuthorization::class);
     }
 
     /**

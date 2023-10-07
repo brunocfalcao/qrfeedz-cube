@@ -39,8 +39,6 @@ class CategoryPolicy
 
     public function delete(User $user, Category $model)
     {
-        return true;
-
         return
             // Model can be deleted.
             $model->canBeDeleted() &&

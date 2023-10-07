@@ -90,9 +90,4 @@ class UserPolicy
     {
         return false;
     }
-
-    public function addUserAuthorization(User $user)
-    {
-        return true;
-    }
 }

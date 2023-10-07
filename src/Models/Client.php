@@ -75,10 +75,6 @@ class Client extends QRFeedzModel
     }
 
     /**
-     * Any tags that can belong to the client. The client tags are only used
-     * by super admins to categorize/organize clients into specific tags
-     * groups.
-     *
      * Source: tags.id
      * Relationship: validated
      */
@@ -89,8 +85,6 @@ class Client extends QRFeedzModel
     }
 
     /**
-     * Related users that belong to this client.
-     *
      * Source: users.client_id
      * Relationship: validated
      */
@@ -99,11 +93,13 @@ class Client extends QRFeedzModel
         return $this->hasMany(User::class);
     }
 
+    /**
+     * Source: client_authorizations.client_id
+     * Relationship:
+     */
     public function authorizations()
     {
-        return $this->morphToMany(Authorization::class, 'authorizable')
-                    ->withPivot('user_id')
-                    ->withTimestamps();
+        return $this->hasMany(ClientAuthorization::class);
     }
 
     /**

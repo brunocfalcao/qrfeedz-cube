@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\DB;
 use QRFeedz\Cube\Concerns\Authenticates;
 
 class User extends Authenticatable implements HasLocalePreference
@@ -83,16 +82,16 @@ class User extends Authenticatable implements HasLocalePreference
     public function isAtLeastAuthorizedAs(string $type)
     {
         // Needs to be obtained via a direct query.
-        return DB::table('authorizables')
-                 ->where('user_id', $this->id)
-                 ->where('authorization_id', Authorization::firstWhere('canonical', $type)->id)
-                 ->whereNull('deleted_at')
-                 ->count() > 0;
+        return false;
     }
 
-    public function authorizations()
+    /**
+     * Source: client_authorizations.user_id
+     * Relationship:
+     */
+    public function clientAuthorizations()
     {
-        return $this->hasMany(UserAuthorization::class);
+        return $this->hasMany(ClientAuthorization::class);
     }
 
     /**
