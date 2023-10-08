@@ -19,5 +19,16 @@ class ClientAuthorizationObserver extends QRFeedzObserver
         if ($user->client_id != $model->client_id) {
             throw new \Exception('User is not associated with this client');
         }
+
+        /**
+         * Is this client/user/authorization already existing?
+         */
+        if (ClientAuthorization::where('client_id', $model->client_id)
+                               ->where('user_id', $model->user_id)
+                               ->where('authorization_id', $model->authorization_id)
+                               ->exists()
+        ) {
+            throw new \Exception('User already has this authorization');
+        }
     }
 }

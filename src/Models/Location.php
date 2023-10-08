@@ -10,10 +10,9 @@ class Location extends QRFeedzModel
     use SoftDeletes;
 
     /**
-     * The related client.
-     *
      * Source: clients.id
      * Relationship: validated
+     * Relationship ID: 5
      */
     public function client()
     {
@@ -21,10 +20,9 @@ class Location extends QRFeedzModel
     }
 
     /**
-     * The related country.
-     *
      * Source: countries.id
      * Relationship: validated
+     * Relationship ID: 25
      */
     public function country()
     {
@@ -32,10 +30,9 @@ class Location extends QRFeedzModel
     }
 
     /**
-     * The related questionnaires.
-     *
      * Source: questionnaires.id
      * Relationship: validated
+     * Relationship ID: 26
      */
     public function questionnaires()
     {

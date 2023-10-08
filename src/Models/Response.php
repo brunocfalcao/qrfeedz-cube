@@ -14,10 +14,9 @@ class Response extends QRFeedzModel
     ];
 
     /**
-     * The respective question instance where this response is related to.
-     *
      * Source: question_instances.id
      * Relationship: validated
+     * Relationship ID: 19
      */
     public function questionInstance()
     {
@@ -25,10 +24,9 @@ class Response extends QRFeedzModel
     }
 
     /**
-     * The related widget instance where this response is related to.
-     *
      * Source: widget_instances.id
      * Relationship: validated
+     * Relationship ID: 28
      */
     public function widgetInstance()
     {

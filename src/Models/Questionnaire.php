@@ -31,15 +31,13 @@ class Questionnaire extends QRFeedzModel
     ];
 
     /**
-     * What page instances are part of this questionnaire.
-     *
      * Source: page_instances.id
      * Relationship: validated
+     * Relationship ID: 21
      */
     public function pageInstances()
     {
-        return $this->hasMany(PageInstance::class)
-                    ->orderBy('id');
+        return $this->hasMany(PageInstance::class);
     }
 
     /**
@@ -50,6 +48,7 @@ class Questionnaire extends QRFeedzModel
      *
      * Source: category.id
      * Relationship: validated
+     * Relationship ID: 6
      */
     public function category()
     {
@@ -59,6 +58,7 @@ class Questionnaire extends QRFeedzModel
     /**
      * Source: location.id
      * Relationship: validated
+     * Relationship ID: 26
      */
     public function location()
     {
@@ -68,6 +68,7 @@ class Questionnaire extends QRFeedzModel
     /**
      * Source: openai_prompts.id
      * Relationship: validated
+     * Relationship ID: 18
      */
     public function openAIPrompt()
     {
@@ -77,6 +78,7 @@ class Questionnaire extends QRFeedzModel
     /**
      * Source: tags.id
      * Relationship: validated
+     * Relationship ID: 13
      */
     public function tags()
     {
@@ -87,6 +89,7 @@ class Questionnaire extends QRFeedzModel
     /**
      * Source: locales.id
      * Relationship: validated
+     * Relationship ID: 14
      */
     public function locale()
     {
@@ -95,7 +98,8 @@ class Questionnaire extends QRFeedzModel
 
     /**
      * Source: questionnaire_authorizations.questionnaire_id
-     * Relationship:
+     * Relationship: validated
+     * Relationship ID: 31
      */
     public function authorizations()
     {

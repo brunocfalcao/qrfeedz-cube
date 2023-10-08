@@ -18,10 +18,9 @@ class WidgetInstance extends QRFeedzModel
     ];
 
     /**
-     * Related parent widget, in case this instance is a widget child instance.
-     *
      * Source: widget_instances.id
      * Relationship: validated
+     * Relationship ID: 35
      */
     public function parentWidgetInstance()
     {
@@ -29,10 +28,9 @@ class WidgetInstance extends QRFeedzModel
     }
 
     /**
-     * Related child widgets, in case they are widget conditional instances.
-     *
      * Source: widget_instances.id
      * Relationship: validated
+     * Relationship ID: 10
      */
     public function childWidgetInstances()
     {
@@ -40,10 +38,9 @@ class WidgetInstance extends QRFeedzModel
     }
 
     /**
-     * Related question instance.
-     *
      * Source: question_instances.id
      * Relationship: validated
+     * Relationship ID: 20
      */
     public function questionInstance()
     {
@@ -51,10 +48,9 @@ class WidgetInstance extends QRFeedzModel
     }
 
     /**
-     * Related widget that is the source of this widget instance.
-     *
      * Source: widgets.id
      * Relationship: validated
+     * Relationship ID: 22
      */
     public function widget()
     {
@@ -62,13 +58,9 @@ class WidgetInstance extends QRFeedzModel
     }
 
     /**
-     * A widget instance itself has a caption, so this caption can be
-     * translated in several languages. Therefore we have these
-     * captions that will return all the caption locales that
-     * were created.
-     *
      * Source: locales.id
      * Relationship: validated
+     * Relationship ID: 23
      */
     public function captions()
     {
@@ -78,10 +70,9 @@ class WidgetInstance extends QRFeedzModel
     }
 
     /**
-     * The responses that were given relatively to this widget instance.
-     *
      * Source: responses.id
      * Relationship: validated
+     * Relationship ID: 28
      */
     public function responses()
     {

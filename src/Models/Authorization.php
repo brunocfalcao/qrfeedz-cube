@@ -3,7 +3,6 @@
 namespace QRFeedz\Cube\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\DB;
 use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
 /**
@@ -20,7 +19,8 @@ class Authorization extends QRFeedzModel
 
     /**
      * Source: client_authorizations.authorization_id
-     * Relationship:
+     * Relationship: validated
+     * Relationship ID: 4
      */
     public function clientAuthorizations()
     {
@@ -29,27 +29,11 @@ class Authorization extends QRFeedzModel
 
     /**
      * Source: questionnaire_authorizations.authorization_id
-     * Relationship:
+     * Relationship: validated
+     * Relationship ID: 29
      */
     public function questionnaireAuthorizations()
     {
         return $this->hasMany(QuestionnaireAuthorization::class);
-    }
-
-    /**
-     * ---------------------- BUSINESS METHODS -----------------------------
-     */
-    public function canBeDeleted()
-    {
-        return true;
-        /**
-         * Only if this authorization id is not being used on
-         * on other any authorization lines.
-         */
-        /*
-        DB::table('authorizables')
-          ->where('authorization_id', $this->id)
-          ->count() == 0;
-        */
     }
 }

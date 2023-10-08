@@ -17,12 +17,9 @@ class Client extends QRFeedzModel
     use SoftDeletes;
 
     /**
-     * A client can be won via an affiliate. If so, qrfeedz will give a
-     * commission to that affiliate per each payment that this client
-     * will generate.
-     *
      * Source: users.id
      * Relationship: validated
+     * Relationship ID: 1
      */
     public function affiliate()
     {
@@ -30,11 +27,9 @@ class Client extends QRFeedzModel
     }
 
     /**
-     * The default locale in case a message needs to be sent to the client,
-     * an email or whatever.
-     *
      * Source: locales.id
      * Relationship: validated
+     * Relationship ID: 11
      */
     public function locale()
     {
@@ -42,10 +37,9 @@ class Client extends QRFeedzModel
     }
 
     /**
-     * Related children questionnaires.
-     *
      * Source: questionnaires.id
      * Relationship: validated
+     * Relationship ID: 30
      */
     public function questionnaires()
     {
@@ -53,10 +47,9 @@ class Client extends QRFeedzModel
     }
 
     /**
-     * A client address country relationship.
-     *
      * Source: countries.id
      * Relationship: validated
+     * Relationship ID: 9
      */
     public function country()
     {
@@ -64,10 +57,9 @@ class Client extends QRFeedzModel
     }
 
     /**
-     * Related locations from this client
-     *
      * Source: locations.id
      * Relationship: validated
+     * Relationship ID: 5
      */
     public function locations()
     {
@@ -75,18 +67,9 @@ class Client extends QRFeedzModel
     }
 
     /**
-     * Source: tags.id
-     * Relationship: validated
-     */
-    public function tags()
-    {
-        return $this->belongsToMany(Tag::class)
-                    ->withTimestamps();
-    }
-
-    /**
      * Source: users.client_id
      * Relationship: validated
+     * Relationship ID: 7
      */
     public function users()
     {
@@ -95,7 +78,8 @@ class Client extends QRFeedzModel
 
     /**
      * Source: client_authorizations.client_id
-     * Relationship:
+     * Relationship: validated
+     * Relationship ID: 34
      */
     public function authorizations()
     {

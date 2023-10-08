@@ -19,6 +19,7 @@ class ClientScope implements Scope
             $user = User::firstWhere('id', Auth::id());
         }
 
+        // Console commands. Don't apply global scopes.
         if (! $user) {
             return $builder;
         }
@@ -36,9 +37,7 @@ class ClientScope implements Scope
             return $builder->where('user_affiliate_id', $user->id);
         }
 
-        // isSuperAdmin() can be used because it checks an attribute.
-        if ($user->isSuperAdmin()) {
-            // Super admins can see everything.
+        if ($user->isAdminLike()) {
             return $builder;
         }
 

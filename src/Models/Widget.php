@@ -15,10 +15,9 @@ class Widget extends QRFeedzModel
     ];
 
     /**
-     * Related widget instance that is using this widget.
-     *
      * Source: widget_instances.od
      * Relationship: validated
+     * Relationship ID: 22
      */
     public function widgetInstances()
     {

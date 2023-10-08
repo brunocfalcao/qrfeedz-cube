@@ -30,11 +30,9 @@ class PageInstance extends QRFeedzModel
     ];
 
     /**
-     * A page instance can have (although not recommended) several questions
-     * on its own page.
-     *
      * Source: question_instances.id
      * Relationship: validated
+     * Relationship ID: 24
      */
     public function questionInstances()
     {
@@ -42,10 +40,9 @@ class PageInstance extends QRFeedzModel
     }
 
     /**
-     * Related page.
-     *
      * Source: pages.id
      * Relationship: validated
+     * Relationship ID: 16
      */
     public function page()
     {
@@ -53,10 +50,9 @@ class PageInstance extends QRFeedzModel
     }
 
     /**
-     * What is the related questionnaire that this page instance belongs to.
-     *
      * Source: questionnaires.id
      * Relationship: validated
+     * Relationship ID: 21
      */
     public function questionnaire()
     {

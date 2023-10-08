@@ -16,11 +16,9 @@ class OpenAIPrompt extends QRFeedzModel
     ];
 
     /**
-     * Each questionnaire should have an AI prompt to optimize the feedback
-     * conclusions to the questionnaire owner.
-     *
      * Source: questionnaires.id
      * Relationship: validated
+     * Relationship ID: 18
      */
     public function questionnaire()
     {

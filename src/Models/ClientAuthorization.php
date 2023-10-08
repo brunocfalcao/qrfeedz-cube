@@ -11,7 +11,8 @@ class ClientAuthorization extends QRFeedzModel
 
     /**
      * Source: clients.id
-     * Relationship:
+     * Relationship: validated
+     * Relationship ID: 34
      */
     public function client()
     {
@@ -20,7 +21,8 @@ class ClientAuthorization extends QRFeedzModel
 
     /**
      * Source: users.id
-     * Relationship:
+     * Relationship: validated
+     * Relationship ID: 33
      */
     public function user()
     {
@@ -29,7 +31,8 @@ class ClientAuthorization extends QRFeedzModel
 
     /**
      * Source: authorizations.id
-     * Relationship:
+     * Relationship: validated
+     * Relationship ID: 4
      */
     public function authorization()
     {

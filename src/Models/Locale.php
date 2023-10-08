@@ -10,10 +10,9 @@ class Locale extends QRFeedzModel
     use SoftDeletes;
 
     /**
-     * The user default locales that are from a specific locale.
-     *
      * Source: users.id
      * Relationship: validated
+     * Relationship ID: 27
      */
     public function users()
     {
@@ -21,10 +20,9 @@ class Locale extends QRFeedzModel
     }
 
     /**
-     * The clients default locales that are from a specific locale.
-     *
      * Source: clients.id
      * Relationship: validated
+     * Relationship ID: 11
      */
     public function clients()
     {
@@ -32,12 +30,9 @@ class Locale extends QRFeedzModel
     }
 
     /**
-     * The questionnaire default locale. Basically, it will be the locale
-     * that information will be shown when there is no locale specified
-     * on the questionnaire context.
-     *
      * Source: questionnaires.id
      * Relationship: validated
+     * Relationship ID: 14
      */
     public function questionnaires()
     {
@@ -45,12 +40,9 @@ class Locale extends QRFeedzModel
     }
 
     /**
-     * All the question instances that have a specific locale id. Still, it's not
-     * at all useful since the morphed models would actually have the
-     * right caption to show.
-     *
      * Source: question_instances.id
      * Relationship: validated
+     * Relationship ID: 15
      */
     public function questionInstances()
     {
@@ -60,12 +52,9 @@ class Locale extends QRFeedzModel
     }
 
     /**
-     * All the question instances that have a specific locale id. Still, it's not
-     * at all useful since the morphed models would actually have the
-     * right caption to show.
-     *
      * Source: question_instances.id
      * Relationship: validated
+     * Relationship ID: 23
      */
     public function widgetInstances()
     {

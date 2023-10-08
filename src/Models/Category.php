@@ -16,6 +16,7 @@ class Category extends QRFeedzModel
      *
      * Source: questionnaires.category_id
      * Relationship: validated
+     * Relationship ID: 6
      */
     public function questionnaires()
     {

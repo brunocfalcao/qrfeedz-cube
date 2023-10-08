@@ -10,10 +10,9 @@ class Page extends QRFeedzModel
     use SoftDeletes;
 
     /**
-     * Related page instances that have a respective page id.
-     *
      * Source: page_instances.id
      * Relationship: validated
+     * Relationship ID: 16
      */
     public function pageInstances()
     {

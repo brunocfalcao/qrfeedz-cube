@@ -35,11 +35,9 @@ class User extends Authenticatable implements HasLocalePreference
     }
 
     /**
-     * Related locale, used on the preferredLocale() method for automated
-     * locale identification for mailables.
-     *
      * Source: locales.id
      * Relationship: validated
+     * Relationship ID: 27
      */
     public function locale()
     {
@@ -47,11 +45,9 @@ class User extends Authenticatable implements HasLocalePreference
     }
 
     /**
-     * Related client where this user belongs to. This is not related with
-     * the affiliate logic (one user can have many client as affiliate).
-     *
      * Source: clients.id
      * Relationship: validated
+     * Relationship ID: 7
      */
     public function client()
     {
@@ -59,15 +55,48 @@ class User extends Authenticatable implements HasLocalePreference
     }
 
     /**
-     * These are the clients that an affiliate has.
-     *
      * Source: clients.user_affiliate_id
      * Relationship: validated
+     * Relationship ID: 1
      */
     public function affiliatedClients()
     {
         return $this->hasMany(Client::class, 'user_affiliate_id');
     }
+
+    /**
+     * Source: client_authorizations.user_id
+     * Relationship: validated
+     * Relationship ID: 33
+     */
+    public function clientAuthorizations()
+    {
+        return $this->hasMany(ClientAuthorization::class);
+    }
+
+    /**
+     * Source: questionnaire_authorizations.user_id
+     * Relationship: validated
+     * Relationship ID: 32
+     */
+    public function questionnaireAuthorizations()
+    {
+        return $this->hasMany(QuestionnaireAuthorization::class);
+    }
+
+    /**
+     * Source: affiliates.country_id
+     * Relationship: validated
+     * Relationship ID: 3
+     */
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    /**
+     * ---------------------- BUSINESS METHODS -----------------------------
+     */
 
     /**
      * This special query will return if an user has at least a single
@@ -85,38 +114,6 @@ class User extends Authenticatable implements HasLocalePreference
         return false;
     }
 
-    /**
-     * Source: client_authorizations.user_id
-     * Relationship:
-     */
-    public function clientAuthorizations()
-    {
-        return $this->hasMany(ClientAuthorization::class);
-    }
-
-    /**
-     * Source: questionnaire_authorizations.user_id
-     * Relationship:
-     */
-    public function questionnaireAuthorizations()
-    {
-        return $this->hasMany(QuestionnaireAuthorization::class);
-    }
-
-    /**
-     * The related country from the affiliate address.
-     *
-     * Source: affiliates.country_id
-     * Relationship: validated
-     */
-    public function country()
-    {
-        return $this->belongsTo(Country::class);
-    }
-
-    /**
-     * ---------------------- BUSINESS METHODS -----------------------------
-     */
     /**
      * Returns if an user is:
      *     - Admin-like or
