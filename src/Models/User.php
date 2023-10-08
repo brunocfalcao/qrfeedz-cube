@@ -95,6 +95,15 @@ class User extends Authenticatable implements HasLocalePreference
     }
 
     /**
+     * Source: questionnaire_authorizations.user_id
+     * Relationship:
+     */
+    public function questionnaireAuthorizations()
+    {
+        return $this->hasMany(QuestionnaireAuthorization::class);
+    }
+
+    /**
      * The related country from the affiliate address.
      *
      * Source: affiliates.country_id

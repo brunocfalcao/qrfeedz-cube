@@ -94,14 +94,12 @@ class Questionnaire extends QRFeedzModel
     }
 
     /**
-     * Source: authorizations.id
-     * Relationship: validated
+     * Source: questionnaire_authorizations.questionnaire_id
+     * Relationship:
      */
     public function authorizations()
     {
-        return $this->morphToMany(Authorization::class, 'authorizable')
-                    ->withPivot('user_id')
-                    ->withTimestamps();
+        return $this->hasMany(QuestionnaireAuthorization::class);
     }
 
     /** ---------------------- DEFAULT VALUES ------------------------------- */

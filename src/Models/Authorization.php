@@ -28,6 +28,15 @@ class Authorization extends QRFeedzModel
     }
 
     /**
+     * Source: questionnaire_authorizations.authorization_id
+     * Relationship:
+     */
+    public function questionnaireAuthorizations()
+    {
+        return $this->hasMany(QuestionnaireAuthorization::class);
+    }
+
+    /**
      * ---------------------- BUSINESS METHODS -----------------------------
      */
     public function canBeDeleted()
