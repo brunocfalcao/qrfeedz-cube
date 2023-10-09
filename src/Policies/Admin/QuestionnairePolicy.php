@@ -2,7 +2,7 @@
 
 namespace QRFeedz\Cube\Policies\Admin;
 
-use Brunocfalcao\LaravelHelpers\Traits\NovaHelpers;
+use Brunocfalcao\LaravelNovaHelpers\Traits\NovaHelpers;
 use QRFeedz\Cube\Models\Questionnaire;
 use QRFeedz\Cube\Models\User;
 
@@ -90,12 +90,12 @@ class QuestionnairePolicy
     public function addOpenAIPrompt(User $user, Questionnaire $model)
     {
         // Cannot resume policy on detail, only.
-        return ! ($this->novaContext() == 'detail');
+        return ! ($this->novaGetContext() == 'detail');
     }
 
     public function attachAnyAuthorization(User $user, Questionnaire $model)
     {
         // Cannot resume policy on detail, only.
-        return ! ($this->novaContext() == 'detail');
+        return ! ($this->novaGetContext() == 'detail');
     }
 }

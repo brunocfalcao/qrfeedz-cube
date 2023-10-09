@@ -2,7 +2,7 @@
 
 namespace QRFeedz\Cube\Policies\Admin;
 
-use Brunocfalcao\LaravelHelpers\Traits\NovaHelpers;
+use Brunocfalcao\LaravelNovaHelpers\Traits\NovaHelpers;
 use QRFeedz\Cube\Models\Category;
 use QRFeedz\Cube\Models\User;
 
@@ -74,6 +74,6 @@ class CategoryPolicy
          * questionnaire. In case we are in the detail view of the
          * category, we cannot add a questionnaire.
          */
-        return ! ($this->novaContext() == 'detail');
+        return ! ($this->novaGetContext() == 'detail');
     }
 }
