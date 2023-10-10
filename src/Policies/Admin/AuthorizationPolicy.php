@@ -30,9 +30,14 @@ class AuthorizationPolicy
 
     public function create(User $user)
     {
-        return false;
+        return
+            // Cannot show button in client authorizations.
+            ! via_resource('client-authorizations') ||
+            // Cannot show button in questionnaire authorizations.
+            ! via_resource('questionnaire-authorizations') ||
 
-        return $user->isSuperAdmin();
+            // But if it's admin, that's okay.
+            $user->isSystemAdminLike();
     }
 
     public function update(User $user, Authorization $model)
@@ -66,21 +71,6 @@ class AuthorizationPolicy
     }
 
     public function replicate(User $user, Authorization $model)
-    {
-        return false;
-    }
-
-    public function attachAnyClient(User $user, Authorization $model)
-    {
-        return false;
-    }
-
-    public function attachAnyQuestionnaire(User $user, Authorization $model)
-    {
-        return false;
-    }
-
-    public function attachAnyLocation(User $user, Authorization $model)
     {
         return false;
     }

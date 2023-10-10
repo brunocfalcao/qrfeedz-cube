@@ -37,7 +37,7 @@ class ClientScope implements Scope
             return $builder->where('user_affiliate_id', $user->id);
         }
 
-        if ($user->isAdminLike()) {
+        if ($user->isSystemAdminLike()) {
             return $builder;
         }
 

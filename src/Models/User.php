@@ -108,10 +108,22 @@ class User extends Authenticatable implements HasLocalePreference
      * @param  string  $type Authorization canonical
      * @return bool
      */
-    public function isAtLeastAuthorizedAs(string $type)
+    public function isAtLeastAuthorizedAs(string $canonical)
     {
-        // Needs to be obtained via a direct query.
-        return false;
+        return
+            // authorization canonical is a client authorization.
+            $this->clientAuthorizations()
+                 ->where(
+                     'authorization_id',
+                     Authorization::firstWhere('canonical', $canonical)->id
+                 )->exists() ||
+
+            // authorization canonical is a questionnaire authorization.
+            $this->questionnaireAuthorizations()
+                 ->where(
+                     'authorization_id',
+                     Authorization::firstWhere('canonical', $canonical)->id
+                 )->exists();
     }
 
     /**
@@ -124,7 +136,11 @@ class User extends Authenticatable implements HasLocalePreference
      */
     public function isAllowedAdminAccess()
     {
-        return true;
+        return
+            $this->isSystemAdminLike() ||
+            $this->isAffiliate() ||
+            $this->clientAuthorizations()->exists() ||
+            $this->questionnaireAuthorizations()->exists();
     }
 
     /**
@@ -138,7 +154,23 @@ class User extends Authenticatable implements HasLocalePreference
      */
     public function isAuthorizedAs(Model $model = null, string $type)
     {
-        return true;
+        switch (get_class($model)) {
+            case 'QRFeedz\Cube\Models\Client':
+                $this->clientAuthorizations()
+                     ->where(
+                         'authorization_id',
+                         Authorization::firstWhere('canonical', $canonical)->id
+                     )->exists();
+                break;
+
+            case 'QRFeedz\Cube\Models\Questionnaire':
+                $this->questionnaireAuthorizations()
+                     ->where(
+                         'authorization_id',
+                         Authorization::firstWhere('canonical', $canonical)->id
+                     )->exists();
+                break;
+        }
     }
 
     /**
@@ -162,7 +194,7 @@ class User extends Authenticatable implements HasLocalePreference
      *
      * @return bool
      */
-    public function isAdminLike()
+    public function isSystemAdminLike()
     {
         return $this->isSuperAdmin() || $this->isAdmin();
     }
