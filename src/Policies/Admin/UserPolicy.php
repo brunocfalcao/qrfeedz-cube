@@ -63,6 +63,9 @@ class UserPolicy
                 $user->isAuthorizedAs($model->client, 'client-admin')
             ) &&
 
+            // Model can be deleted.
+            $model->canBeDeleted() &&
+
             // The user cannot delete himself.
             $user->id != $model->id;
     }

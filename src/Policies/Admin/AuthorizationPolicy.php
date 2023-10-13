@@ -33,6 +33,7 @@ class AuthorizationPolicy
         return
             // Cannot show button in client authorizations.
             ! via_resource('client-authorizations') ||
+
             // Cannot show button in questionnaire authorizations.
             ! via_resource('questionnaire-authorizations') ||
 

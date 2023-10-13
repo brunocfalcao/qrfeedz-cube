@@ -40,6 +40,10 @@ class Authorization extends QRFeedzModel
     public function canBeDeleted()
     {
         return
+            /**
+             * There should be no authorizations in both client and
+             * questionnaires given to users.
+             */
             ! $this->questionnaireAuthorizations()->exists() &&
             ! $this->clientAuthorizations()->exists();
     }

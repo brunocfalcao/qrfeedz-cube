@@ -36,8 +36,12 @@ class OpenAIPromptPolicy
 
     public function delete(User $user, OpenAIPrompt $model)
     {
-        // There should always be an OpenAI prompt, associated.
-        return false;
+        return
+            // Model can be deleted.
+            $model->canBeDeleted() &&
+
+            // User is super admin.
+            $user->isSuperAdmin();
     }
 
     public function restore(User $user, OpenAIPrompt $model)

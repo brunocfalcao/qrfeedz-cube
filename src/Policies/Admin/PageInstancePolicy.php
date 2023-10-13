@@ -29,7 +29,12 @@ class PageInstancePolicy
 
     public function delete(User $user, PageInstance $model)
     {
-        return $user->isSuperAdmin();
+        return
+            // Model can be deleted.
+            $model->canBeDeleted() &&
+
+            // User is super admin.
+            $user->isSuperAdmin();
     }
 
     public function restore(User $user, PageInstance $model)

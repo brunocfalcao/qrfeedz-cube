@@ -40,11 +40,11 @@ class QuestionInstancePolicy
     public function delete(User $user, QuestionInstance $model)
     {
         return
-            // User is super admin.
-            $user->isSuperAdmin() ||
+            // Model can be deleted.
+            $model->canBeDeleted() &&
 
-            // User is an affiliate.
-            $user->isAffiliate();
+            // User is super admin.
+            $user->isSuperAdmin();
     }
 
     public function restore(User $user, QuestionInstance $model)

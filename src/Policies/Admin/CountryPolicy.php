@@ -37,7 +37,10 @@ class CountryPolicy
     {
         return
             // Model can be deleted.
-            $model->canBeDeleted();
+            $model->canBeDeleted() &&
+
+            // User is super admin.
+            $user->isSuperAdmin();
     }
 
     public function restore(User $user, Country $model)

@@ -54,7 +54,9 @@ class ResponsePolicy
          * this questionnaire. Still, it's important to understand that a
          * data deletion is not very normal. For instance, if a visitor clears
          * a textbox, then it might be considered a "delete value" or if the
-         * visitor unchecks a star rating for instance.
+         * visitor changes a star rating value.
+         *
+         * No one else, not either super admins, can delete response values.
          */
         return QRFeedz::inFrontend() && QRFeedz::hasValidSessionId();
     }

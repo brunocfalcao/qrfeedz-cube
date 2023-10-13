@@ -68,7 +68,12 @@ class QuestionnairePolicy
 
     public function delete(User $user, Questionnaire $model)
     {
-        return $user->isSuperAdmin();
+        return
+            // Model can be deleted.
+            $model->canBeDeleted() &&
+
+            // User is super admin.
+            $user->isSuperAdmin();
     }
 
     public function restore(User $user, Questionnaire $model)

@@ -31,7 +31,12 @@ class LocalePolicy
 
     public function delete(User $user, Locale $model)
     {
-        return $user->isSuperAdmin();
+        return
+            // Model can be deleted.
+            $model->canBeDeleted() &&
+
+            // User is super admin.
+            $user->isSuperAdmin();
     }
 
     public function restore(User $user, Locale $model)

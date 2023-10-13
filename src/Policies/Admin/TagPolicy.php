@@ -29,7 +29,12 @@ class TagPolicy
 
     public function delete(User $user, Tag $model)
     {
-        return true;
+        return
+            // Model can be deleted.
+            $model->canBeDeleted() &&
+
+            // User is super admin.
+            $user->isSuperAdmin();
     }
 
     public function restore(User $user, Tag $model)

@@ -29,7 +29,12 @@ class WidgetPolicy
 
     public function delete(User $user, Widget $model)
     {
-        return true;
+        return
+            // Model can be deleted.
+            $model->canBeDeleted() &&
+
+            // User is super admin.
+            $user->isSuperAdmin();
     }
 
     public function restore(User $user, Widget $model)

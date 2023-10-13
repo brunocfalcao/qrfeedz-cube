@@ -147,12 +147,13 @@ class User extends Authenticatable implements HasLocalePreference
      * Used to check if a given model instance is authorized in another model
      * in a specific authorization type.
      * Normally used on policies, e.g.:
-     * Check if the user has "admin" ($type) permissions in a client X ($model).
+     * Check if the user has "client-admin" ($canonical) permissions in
+     * a client X ($model).
      *
      * @param  Model  $model|null
      * @return bool
      */
-    public function isAuthorizedAs(Model $model = null, string $type)
+    public function isAuthorizedAs(Model $model = null, string $canonical)
     {
         switch (get_class($model)) {
             case 'QRFeedz\Cube\Models\Client':

@@ -38,4 +38,10 @@ class Country extends QRFeedzModel
     {
         return $this->hasMany(Location::class);
     }
+
+    public function canBeDeleted()
+    {
+        // We cannot delete countries.
+        return false;
+    }
 }
