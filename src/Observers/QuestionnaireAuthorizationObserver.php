@@ -16,8 +16,12 @@ class QuestionnaireAuthorizationObserver extends QRFeedzObserver
          */
         $user = User::firstWhere('id', $model->user_id);
 
-        if ($user->client_id != $user->client->id) {
-            throw new \Exception('User is not associated with this client');
+        if (!$user->client) {
+            throw new \Exception('User is not associated with a client');
+        }
+
+        if (!$client->questionnaires->contains->id($model->questionnaire_id)) {
+            throw new \Exception('Questionnaire not part of the user client');
         }
 
         /**

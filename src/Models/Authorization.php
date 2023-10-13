@@ -36,4 +36,11 @@ class Authorization extends QRFeedzModel
     {
         return $this->hasMany(QuestionnaireAuthorization::class);
     }
+
+    public function canBeDeleted()
+    {
+        return
+            ! $this->questionnaireAuthorizations()->exists() &&
+            ! $this->clientAuthorizations()->exists();
+    }
 }
