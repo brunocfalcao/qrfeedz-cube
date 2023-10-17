@@ -36,7 +36,10 @@ class LocationPolicy
 
     public function create(User $user)
     {
-        return $user->isAllowedAdminAccess();
+        // Don't create a location from a country detail.
+        if (!via_resource('countries')) {
+            return $user->isAllowedAdminAccess();
+        }
     }
 
     public function update(User $user, Location $model)
