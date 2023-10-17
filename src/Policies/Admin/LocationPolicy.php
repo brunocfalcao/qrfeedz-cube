@@ -37,7 +37,7 @@ class LocationPolicy
     public function create(User $user)
     {
         // Don't create a location from a country detail.
-        if (!via_resource('countries')) {
+        if (! via_resource('countries')) {
             return $user->isAllowedAdminAccess();
         }
     }
