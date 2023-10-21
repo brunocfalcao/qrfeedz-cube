@@ -7,7 +7,9 @@ use QRFeedz\Cube\Models\ClientAuthorization;
 use QRFeedz\Cube\Models\User;
 
 /**
- * Countries can't be deleted or changed. Period.
+ * Client policies are managed by admin users. A client-admin user
+ * can add users that belong to his own client, as example. The client can
+ * only be the client that he is part of.
  */
 class ClientAuthorizationPolicy
 {
@@ -25,12 +27,32 @@ class ClientAuthorizationPolicy
 
     public function create(User $user)
     {
-        return true;
+        return
+            (
+                // Admin or system admin.
+                $user->isSystemAdminLike() ||
+
+                // User is 'client-admin'.
+                $user->isAtLeastAuthorizedAs('client-admin')
+            ) &&
+
+            // The resource is not being created via the users resource.
+            ! via_resource('users');
     }
 
     public function update(User $user, ClientAuthorization $model)
     {
-        return true;
+        return
+            (
+                // Admin or system admin.
+                $user->isSystemAdminLike() ||
+
+                // User is 'client-admin'.
+                $user->isAtLeastAuthorizedAs('client-admin')
+            ) &&
+
+            // The resource is not being created via the users resource.
+            ! via_resource('users');
     }
 
     public function delete(User $user, ClientAuthorization $model)

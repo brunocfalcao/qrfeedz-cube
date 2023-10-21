@@ -7,9 +7,8 @@ use QRFeedz\Cube\Models\QuestionnaireAuthorization;
 use QRFeedz\Cube\Models\User;
 
 /**
- * Questionnaire policies are managed by admin users. A client-admin user
- * can add users that belong to his own client, as example. The client can
- * only be the client that he is part of.
+ * Questionnaire policies are managed by admin or client-admin users, or by
+ * questionnaire-admin users.
  */
 class QuestionnaireAuthorizationPolicy
 {
@@ -33,16 +32,32 @@ class QuestionnaireAuthorizationPolicy
                 $user->isSystemAdminLike() ||
 
                 // User is 'client-admin'.
-                $user->isAtLeastAuthorizedAs('client-admin')
+                $user->isAtLeastAuthorizedAs('client-admin') ||
+
+                // User is 'questionnaire-admin'.
+                $user->isAtLeastAuthorizedAs('questionnaire-admin')
             ) &&
 
             // The resource is not being created via the users resource.
-            !via_resource('users');
+            ! via_resource('users');
     }
 
     public function update(User $user, QuestionnaireAuthorization $model)
     {
-        return $user->isAllowedAdminAccess();
+        return
+            (
+                // Admin or system admin.
+                $user->isSystemAdminLike() ||
+
+                // User is 'client-admin'.
+                $user->isAtLeastAuthorizedAs('client-admin') ||
+
+                // User is 'questionnaire-admin'.
+                $user->isAtLeastAuthorizedAs('questionnaire-admin')
+            ) &&
+
+            // The resource is not being created via the users resource.
+            ! via_resource('users');
     }
 
     public function delete(User $user, QuestionnaireAuthorization $model)
