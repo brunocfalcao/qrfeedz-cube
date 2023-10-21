@@ -27,7 +27,17 @@ class QuestionnaireAuthorizationPolicy
 
     public function create(User $user)
     {
-        return $user->isAllowedAdminAccess();
+        return
+            (
+                // Admin or system admin.
+                $user->isSystemAdminLike() ||
+
+                // User is 'client-admin'.
+                $user->isAtLeastAuthorizedAs('client-admin')
+            ) &&
+
+            // The resource is not being created via the users resource.
+            !via_resource('users');
     }
 
     public function update(User $user, QuestionnaireAuthorization $model)

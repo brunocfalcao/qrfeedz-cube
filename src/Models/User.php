@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use QRFeedz\Cube\Concerns\Authenticates;
 
 class User extends Authenticatable implements HasLocalePreference
@@ -97,6 +98,45 @@ class User extends Authenticatable implements HasLocalePreference
     /**
      * ---------------------- BUSINESS METHODS -----------------------------
      */
+    public function canBeDeleted()
+    {
+        /**
+         * An user can also be deleted if the current logged user is
+         * a client-admin and the user is part of his client.
+         *
+         * or logged user is isSystemAdminLike()
+         *
+         * and cannot delete himself.
+         */
+        if (Auth::user()) {
+            $loggedUser = Auth::user();
+
+            // Cannot delete himself.
+            if ($loggedUser->id == $this->id) {
+                return false;
+            }
+
+            // Client admin? Then user should be part of his client.
+            if ($loggedUser->isAtLeastAuthorizedAs('client-admin') &&
+               $loggedUser->client->id == $this->client->id) {
+                return true;
+            }
+
+            // Not system admin? Can't delete.
+            if ($loggedUser->isSystemAdminLike()) {
+                return true;
+            }
+
+            return false;
+        }
+
+        // System console operations. All good.
+        if (app()->runningInConsole()) {
+            return true;
+        }
+
+        return false;
+    }
 
     /**
      * This special query will return if an user has at least a single
