@@ -7,7 +7,9 @@ use QRFeedz\Cube\Models\QuestionnaireAuthorization;
 use QRFeedz\Cube\Models\User;
 
 /**
- * Countries can't be deleted or changed. Period.
+ * Questionnaire policies are managed by admin users. A client-admin user
+ * can add users that belong to his own client, as example. The client can
+ * only be the client that he is part of.
  */
 class QuestionnaireAuthorizationPolicy
 {
@@ -25,12 +27,12 @@ class QuestionnaireAuthorizationPolicy
 
     public function create(User $user)
     {
-        return true;
+        return $user->isAllowedAdminAccess();
     }
 
     public function update(User $user, QuestionnaireAuthorization $model)
     {
-        return true;
+        return $user->isAllowedAdminAccess();
     }
 
     public function delete(User $user, QuestionnaireAuthorization $model)

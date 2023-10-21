@@ -38,4 +38,10 @@ class QuestionnaireAuthorization extends QRFeedzModel
     {
         return $this->belongsTo(Authorization::class);
     }
+
+    public function canBeDeleted()
+    {
+        // Nothing specific to compute, at the moment.
+        return true;
+    }
 }

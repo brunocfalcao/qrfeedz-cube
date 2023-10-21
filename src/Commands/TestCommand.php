@@ -3,8 +3,7 @@
 namespace QRFeedz\Cube\Commands;
 
 use Illuminate\Console\Command;
-use QRFeedz\Cube\Models\Client;
-use QRFeedz\Cube\Models\User;
+use QRFeedz\Cube\Models\Authorization;
 
 class TestCommand extends Command
 {
@@ -14,14 +13,6 @@ class TestCommand extends Command
 
     public function handle()
     {
-        $user = User::firstWhere('id', 3);
-
-        $client = Client::firstWhere('id', 1);
-
-        $this->info($user->exists());
-
-        $this->info($client->exists());
-
-        dd($user->isAuthorizedAs($client, 'location-admin'));
+        dd(Authorization::where('canonical', 'like', 'questionnaire-%')->get()->pluck('id'));
     }
 }
