@@ -2,6 +2,7 @@
 
 namespace QRFeedz\Cube\Policies\Admin;
 
+use Brunocfalcao\LaravelNovaHelpers\Traits\NovaHelpers;
 use QRFeedz\Cube\Models\PageInstance;
 use QRFeedz\Cube\Models\User;
 

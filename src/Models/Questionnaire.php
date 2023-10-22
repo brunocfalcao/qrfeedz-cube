@@ -142,6 +142,11 @@ class Questionnaire extends QRFeedzModel
     /**
      * ---------------------- BUSINESS METHODS -----------------------------
      */
+    public function canBeDeleted()
+    {
+        // Cannot delete questionnaires with responses already.
+        return ! $this->responses()->withTrashed()->exists();
+    }
 
     /**
      * A questionnaire is valid if:

@@ -30,6 +30,26 @@ class QuestionnaireObserver extends QRFeedzObserver
 
     public function saving(Questionnaire $model)
     {
-        //
+        $this->validate($model, [
+            'name' => 'required',
+            'title' => 'required',
+            'color_primary' => 'required',
+            'color_secondary' => 'required',
+            'uuid' => 'required',
+        ]);
+    }
+
+    public function deleting(Questionnaire $model)
+    {
+        if (! $model->canBeDeleted()) {
+            throw new \Exception(class_basename($model).' cannot be deleted');
+        }
+    }
+
+    public function forceDeleting(Questionnaire $model)
+    {
+        if (! $model->trashed()) {
+            throw new \Exception(class_basename($model).' is not soft deleted first');
+        }
     }
 }
