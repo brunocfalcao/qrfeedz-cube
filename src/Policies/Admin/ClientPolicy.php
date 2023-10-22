@@ -32,11 +32,16 @@ class ClientPolicy
     public function create(User $user)
     {
         return
-            // The user is an affiliate.
-            $user->isAffiliate() ||
+            (
+                // The user is an affiliate.
+                $user->isAffiliate() ||
 
-            // The user is a super admin.
-            $user->isSuperAdmin();
+                // The user is a super admin.
+                $user->isSuperAdmin()
+            ) &&
+
+            // Not via a parent resource detail view.
+            via_resource();
     }
 
     public function update(User $user, Client $model)

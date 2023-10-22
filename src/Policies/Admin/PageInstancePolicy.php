@@ -19,7 +19,12 @@ class PageInstancePolicy
 
     public function create(User $user)
     {
-        return $user->isSuperAdmin();
+        return
+            // Not via a parent resource detail view.
+            ! via_resource() &&
+
+            // User is a system admin like.
+            $user->isSystemAdminLike();
     }
 
     public function update(User $user, PageInstance $model)

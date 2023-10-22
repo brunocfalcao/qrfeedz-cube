@@ -19,7 +19,9 @@ class TagPolicy
 
     public function create(User $user)
     {
-        return true;
+        return
+            // Not via a parent resource detail view.
+            ! via_resource();
     }
 
     public function update(User $user, Tag $model)

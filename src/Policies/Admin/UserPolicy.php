@@ -32,11 +32,15 @@ class UserPolicy
     public function create(User $user)
     {
         return
-            // The user is a super admin.
-            $user->isSuperAdmin() ||
+            (
+                // The user is a super admin.
+                $user->isSuperAdmin() ||
 
-            // The user has at least one "admin" authorization.
-            $user->isAtLeastAuthorizedAs('client-admin');
+                // The user has at least one "admin" authorization.
+                $user->isAtLeastAuthorizedAs('client-admin')
+            ) &&
+            // Not via a parent resource detail view.
+            ! via_resource();
     }
 
     public function update(User $user, User $model)

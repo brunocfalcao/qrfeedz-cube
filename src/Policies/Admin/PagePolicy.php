@@ -19,7 +19,12 @@ class PagePolicy
 
     public function create(User $user)
     {
-        return $user->isSuperAdmin();
+        return
+            // Not via a parent resource detail view.
+            ! via_resource() &&
+
+            // User is a super admin.
+            $user->isSuperAdmin();
     }
 
     public function update(User $user, Page $model)

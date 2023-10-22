@@ -31,14 +31,8 @@ class AuthorizationPolicy
     public function create(User $user)
     {
         return
-            // Cannot show button in client authorizations.
-            ! via_resource('client-authorizations') ||
-
-            // Cannot show button in questionnaire authorizations.
-            ! via_resource('questionnaire-authorizations') ||
-
-            // But if it's admin, that's okay.
-            $user->isSystemAdminLike();
+            // Not via a parent resource detail view.
+            ! via_resource();
     }
 
     public function update(User $user, Authorization $model)

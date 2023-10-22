@@ -20,6 +20,9 @@ class OpenAIPromptPolicy
     public function create(User $user)
     {
         return
+            // Not via a parent resource detail view.
+            ! via_resource() &&
+
             // User is super admin.
             $user->isSuperAdmin();
     }

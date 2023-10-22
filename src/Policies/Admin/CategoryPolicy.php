@@ -29,7 +29,11 @@ class CategoryPolicy
 
     public function create(User $user)
     {
-        return $user->isSuperAdmin();
+        // Not via a parent resource detail view.
+        ! via_resource() ||
+
+        // User is super admin (because it's a system category).
+        $user->isSuperAdmin();
     }
 
     public function update(User $user, Category $model)

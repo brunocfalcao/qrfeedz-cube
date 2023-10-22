@@ -37,14 +37,19 @@ class QuestionnairePolicy
     public function create(User $user)
     {
         return
-            // User is super admin.
-            $user->isSuperAdmin() ||
+            (
+                // User is super admin.
+                $user->isSuperAdmin() ||
 
-            // User is affiliate.
-            $user->isAffiliate() ||
+                // User is affiliate.
+                $user->isAffiliate() ||
 
-            // User is client-admin.
-            $user->isAtLeastAuthorizedAs('client-admin');
+                // User is client-admin.
+                $user->isAtLeastAuthorizedAs('client-admin')
+            ) &&
+
+            // Not via a parent resource detail view.
+            ! via_resource();
     }
 
     public function update(User $user, Questionnaire $model)

@@ -30,12 +30,16 @@ class ResponsePolicy
 
     public function create(User $user)
     {
-        /**
-         * Responses can only be created by a frontend URL and only
-         * if the questionnaire is correlated with the current visitor
-         * session id (TODO).
-         */
-        return QRFeedz::inFrontend() && QRFeedz::hasValidSessionId();
+        return
+            // Only created by the qrfeedz frontend.
+            QRFeedz::inFrontend() &&
+
+            // Only under a questionnaire execution context.
+            QRFeedz::hasValidSessionId() &&
+
+            // Not via a parent resource detail view.
+            ! via_resource();
+        ;
     }
 
     public function update(User $user, Response $model)

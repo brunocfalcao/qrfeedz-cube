@@ -25,6 +25,7 @@ class CountryPolicy
 
     public function create(User $user)
     {
+        // Not possible to create new countries, unless Palestine becomes one.
         return false;
     }
 

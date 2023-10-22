@@ -38,8 +38,8 @@ class QuestionnaireAuthorizationPolicy
                 $user->isAtLeastAuthorizedAs('questionnaire-admin')
             ) &&
 
-            // The resource is not being created via the users resource.
-            ! via_resource('users');
+            // Not via a parent resource detail view.
+            ! via_resource();
     }
 
     public function update(User $user, QuestionnaireAuthorization $model)
