@@ -5,11 +5,17 @@ namespace QRFeedz\Cube\Policies\Admin;
 use QRFeedz\Cube\Models\PageInstance;
 use QRFeedz\Cube\Models\User;
 
+/**
+ * A page instance doesn't have much policy types, since it's created
+ * after other model policies from its parents are already put in place.
+ */
 class PageInstancePolicy
 {
+    use NovaHelpers;
+
     public function viewAny(User $user)
     {
-        return $user->isSuperAdmin();
+        return $user->isAllowedAdminAccess();
     }
 
     public function view(User $user, PageInstance $model)
@@ -29,7 +35,7 @@ class PageInstancePolicy
 
     public function update(User $user, PageInstance $model)
     {
-        return $user->isSuperAdmin();
+        return $user->isSystemAdminLike();
     }
 
     public function delete(User $user, PageInstance $model)
@@ -49,7 +55,12 @@ class PageInstancePolicy
 
     public function forceDelete(User $user, PageInstance $model)
     {
-        return false;
+        return
+            // Model is previously soft deleted.
+            $model->trashed() &&
+
+            // User is super admin.
+            $user->isSuperAdmin();
     }
 
     public function replicate(User $user, PageInstance $model)

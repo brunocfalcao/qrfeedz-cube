@@ -62,6 +62,10 @@ class PageInstance extends QRFeedzModel
     /**
      * ---------------------- BUSINESS METHODS -----------------------------
      */
+    public function canBeDeleted()
+    {
+        return true;
+    }
 
     /**
      * Returns the respective target view component. If it's overriden then
