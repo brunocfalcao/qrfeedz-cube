@@ -62,4 +62,10 @@ class Locale extends QRFeedzModel
                     ->withPivot(['caption', 'placeholder'])
                     ->withTimestamps();
     }
+
+    public function canBeDeleted()
+    {
+        // Locales cannot be deleted.
+        return false;
+    }
 }

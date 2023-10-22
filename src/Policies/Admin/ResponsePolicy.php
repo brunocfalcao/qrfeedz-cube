@@ -39,7 +39,7 @@ class ResponsePolicy
 
             // Not via a parent resource detail view.
             ! via_resource();
-        ;
+
     }
 
     public function update(User $user, Response $model)

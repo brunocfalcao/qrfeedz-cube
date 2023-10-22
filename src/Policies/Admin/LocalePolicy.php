@@ -2,11 +2,20 @@
 
 namespace QRFeedz\Cube\Policies\Admin;
 
+use Brunocfalcao\LaravelNovaHelpers\Traits\NovaHelpers;
 use QRFeedz\Cube\Models\Locale;
 use QRFeedz\Cube\Models\User;
 
+/**
+ * The locales are used to add localization to client notifications,
+ * questionnaire locales, widget and question instances. They are mostly
+ * created once, for the questionnaire configuration and not changed for
+ * that specific purpose.
+ */
 class LocalePolicy
 {
+    use NovaHelpers;
+
     public function viewAny(User $user)
     {
         return $user->isSuperAdmin();
@@ -51,7 +60,12 @@ class LocalePolicy
 
     public function forceDelete(User $user, Locale $model)
     {
-        return false;
+        return
+            // Model is previously soft deleted.
+            $model->trashed() &&
+
+            // User is super admin.
+            $user->isSuperAdmin();
     }
 
     public function replicate(User $user, Locale $model)
