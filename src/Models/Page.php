@@ -18,4 +18,10 @@ class Page extends QRFeedzModel
     {
         return $this->hasMany(PageInstance::class);
     }
+
+    public function canBeDeleted()
+    {
+        // Nothing to compute at the moment.
+        return true;
+    }
 }

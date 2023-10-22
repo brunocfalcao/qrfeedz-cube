@@ -2,11 +2,14 @@
 
 namespace QRFeedz\Cube\Policies\Admin;
 
+use Brunocfalcao\LaravelNovaHelpers\Traits\NovaHelpers;
 use QRFeedz\Cube\Models\Page;
 use QRFeedz\Cube\Models\User;
 
 class PagePolicy
 {
+    use NovaHelpers;
+
     public function viewAny(User $user)
     {
         return $user->isAllowedAdminAccess();
@@ -49,7 +52,12 @@ class PagePolicy
 
     public function forceDelete(User $user, Page $model)
     {
-        return false;
+        return
+            // Model is previously soft deleted.
+            $model->trashed() &&
+
+            // User is super admin.
+            $user->isSuperAdmin();
     }
 
     public function replicate(User $user, Page $model)
