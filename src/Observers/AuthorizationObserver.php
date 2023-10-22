@@ -28,14 +28,14 @@ class AuthorizationObserver extends QRFeedzObserver
     public function deleting(Authorization $model)
     {
         if (! $model->canBeDeleted()) {
-            throw new \Exception('Authorization model cannot be deleted');
+            throw new \Exception(class_basename($model) . ' cannot be deleted');
         }
     }
 
     public function forceDeleting(Authorization $model)
     {
         if (! $model->trashed()) {
-            throw new \Exception('Authorization model is not soft deleted first');
+            throw new \Exception(class_basename($model) . ' is not soft deleted first');
         }
     }
 }

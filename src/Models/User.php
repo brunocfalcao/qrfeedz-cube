@@ -2,6 +2,7 @@
 
 namespace QRFeedz\Cube\Models;
 
+use Brunocfalcao\LaravelHelpers\Traits\HasCustomQueryBuilder;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +14,7 @@ use QRFeedz\Cube\Concerns\Authenticates;
 
 class User extends Authenticatable implements HasLocalePreference
 {
-    use Authenticates, Notifiable, SoftDeletes;
+    use Authenticates, HasCustomQueryBuilder, Notifiable, SoftDeletes;
 
     protected $guarded = [];
 

@@ -2,14 +2,22 @@
 
 namespace QRFeedz\Cube\Policies\Admin;
 
+use Brunocfalcao\LaravelNovaHelpers\Traits\NovaHelpers;
 use QRFeedz\Cube\Models\Location;
 use QRFeedz\Cube\Models\User;
 
+/**
+ * Locations are created by admins, or by client admins.
+ * Locations are only seen from users where that location is part of
+ * on this case from the client locations list.
+ */
 class LocationPolicy
 {
+    use NovaHelpers;
+
     public function viewAny(User $user)
     {
-        return true;
+        return $user->isAllowedAdminAccess();
     }
 
     public function view(User $user, Location $model)
@@ -78,14 +86,17 @@ class LocationPolicy
 
     public function restore(User $user, Location $model)
     {
-        // For now we can't execute this action. But we can update them.
-        return false;
+        return true;
     }
 
     public function forceDelete(User $user, Location $model)
     {
-        // For now we can't execute this action. But we can update them.
-        return false;
+        return
+            // Model is previously soft deleted.
+            $model->trashed() &&
+
+            // User is super admin.
+            $user->isSuperAdmin();
     }
 
     public function replicate(User $user, Location $model)

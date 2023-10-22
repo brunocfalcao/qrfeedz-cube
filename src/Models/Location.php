@@ -2,12 +2,13 @@
 
 namespace QRFeedz\Cube\Models;
 
+use Brunocfalcao\LaravelHelpers\Traits\HasCustomQueryBuilder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
 class Location extends QRFeedzModel
 {
-    use SoftDeletes;
+    use SoftDeletes, HasCustomQueryBuilder;
 
     /**
      * Source: clients.id
@@ -37,5 +38,14 @@ class Location extends QRFeedzModel
     public function questionnaires()
     {
         return $this->hasMany(Questionnaire::class);
+    }
+
+    public function canBeDeleted()
+    {
+        return
+            // No questionnaires attached.
+            ! $this->questionnaires()
+                   ->withTrashed()
+                   ->exists();
     }
 }

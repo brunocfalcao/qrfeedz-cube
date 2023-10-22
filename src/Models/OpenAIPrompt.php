@@ -24,4 +24,15 @@ class OpenAIPrompt extends QRFeedzModel
     {
         return $this->belongsTo(Questionnaire::class);
     }
+
+
+    public function canBeDeleted()
+    {
+        return
+            /**
+             * If there is no questionnaires, including force deleted related
+             * with this open ai prompt.
+             */
+            ! $this->questionnaire->withTrashed()->exists();
+    }
 }

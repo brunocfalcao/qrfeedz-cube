@@ -42,7 +42,7 @@ class ClientObserver extends QRFeedzObserver
     public function forceDeleting(Client $model)
     {
         if (! $model->trashed()) {
-            throw new \Exception(class_basename($model).'  model is not soft deleted first');
+            throw new \Exception(class_basename($model).' model is not soft deleted first');
         }
     }
 
