@@ -26,14 +26,14 @@ class LocaleObserver extends QRFeedzObserver
     public function deleting(Locale $model)
     {
         if (! $model->canBeDeleted()) {
-            throw new \Exception(class_basename($model) . ' cannot be deleted');
+            throw new \Exception(class_basename($model).' cannot be deleted');
         }
     }
 
     public function forceDeleting(Locale $model)
     {
         if (! $model->trashed()) {
-            throw new \Exception(class_basename($model) . ' is not soft deleted first');
+            throw new \Exception(class_basename($model).' is not soft deleted first');
         }
     }
 }

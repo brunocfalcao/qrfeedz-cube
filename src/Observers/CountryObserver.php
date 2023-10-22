@@ -22,7 +22,7 @@ class CountryObserver extends QRFeedzObserver
     public function forceDeleting(Country $model)
     {
         if (! $model->trashed()) {
-            throw new \Exception(class_basename($model) . ' is not soft deleted first');
+            throw new \Exception(class_basename($model).' is not soft deleted first');
         }
     }
 }

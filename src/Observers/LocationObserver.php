@@ -16,7 +16,7 @@ class LocationObserver extends QRFeedzObserver
             'city' => 'required',
             'country_id' => 'required',
             'latitude' => 'required',
-            'longitude' => 'required'
+            'longitude' => 'required',
         ]);
     }
 
@@ -29,21 +29,21 @@ class LocationObserver extends QRFeedzObserver
             'city' => 'required',
             'country_id' => 'required',
             'latitude' => 'required',
-            'longitude' => 'required'
+            'longitude' => 'required',
         ]);
     }
 
     public function deleting(Location $model)
     {
         if (! $model->canBeDeleted()) {
-            throw new \Exception(class_basename($model) . ' cannot be deleted');
+            throw new \Exception(class_basename($model).' cannot be deleted');
         }
     }
 
     public function forceDeleting(Location $model)
     {
         if (! $model->trashed()) {
-            throw new \Exception(class_basename($model) . ' is not soft deleted first');
+            throw new \Exception(class_basename($model).' is not soft deleted first');
         }
     }
 }

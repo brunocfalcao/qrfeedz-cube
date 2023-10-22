@@ -25,7 +25,6 @@ class OpenAIPrompt extends QRFeedzModel
         return $this->belongsTo(Questionnaire::class);
     }
 
-
     public function canBeDeleted()
     {
         return

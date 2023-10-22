@@ -12,21 +12,21 @@ class OpenAIPromptObserver extends QRFeedzObserver
         $this->validate($model, [
             'questionnaire_id' => 'required',
             'balance_type' => 'required',
-            'should_be_email_aware' => 'required'
+            'should_be_email_aware' => 'required',
         ]);
     }
 
     public function deleting(OpenAIPrompt $model)
     {
         if (! $model->canBeDeleted()) {
-            throw new \Exception(class_basename($model) . ' cannot be deleted');
+            throw new \Exception(class_basename($model).' cannot be deleted');
         }
     }
 
     public function forceDeleting(OpenAIPrompt $model)
     {
         if (! $model->trashed()) {
-            throw new \Exception(class_basename($model) . ' not soft deleted first');
+            throw new \Exception(class_basename($model).' not soft deleted first');
         }
     }
 }

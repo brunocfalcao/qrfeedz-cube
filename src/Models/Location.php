@@ -8,7 +8,7 @@ use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
 class Location extends QRFeedzModel
 {
-    use SoftDeletes, HasCustomQueryBuilder;
+    use HasCustomQueryBuilder, SoftDeletes;
 
     /**
      * Source: clients.id
