@@ -59,6 +59,18 @@ class QuestionInstance extends QRFeedzModel
                     ->withTimestamps();
     }
 
+    /**
+     * ---------------------- BUSINESS METHODS -----------------------------
+     */
+    public function canBeDeleted()
+    {
+        /**
+         * A question instance cannot be delete in case there are responses
+         * related with it.
+         */
+        return ! $this->responses()->withTrashed()->exists();
+    }
+
     /** ---------------------- DEFAULT VALUES ------------------------------- */
     public function defaultIndexAttribute()
     {

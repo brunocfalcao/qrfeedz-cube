@@ -2,11 +2,20 @@
 
 namespace QRFeedz\Cube\Policies\Admin;
 
+use Brunocfalcao\LaravelNovaHelpers\Traits\NovaHelpers;
 use QRFeedz\Cube\Models\QuestionInstance;
 use QRFeedz\Cube\Models\User;
 
+/**
+ * Not much to be done here in terms of policies, except they are created
+ * mostly by admin users. A question instance is very specific to the
+ * questionnaire structure creation and maintenance so it needs to be
+ * performed by an expert person.
+ */
 class QuestionInstancePolicy
 {
+    use NovaHelpers;
+
     public function viewAny(User $user)
     {
         return $user->isAllowedAdminAccess();
@@ -57,18 +66,17 @@ class QuestionInstancePolicy
 
     public function forceDelete(User $user, QuestionInstance $model)
     {
-        return false;
+        return
+            // Model is previously soft deleted.
+            $model->trashed() &&
+
+            // User is super admin.
+            $user->isSuperAdmin();
     }
 
     public function replicate(User $user, QuestionInstance $model)
     {
         // Replication is disabled.
-        return false;
-    }
-
-    public function addResponse(User $user, QuestionInstance $model)
-    {
-        // Responses cannot be created in Question instances.
         return false;
     }
 }
