@@ -4,12 +4,15 @@ namespace QRFeedz\Cube\Policies\Admin;
 
 use QRFeedz\Cube\Models\User;
 
+/**
+ * The users are filtered by the client users in case it's a client admin.
+ */
 class UserPolicy
 {
     public function viewAny(User $user)
     {
         // Anyone registered can view user resources.
-        return true;
+        return $user->isAllowedAdminAccess();
     }
 
     public function view(User $user, User $model)
@@ -89,8 +92,12 @@ class UserPolicy
 
     public function forceDelete(User $user, User $model)
     {
-        // The user is a super admin.
-        return $user->isSuperAdmin();
+        return
+            // Model is previously soft deleted.
+            $model->trashed() &&
+
+            // User is super admin.
+            $user->isSuperAdmin();
     }
 
     public function replicate(User $user, User $model)

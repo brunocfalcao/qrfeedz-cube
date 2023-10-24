@@ -11,6 +11,11 @@ class UserObserver extends QRFeedzObserver
 {
     public function saving(User $user)
     {
+        $this->validate($model, [
+            'name' => 'required',
+            'email' => 'required'
+        ]);
+
         if (! app()->runningInConsole()) {
             /**
              * "is_admin" and "is_super_admin" attributes can only be changed by
@@ -30,6 +35,20 @@ class UserObserver extends QRFeedzObserver
         // Send reset password email if password is blank.
         if (blank($user->password) || ! isset($user->password)) {
             ResetUserPasswordJob::dispatch($user->id, true);
+        }
+    }
+
+    public function deleting(User $model)
+    {
+        if (! $model->canBeDeleted()) {
+            throw new \Exception(class_basename($model).' cannot be deleted');
+        }
+    }
+
+    public function forceDeleting(User $model)
+    {
+        if (! $model->trashed()) {
+            throw new \Exception(class_basename($model).' is not soft deleted first');
         }
     }
 }
