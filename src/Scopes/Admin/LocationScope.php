@@ -13,7 +13,7 @@ class LocationScope implements Scope
     public function apply(Builder $builder, Model $model)
     {
         $user = Auth::id() ?
-                User::firstWhere('id', Auth::id()) :
+                User::withoutGlobalScope($this)->firstWhere('id', Auth::id()) :
                 null;
 
         // No user or running in console? Exit.

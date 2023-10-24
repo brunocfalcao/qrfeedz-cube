@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Support\Facades\Auth;
 use QRFeedz\Cube\Models\User;
 
-class ResponseScope implements Scope
+class UserScope implements Scope
 {
     public function apply(Builder $builder, Model $model)
     {
@@ -25,14 +25,9 @@ class ResponseScope implements Scope
 
         // Scope the responses only for the allowed user client.
         return $builder
-            ->upTo('question_instances')
-            ->upTo('page_instances')
-            ->upTo('questionnaires')
-            ->upTo('locations')
-            ->upTo('clients') // We need to reach here so we can attach the users.
-            ->bring('users')
+            ->bring('clients')
             ->when($user->isAtLeastAuthorizedAs('client-admin'), function ($query) use ($user) {
-                // Obtain the clients where the user is client-admin.
+                // Obtain the users where the user client is client-admin.
                 $query->whereIn(
                     'clients.id',
                     $user->authorizationsAs('client-admin')

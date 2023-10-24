@@ -2,6 +2,8 @@
 
 namespace QRFeedz\Cube;
 
+use Illuminate\Auth\Events\Authenticated;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use QRFeedz\Cube\Commands\TestCommand;
@@ -16,7 +18,10 @@ class CubeServiceProvider extends ServiceProvider
         if (! app()->runningInConsole()) {
             $this->registerGates();
             $this->registerPolicies();
-            $this->registerGlobalScopes();
+
+            Event::listen(Authenticated::class, function ($event) {
+                $this->registerGlobalScopes();
+            });
         }
 
         $this->registerCommands();

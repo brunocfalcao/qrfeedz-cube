@@ -12,7 +12,7 @@ class ResponseObserver extends QRFeedzObserver
         $this->validate($model, [
             'session_instance_id' => 'required',
             'question_instance_id' => 'required',
-            'widget_instance_id' => 'required'
+            'widget_instance_id' => 'required',
         ]);
     }
 

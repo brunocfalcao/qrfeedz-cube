@@ -12,11 +12,9 @@ class QuestionnaireScope implements Scope
 {
     public function apply(Builder $builder, Model $model)
     {
-        $user = null;
-
-        if (Auth::id()) {
-            $user = User::firstWhere('id', Auth::id());
-        }
+        $user = Auth::id() ?
+                User::withoutGlobalScope($this)->firstWhere('id', Auth::id()) :
+                null;
 
         // Console commands. Don't apply global scopes.
         if (! $user) {

@@ -13,6 +13,10 @@ class ClientScope implements Scope
 {
     public function apply(Builder $builder, Model $model)
     {
+        $user = Auth::id() ?
+                User::withoutGlobalScope($this)->firstWhere('id', Auth::id()) :
+                null;
+
         $user = null;
 
         if (Auth::id()) {
