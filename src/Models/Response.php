@@ -32,4 +32,13 @@ class Response extends QRFeedzModel
     {
         return $this->belongsTo(WidgetInstance::class);
     }
+
+    /**
+     * ---------------------- BUSINESS METHODS -----------------------------
+     */
+    public function canBeDeleted()
+    {
+        // We can never delete a response. That was given by visitor.
+        return false;
+    }
 }

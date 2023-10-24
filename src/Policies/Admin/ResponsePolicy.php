@@ -2,15 +2,23 @@
 
 namespace QRFeedz\Cube\Policies\Admin;
 
+use Brunocfalcao\LaravelNovaHelpers\Traits\NovaHelpers;
 use QRFeedz\Cube\Models\Response;
 use QRFeedz\Cube\Models\User;
 use QRFeedz\Services\Facades\QRFeedz;
 
+/**
+ * Responses can only be seen by the ones that are part of this questionnaire
+ * or by the ones part of this client scope. Still, most of this is already
+ * based on the global scope applied to the response query builder.
+ */
 class ResponsePolicy
 {
+    use NovaHelpers;
+
     public function viewAny(User $user)
     {
-        return true;
+        return $user->isAllowedAdminAccess();
     }
 
     public function view(User $user, Response $model)
@@ -23,8 +31,12 @@ class ResponsePolicy
                 $user->isAllowedAdminAccess() &&
 
                 // The response is part of a client that belongs to the user.
-                $model->questionInstance->pageInstance->questionnaire->client_id ==
-                $user->client_id
+                $model->questionInstance
+                      ->pageInstance
+                      ->questionnaire
+                      ->location
+                      ->client
+                      ->id == $user->client_id
             );
     }
 
@@ -39,7 +51,6 @@ class ResponsePolicy
 
             // Not via a parent resource detail view.
             ! via_resource();
-
     }
 
     public function update(User $user, Response $model)
@@ -72,7 +83,12 @@ class ResponsePolicy
 
     public function forceDelete(User $user, Response $model)
     {
-        return false;
+        return
+            // Model is previously soft deleted.
+            $model->trashed() &&
+
+            // User is super admin.
+            $user->isSuperAdmin();
     }
 
     public function replicate(User $user, Response $model)
