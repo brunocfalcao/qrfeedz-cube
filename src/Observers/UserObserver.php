@@ -13,7 +13,7 @@ class UserObserver extends QRFeedzObserver
     {
         $this->validate($model, [
             'name' => 'required',
-            'email' => 'required'
+            'email' => 'required',
         ]);
 
         if (! app()->runningInConsole()) {

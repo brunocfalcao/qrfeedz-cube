@@ -17,10 +17,11 @@ class ClientScope implements Scope
                 User::withoutGlobalScope($this)->firstWhere('id', Auth::id()) :
                 null;
 
-        $user = null;
-
-        if (Auth::id()) {
-            $user = User::firstWhere('id', Auth::id());
+        // No user or running in console? Exit.
+        if (! $user ||
+            app()->runningInConsole() ||
+            $user->isSystemAdminLike()) {
+            return $builder;
         }
 
         // Console commands. Don't apply global scopes.
