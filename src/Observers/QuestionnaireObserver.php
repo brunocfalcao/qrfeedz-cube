@@ -33,9 +33,9 @@ class QuestionnaireObserver extends QRFeedzObserver
         $this->validate($model, [
             'name' => 'required',
             'title' => 'required',
-            'color_primary' => 'required',
-            'color_secondary' => 'required',
-            'uuid' => 'required',
+            //'color_primary' => 'required',
+            //'color_secondary' => 'required',
+            //'uuid' => 'required',
         ]);
     }
 

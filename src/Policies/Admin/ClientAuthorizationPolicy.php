@@ -68,7 +68,7 @@ class ClientAuthorizationPolicy
     public function restore(User $user, ClientAuthorization $model)
     {
         // Only if it was trashed.
-        return $model->trashed();
+        return $model->trashed() && $user->isSuperAdmin();
     }
 
     public function forceDelete(User $user, ClientAuthorization $model)

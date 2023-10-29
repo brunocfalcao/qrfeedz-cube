@@ -64,7 +64,7 @@ class OpenAIPromptPolicy
 
     public function restore(User $user, OpenAIPrompt $model)
     {
-        return true;
+        return $model->trashed() && $user->isSuperAdmin();
     }
 
     public function forceDelete(User $user, OpenAIPrompt $model)

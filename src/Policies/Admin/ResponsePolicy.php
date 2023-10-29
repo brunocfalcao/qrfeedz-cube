@@ -78,7 +78,7 @@ class ResponsePolicy
 
     public function restore(User $user, Response $model)
     {
-        return false;
+        return $model->trashed() && $user->isSuperAdmin();
     }
 
     public function forceDelete(User $user, Response $model)

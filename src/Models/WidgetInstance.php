@@ -79,6 +79,15 @@ class WidgetInstance extends QRFeedzModel
         return $this->hasMany(Response::class);
     }
 
+    /**
+     * ---------------------- BUSINESS METHODS -----------------------------
+     */
+    public function canBeDeleted()
+    {
+        // Can't be deleted if it does have responses attached to it.
+        return ! $this->responses()->exists();
+    }
+
     /** ---------------------- DEFAULT VALUES ------------------------------- */
     public function defaultIndexAttribute()
     {

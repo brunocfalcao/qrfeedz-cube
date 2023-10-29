@@ -5,16 +5,20 @@ namespace QRFeedz\Cube\Policies\Admin;
 use QRFeedz\Cube\Models\User;
 use QRFeedz\Cube\Models\Widget;
 
+/**
+ * No specific policies, since there are parent policies at the questionnaire
+ * level, and widgets can't be managed by anyone except admins.
+ */
 class WidgetPolicy
 {
     public function viewAny(User $user)
     {
-        return true;
+        return $user->isAllowedAdminAccess();
     }
 
     public function view(User $user, Widget $model)
     {
-        return true;
+        return $user->isAllowedAdminAccess();
     }
 
     public function create(User $user)
@@ -26,7 +30,7 @@ class WidgetPolicy
 
     public function update(User $user, Widget $model)
     {
-        return true;
+        return $user->isSuperAdmin();
     }
 
     public function delete(User $user, Widget $model)
@@ -41,11 +45,16 @@ class WidgetPolicy
 
     public function restore(User $user, Widget $model)
     {
-        return true;
+        return $model->trashed() && $user->isSuperAdmin();
     }
 
     public function forceDelete(User $user, Widget $model)
     {
-        return true;
+        return
+            // Model is previously soft deleted.
+            $model->trashed() &&
+
+            // User is super admin.
+            $user->isSuperAdmin();
     }
 }

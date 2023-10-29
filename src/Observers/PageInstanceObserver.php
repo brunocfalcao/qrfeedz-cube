@@ -10,7 +10,7 @@ class PageInstanceObserver extends QRFeedzObserver
     public function saving(PageInstance $model)
     {
         $this->validate($model, [
-            'uuid' => 'required',
+            //'uuid' => 'required',
             'name' => 'required',
             'page_id' => 'required',
         ]);

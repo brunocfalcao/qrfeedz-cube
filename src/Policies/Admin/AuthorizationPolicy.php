@@ -52,7 +52,7 @@ class AuthorizationPolicy
 
     public function restore(User $user, Authorization $model)
     {
-        return $user->isSuperAdmin();
+        return $model->trashed() && $user->isSuperAdmin();
     }
 
     public function forceDelete(User $user, Authorization $model)

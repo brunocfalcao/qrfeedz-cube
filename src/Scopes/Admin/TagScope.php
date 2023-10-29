@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Support\Facades\Auth;
+use QRFeedz\Cube\Models\QuestionnaireAuthorization;
 use QRFeedz\Cube\Models\User;
 
-class QuestionnaireScope implements Scope
+class TagScope implements Scope
 {
     public function apply(Builder $builder, Model $model)
     {
@@ -23,24 +24,25 @@ class QuestionnaireScope implements Scope
             return $builder;
         }
 
-        if ($user->isSystemAdminLike()) {
-            return $builder;
+        /**
+         * Returns the tags that are part of the client questionnaires
+         * of the logged user.
+         */
+        $clients = ClientAuthorizations::getWhere('user_id', $user->id);
+        $questionnaires = QuestionnaireAuthorization::getWhere('user_id', $user->id);
+
+        $builder->upTo('questionnaires')
+                ->upTo('locations')
+                ->upTo('clients');
+
+        if ($clients) {
+            $builder->whereIn('clients.id', $clients->pluck('id'));
         }
 
-        // User is affiliate. Return all questionnaires from his clients.
-        if ($user->isAffiliate()) {
-            return $builder->upTo('locations')
-                       ->upTo('questionnaires')
-                       ->upTo('clients')
-                       ->bring('users')
-                       ->where('clients.user_affiliate_id', $user->id);
+        if ($questionnaires) {
+            $builder->whereIn('questionnaires.id', $questionnaires->pluck('id'));
         }
 
-        // The user is related with a client.
-        return $builder->upTo('locations')
-                       ->upTo('questionnaires')
-                       ->upTo('clients')
-                       ->bring('users')
-                       ->where('users.client_id', $user->id);
+        return $builder;
     }
 }

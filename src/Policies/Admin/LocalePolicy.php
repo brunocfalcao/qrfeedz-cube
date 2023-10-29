@@ -55,7 +55,7 @@ class LocalePolicy
 
     public function restore(User $user, Locale $model)
     {
-        return false;
+        return $model->trashed() && $user->isSuperAdmin();
     }
 
     public function forceDelete(User $user, Locale $model)

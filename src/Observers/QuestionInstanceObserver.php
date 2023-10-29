@@ -10,7 +10,7 @@ class QuestionInstanceObserver extends QRFeedzObserver
     public function saving(QuestionInstance $model)
     {
         $this->validate($model, [
-            'uuid' => 'required',
+            //'uuid' => 'required',
             'page_instance_id' => 'required',
             'is_analytical' => 'required',
             'is_used_for_personal_data' => 'required',

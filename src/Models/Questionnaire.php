@@ -82,8 +82,7 @@ class Questionnaire extends QRFeedzModel
      */
     public function tags()
     {
-        return $this->morphToMany(Tag::class, 'model', 'taggables')
-                    ->withTimestamps();
+        return $this->hasMany(Tag::class);
     }
 
     /**
@@ -145,7 +144,7 @@ class Questionnaire extends QRFeedzModel
     public function canBeDeleted()
     {
         // Cannot delete questionnaires with responses already.
-        return ! $this->responses()->withTrashed()->exists();
+        return ! $this?->questionInstances?->responses->withTrashed()->exists();
     }
 
     /**

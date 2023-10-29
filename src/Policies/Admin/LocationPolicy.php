@@ -86,7 +86,7 @@ class LocationPolicy
 
     public function restore(User $user, Location $model)
     {
-        return true;
+        return $model->trashed() && $user->isSuperAdmin();
     }
 
     public function forceDelete(User $user, Location $model)

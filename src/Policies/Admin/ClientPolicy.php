@@ -41,7 +41,7 @@ class ClientPolicy
             ) &&
 
             // Not via a parent resource detail view.
-            via_resource();
+            ! via_resource();
     }
 
     public function update(User $user, Client $model)
@@ -74,7 +74,7 @@ class ClientPolicy
     public function restore(User $user, Client $model)
     {
         // Only if it was trashed.
-        return $model->trashed();
+        return $model->trashed() && $user->isSuperAdmin();
     }
 
     public function forceDelete(User $user, Client $model)

@@ -80,14 +80,18 @@ class UserPolicy
     public function restore(User $user, User $model)
     {
         return
-            // The user has an "affiliate" authorization on this client.
-            $user->isAffiliateOf($model->client) ||
+            // Model is previously soft deleted.
+            $model->trashed() &&
+            (
+                // The user has an "affiliate" authorization on this client.
+                $user->isAffiliateOf($model->client) ||
 
-            // The user is a super admin.
-            $user->isSuperAdmin() ||
+                // The user is a super admin.
+                $user->isSuperAdmin() ||
 
-            // The user has an "admin" authorization on the model instance.
-            $user->isAuthorizedAs($model->client, 'client-admin');
+                // The user has an "admin" authorization on the model instance.
+                $user->isAuthorizedAs($model->client, 'client-admin')
+            );
     }
 
     public function forceDelete(User $user, User $model)

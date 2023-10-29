@@ -72,7 +72,7 @@ class QuestionnairePolicy
 
     public function restore(User $user, Questionnaire $model)
     {
-        return false;
+        return $model->trashed() && $user->isSuperAdmin();
     }
 
     public function forceDelete(User $user, Questionnaire $model)

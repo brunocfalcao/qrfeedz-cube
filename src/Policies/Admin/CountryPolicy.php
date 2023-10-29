@@ -47,7 +47,7 @@ class CountryPolicy
     public function restore(User $user, Country $model)
     {
         // Only if it was trashed.
-        return $model->trashed();
+        return $model->trashed() && $user->isSuperAdmin();
     }
 
     public function forceDelete(User $user, Country $model)

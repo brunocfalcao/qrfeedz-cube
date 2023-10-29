@@ -53,7 +53,7 @@ class CategoryPolicy
 
     public function restore(User $user, Category $model)
     {
-        return $user->isSuperAdmin();
+        return $model->trashed() && $user->isSuperAdmin();
     }
 
     public function forceDelete(User $user, Category $model)

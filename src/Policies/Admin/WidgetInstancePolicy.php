@@ -5,16 +5,20 @@ namespace QRFeedz\Cube\Policies\Admin;
 use QRFeedz\Cube\Models\User;
 use QRFeedz\Cube\Models\WidgetInstance;
 
+/**
+ * Not much policies besides the default ones, since the major policies
+ * are applied on parent eloquent models.
+ */
 class WidgetInstancePolicy
 {
     public function viewAny(User $user)
     {
-        return true;
+        return $user->isAllowedAdminAccess();
     }
 
     public function view(User $user, WidgetInstance $model)
     {
-        return true;
+        return $user->isAllowedAdminAccess();
     }
 
     public function create(User $user)
@@ -26,7 +30,7 @@ class WidgetInstancePolicy
 
     public function update(User $user, WidgetInstance $model)
     {
-        return true;
+        return $user->isAllowedAdminAccess();
     }
 
     public function delete(User $user, WidgetInstance $model)
@@ -41,11 +45,16 @@ class WidgetInstancePolicy
 
     public function restore(User $user, WidgetInstance $model)
     {
-        return true;
+        return $model->trashed() && $user->isSuperAdmin();
     }
 
     public function forceDelete(User $user, WidgetInstance $model)
     {
-        return true;
+        return
+            // Model is previously soft deleted.
+            $model->trashed() &&
+
+            // User is super admin.
+            $user->isSuperAdmin();
     }
 }

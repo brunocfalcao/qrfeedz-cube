@@ -9,7 +9,7 @@ use QRFeedz\Services\Jobs\Users\ResetUserPasswordJob;
 
 class UserObserver extends QRFeedzObserver
 {
-    public function saving(User $user)
+    public function saving(User $model)
     {
         $this->validate($model, [
             'name' => 'required',
@@ -21,7 +21,7 @@ class UserObserver extends QRFeedzObserver
              * "is_admin" and "is_super_admin" attributes can only be changed by
              * a super admin user role.
              */
-            if ($user->isDirty('is_admin') || $user->isDirty('is_super_admin')) {
+            if ($model->isDirty('is_admin') || $model->isDirty('is_super_admin')) {
                 if (! Auth::user()) {
                     throw new \Exception('User admin attributes can only be changed by a super admin user profile');
                 }
@@ -33,8 +33,8 @@ class UserObserver extends QRFeedzObserver
         }
 
         // Send reset password email if password is blank.
-        if (blank($user->password) || ! isset($user->password)) {
-            ResetUserPasswordJob::dispatch($user->id, true);
+        if (blank($model->password) || ! isset($model->password)) {
+            ResetUserPasswordJob::dispatch($model->id, true);
         }
     }
 

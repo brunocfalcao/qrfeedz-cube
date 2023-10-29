@@ -23,4 +23,10 @@ class Widget extends QRFeedzModel
     {
         return $this->hasMany(WidgetInstance::class);
     }
+
+    public function canBeDeleted()
+    {
+        // For now we don't delete it.
+        return false;
+    }
 }

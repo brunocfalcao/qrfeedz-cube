@@ -47,7 +47,7 @@ class PagePolicy
 
     public function restore(User $user, Page $model)
     {
-        return false;
+        return $model->trashed() && $user->isSuperAdmin();
     }
 
     public function forceDelete(User $user, Page $model)

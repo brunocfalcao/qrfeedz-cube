@@ -73,7 +73,7 @@ class QuestionnaireAuthorizationPolicy
     public function restore(User $user, QuestionnaireAuthorization $model)
     {
         // Only if it was trashed.
-        return $model->trashed();
+        return $model->trashed() && $user->isSuperAdmin();
     }
 
     public function forceDelete(User $user, QuestionnaireAuthorization $model)

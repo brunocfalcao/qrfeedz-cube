@@ -14,9 +14,14 @@ class Tag extends QRFeedzModel
      * Relationship: validated
      * Relationship ID: 13
      */
-    public function questionnaires()
+    public function questionnaire()
     {
-        return $this->morphedByMany(Questionnaire::class, 'model', 'taggables')
-                    ->withTimestamps();
+        return $this->belongsTo(Questionnaire::class);
+    }
+
+    public function canBeDeleted()
+    {
+        // Nothing specific to compute, at the moment.
+        return true;
     }
 }
