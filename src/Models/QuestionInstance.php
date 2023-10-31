@@ -28,13 +28,13 @@ class QuestionInstance extends QRFeedzModel
     }
 
     /**
-     * Source: page_instances.id
+     * Source: questionnaires.id
      * Relationship: validated
      * Relationship ID: 24
      */
-    public function pageInstance()
+    public function questionnaire()
     {
-        return $this->belongsTo(PageInstance::class);
+        return $this->belongsTo(Questionnaire::class);
     }
 
     /**
@@ -74,7 +74,7 @@ class QuestionInstance extends QRFeedzModel
     /** ---------------------- DEFAULT VALUES ------------------------------- */
     public function defaultIndexAttribute()
     {
-        return $this->incrementByGroup('page_instance_id');
+        return $this->incrementByGroup('questionnaire_id');
     }
 
     public function defaultUuidAttribute()

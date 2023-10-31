@@ -19,7 +19,7 @@ class QuestionnaireObserver extends QRFeedzObserver
         $openAIPrompt->questionnaire_id = $model->id;
         $openAIPrompt->prompt_i_am_a_business_of = 'a '.
                                                    $model->category->name.
-                                                   'in '.
+                                                   ' in '.
                                                    $model->location->locality;
         $openAIPrompt->prompt_i_am_paying_attention_to = 'client overall satisfaction';
         $openAIPrompt->balance_type = 'balanced';

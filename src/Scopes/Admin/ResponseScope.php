@@ -26,7 +26,6 @@ class ResponseScope implements Scope
         // Scope the responses only for the allowed user client.
         return $builder
             ->upTo('question_instances')
-            ->upTo('page_instances')
             ->upTo('questionnaires')
             ->upTo('locations')
             ->upTo('clients') // We need to reach here so we can attach the users.

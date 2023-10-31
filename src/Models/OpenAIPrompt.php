@@ -32,6 +32,8 @@ class OpenAIPrompt extends QRFeedzModel
              * If there is no questionnaires, including force deleted related
              * with this open ai prompt.
              */
-            ! $this->questionnaire->withTrashed()->exists();
+            ! $this->questionnaire()
+                   ->withTrashed()
+                   ->exists();
     }
 }

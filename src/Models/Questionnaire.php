@@ -3,9 +3,9 @@
 namespace QRFeedz\Cube\Models;
 
 use Brunocfalcao\Cerebrus\Cerebrus;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
-use QRFeedz\Cube\Models\OpenAIPrompt as OpenAIPromptModel;
 use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 use QRFeedz\Services\ThemeColor;
 
@@ -31,16 +31,6 @@ class Questionnaire extends QRFeedzModel
     ];
 
     /**
-     * Source: page_instances.id
-     * Relationship: validated
-     * Relationship ID: 21
-     */
-    public function pageInstances()
-    {
-        return $this->hasMany(PageInstance::class);
-    }
-
-    /**
      * The questionnaire will belong to a system-assigned category. This allows
      * the backoffice to dynamically generate reports based on the category
      * itself. E.g.: A restaurant questionnaire will not have the same display
@@ -53,6 +43,16 @@ class Questionnaire extends QRFeedzModel
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    /**
+     * Source: question_instances.id
+     * Relationship: validated
+     * Relationship ID: 24
+     */
+    public function questionInstances()
+    {
+        return $this->hasMany(QuestionInstance::class);
     }
 
     /**
@@ -72,7 +72,7 @@ class Questionnaire extends QRFeedzModel
      */
     public function openAIPrompt()
     {
-        return $this->hasOne(OpenAIPromptModel::class);
+        return $this->hasOne(OpenAIPrompt::class);
     }
 
     /**
@@ -144,7 +144,9 @@ class Questionnaire extends QRFeedzModel
     public function canBeDeleted()
     {
         // Cannot delete questionnaires with responses already.
-        return ! $this?->questionInstances?->responses->withTrashed()->exists();
+        return ! $this->whereHas('questionInstances.responses', function (Builder $builder) {
+            return $this->withTrashed();
+        })->exists();
     }
 
     /**
