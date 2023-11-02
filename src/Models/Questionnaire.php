@@ -26,6 +26,7 @@ class Questionnaire extends QRFeedzModel
         'ends_at' => 'datetime',
 
         'is_active' => 'boolean',
+        'has_splash_screen' => 'boolean',
 
         'data' => 'array',
     ];

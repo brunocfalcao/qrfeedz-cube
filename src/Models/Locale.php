@@ -52,13 +52,13 @@ class Locale extends QRFeedzModel
     }
 
     /**
-     * Source: question_instances.id
+     * Source: widgets.id
      * Relationship: validated
      * Relationship ID: 23
      */
-    public function widgetInstances()
+    public function widgets()
     {
-        return $this->morphedByMany(WidgetInstance::class, 'model', 'localables')
+        return $this->morphedByMany(Widget::class, 'model', 'localables')
                     ->withPivot(['caption', 'placeholder'])
                     ->withTimestamps();
     }

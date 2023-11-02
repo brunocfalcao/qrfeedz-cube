@@ -24,6 +24,18 @@ class Widget extends QRFeedzModel
         return $this->hasMany(WidgetInstance::class);
     }
 
+    /**
+     * Source: locales.id
+     * Relationship: validated
+     * Relationship ID: 23
+     */
+    public function captions()
+    {
+        return $this->morphToMany(Locale::class, 'model', 'localables')
+                    ->withPivot(['caption', 'placeholder'])
+                    ->withTimestamps();
+    }
+
     public function canBeDeleted()
     {
         // For now we don't delete it.

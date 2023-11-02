@@ -15,7 +15,7 @@ class QuestionInstanceObserver extends QRFeedzObserver
             'is_used_for_personal_data' => 'required',
         ]);
 
-        $model->index = $model->incrementByGroup('page_instance_id');
+        $model->index = $model->incrementByGroup('questionnaire_id');
     }
 
     public function deleting(QuestionInstance $model)
