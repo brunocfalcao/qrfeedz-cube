@@ -21,6 +21,7 @@
         "brunocfalcao/qrfeedz-migrations": "dev-master",
         "brunocfalcao/qrfeedz-services": "dev-master",
         "brunocfalcao/laravel-defaultables": "dev-master",
+        "brunocfalcao/laravel-helpers": "dev-master",
         "illuminate/contracts": "^10.0"
     },
     "autoload": {

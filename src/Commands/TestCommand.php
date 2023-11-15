@@ -3,7 +3,7 @@
 namespace QRFeedz\Cube\Commands;
 
 use Illuminate\Console\Command;
-use QRFeedz\Cube\Models\Authorization;
+use QRFeedz\Cube\Models\QuestionInstance;
 
 class TestCommand extends Command
 {
@@ -13,6 +13,8 @@ class TestCommand extends Command
 
     public function handle()
     {
-        dd(Authorization::where('canonical', 'like', 'questionnaire-%')->get()->pluck('id'));
+        $questionInstance = QuestionInstance::firstWhere('id', 1);
+
+        dd($questionInstance->captions()->where('locale_id', 1)->first()->pivot->caption);
     }
 }

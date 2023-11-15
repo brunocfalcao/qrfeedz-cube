@@ -11,7 +11,7 @@ class AuthorizationObserver extends QRFeedzObserver
     {
         $this->validate($model, [
             'name' => 'required',
-            'canonical' => 'unique:authorizations',
+            'canonical' => 'unique:authorizations|starts_with:questionnaire,client',
             'description' => 'required',
         ]);
     }
@@ -20,7 +20,7 @@ class AuthorizationObserver extends QRFeedzObserver
     {
         $this->validate($model, [
             'name' => 'required',
-            'canonical' => 'unique:authorizations,canonical,'.$model->id,
+            'canonical' => 'starts_with:questionnaire,client|unique:authorizations,canonical,'.$model->id,
             'description' => 'required',
         ]);
     }
