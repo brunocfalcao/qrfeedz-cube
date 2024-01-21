@@ -2,9 +2,9 @@
 
 namespace QRFeedz\Cube\Models;
 
+use Brunocfalcao\LaravelHelpers\Traits\HasAutoIncrementsByGroup;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
-use QRFeedz\Cube\Concerns\HasAutoIncrementsByGroup;
 use QRFeedz\Foundation\Abstracts\QRFeedzModel;
 
 class QuestionInstance extends QRFeedzModel

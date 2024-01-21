@@ -2,7 +2,6 @@
 
 namespace QRFeedz\Cube\Observers;
 
-use Brunocfalcao\LaravelHelpers\Rules\MaxUploadSize;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Nova\Notifications\NovaNotification;
 use QRFeedz\Cube\Models\Client;
@@ -17,8 +16,7 @@ class ClientObserver extends QRFeedzObserver
         $this->validate($model, [
             'name' => 'required',
             'address' => 'required',
-            'country_id' => 'required',
-            //'logo_file' => ['image|', new MaxUploadSize()],
+            'country_id' => 'required'
         ]);
     }
 
@@ -27,8 +25,7 @@ class ClientObserver extends QRFeedzObserver
         $this->validate($model, [
             'name' => 'required',
             'address' => 'required',
-            'country_id' => 'required',
-            'logo_file' => [new MaxUploadSize()],
+            'country_id' => 'required'
         ]);
     }
 
